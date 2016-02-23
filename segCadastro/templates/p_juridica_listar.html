@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row">
+    <section>
+      <ol class="breadcrumb">
+        <li><a href="/">Principal</a></li>
+        <li><a href="#">Listar</a></li>
+        <li class="active">Estabelecimento - Pessoa Juridica</li>
+      </ol>
+      <h3>Listagem de Estabelecimentos - Pessoa Jurídica</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>CNPJ</th>
+            <th>Razão Social</th>
+            <th>Nome Fantasia</th>
+            <th>Município</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p_juridica in lista_p_juridica %}
+            <tr>
+              <td>{{p_juridica.CNPJ}}</td>
+              <td>{{p_juridica.RazaoSocial}}</td>
+              <td>{{p_juridica.NomeFantasia}}</td>
+              <td>{{p_juridica.Municipio}}</td>
+              <td>
+                <a href="{% url 'p_juridica_editar' p_juridica.pk %}">Editar</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </div>
+{% endblock content %}

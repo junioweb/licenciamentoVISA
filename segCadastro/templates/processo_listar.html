@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row">
+    <section>
+      <ol class="breadcrumb">
+        <li><a href="/">Principal</a></li>
+        <li><a href="#">Listar</a></li>
+        <li class="active">Processo</li>
+      </ol>
+      <h3>Listagem de Processos</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Nº Processo</th>
+            <th>Assunto</th>
+            <th>Estabelecimento</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for processo in lista_processos %}
+            <tr>
+              <th>{{processo.Tipo}} - {{processo.Numero}}{{processo.Ano}}.
+                {{processo.Exercicio}}.{% if processo.ProcessoMae == None %}0{% else %}1{% endif %}
+              </th>
+              <td>{{processo.Assunto}}</td>
+              <td>{{processo.Estabelecimento}}</td>
+              <td>
+                <a href="{% url 'p_imprimir' processo.Numero %}">Imprimir</a> |
+                <a href="{% url 'processo_tramitar' processo.Numero %}">Tramitar</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </div>
+{% endblock content %}
