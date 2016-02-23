@@ -11,9 +11,6 @@ class Municipio(models.Model):
     def __unicode__(self):
         return unicode(self.IBGE)+' - '+self.Nome
 
-    def __str__(self):
-        return str(self.IBGE)+' - '+self.Nome
-
     class Meta:
         ordering = ['Nome']
         verbose_name = 'Município'
@@ -23,9 +20,6 @@ class Tipo_Servico_Saude(models.Model):
     Tipo = models.CharField(max_length=100, unique=True)
 
     def __unicode__(self):
-	return self.Tipo
-
-    def __str__(self):
 	return self.Tipo
 
     class Meta:
@@ -54,9 +48,6 @@ class Tipo_Equipamento_Saude(models.Model):
     def __unicode__(self):
         return self.get_Categoria_display()+' - '+self.Tipo
 
-    def __str__(self):
-        return self.get_Categoria_display()+' - '+self.Tipo
-
     class Meta:
         verbose_name = 'Tipo de Equipamento de Saúde'
         verbose_name_plural = 'Tipos de Equipamentos de Saúde'
@@ -66,9 +57,6 @@ class CBO(models.Model):
     Ocupacao = models.CharField('Ocupação', max_length=100)
 
     def __unicode__(self):
-        return self.Codigo+' - '+self.Ocupacao
-
-    def __str__(self):
         return self.Codigo+' - '+self.Ocupacao
 
     class Meta:
@@ -103,9 +91,6 @@ class Responsavel(models.Model):
     def __unicode__(self):
         return self.CPF+' - '+self.Nome
 
-    def __str__(self):
-        return self.CPF+' - '+self.Nome
-
     class Meta:
         verbose_name = 'Responsável'
         verbose_name_plural = 'Responsáveis'
@@ -117,9 +102,6 @@ class Categoria_Atividade(models.Model):
 
     def __unicode__(self):
 	return self.Agrupamento
-
-    def __str__(self):
-        return self.Agrupamento
 
     class Meta:
 	unique_together = (('Grupo', 'Agrupamento'),)
@@ -138,9 +120,6 @@ class Atividade(models.Model):
 
     def __unicode__(self):
         return unicode(self.Subclasse)+' - '+self.Denominacao
-
-    def __str__(self):
-        return str(self.Subclasse)+' - '+self.Denominacao
 
 class Estabelecimento(models.Model):
     PRECAD = 0
@@ -264,16 +243,6 @@ class Estabelecimento(models.Model):
             return pessoa.CPF+' - '+pessoa.Nome
         elif hasattr(pessoa, 'RazaoSocial'):
             return pessoa.CNPJ+' - '+pessoa.RazaoSocial
-        else:
-            return 'None'
-
-    def __str__(self):
-        pessoa = self.child_object()
-
-        if hasattr(pessoa, 'Nome'):
-            return pessoa.CPF+' - '+pessoa.Nome
-        else:
-            return pessoa.CNPJ+' - '+pessoa.RazaoSocial
 
 class Pessoa_Fisica(Estabelecimento):
     Nome = models.CharField(max_length=100)
@@ -282,9 +251,6 @@ class Pessoa_Fisica(Estabelecimento):
     InscricaoConselhoClasse = models.CharField('Inscrição no Conselho de Classe', max_length=25, blank=True)
 
     def __unicode__(self):
-        return self.CPF+' - '+self.Nome
-
-    def __str__(self):
         return self.CPF+' - '+self.Nome
 
     class Meta:
@@ -297,9 +263,6 @@ class Natureza_Juridica(models.Model):
 
     def __unicode__(self):
         return unicode(self.Codigo)+' - '+self.Nome
-
-    def __str__(self):
-        return str(self.Codigo)+' - '+self.Nome
 
 class Pessoa_Juridica(Estabelecimento):
     AGRICULTURA_FAMILIAR = 1
@@ -396,16 +359,13 @@ class Pessoa_Juridica(Estabelecimento):
     def __unicode__(self):
         return self.CNPJ+' - '+self.RazaoSocial+' ('+self.NomeFantasia+')'
 
-    def __str__(self):
-        return self.CNPJ+' - '+self.RazaoSocial+' ('+self.NomeFantasia+')'
-
     class Meta:
         verbose_name = 'Estabelecimento - Pessoa Jurídica'
         verbose_name_plural = 'Estabelecimentos - Pessoa Jurídica'
 
 class Equipamento_Saude(models.Model):
-    Tipo = models.ForeignKey(Tipo_Equipamento_Saude)
-    Caracteristicas = models.TextField('Características')
+    TipoEquip = models.ForeignKey(Tipo_Equipamento_Saude, null=True, blank=True)
+    Caracteristicas = models.TextField('Características', null=True, blank=True)
     Estabelecimento = models.ForeignKey(Estabelecimento)
 
     class Meta:
@@ -433,11 +393,11 @@ class Autorizacao_Funcionamento(models.Model):
     )
     NumeroAF = models.PositiveIntegerField('Número da Autorização', primary_key=True, validators=[MaxValueValidator(9999999)])
     DataPublicacao = models.DateField('Data da Publicação')
-    Tipo = models.CharField(max_length=3,
+    TipoAF = models.CharField(max_length=3,
                             choices=TIPO_AF_CHOICES)
     Categoria = models.CharField(max_length=2,
                                  choices=CATEGORIA_AF_CHOICES)
-    Estabelecimento = models.ForeignKey(Estabelecimento)
+    PessoaJuridica = models.ForeignKey(Pessoa_Juridica)
 
     class Meta:
         verbose_name = 'Autorização de Funcionamento'
@@ -451,7 +411,7 @@ class Veiculo(models.Model):
     Placa = models.CharField(max_length=7)
     UF = models.CharField(max_length=2)
     Chassi = models.CharField(max_length=17)
-    Tipo = models.CharField(max_length=8)
+    TipoVeiculo = models.CharField(max_length=8)
     MarcaModelo = models.CharField('Marca / Modelo', max_length=50)
     AnoFab = models.CharField('Ano de Fabricação', max_length=4)
     AnoMod = models.CharField('Ano de Modelo', max_length=4)
@@ -459,10 +419,7 @@ class Veiculo(models.Model):
     Obs = models.TextField('Observação', blank=True)
 
     def __unicode__(self):
-        return 'Placa: '+self.Placa+' - Tipo: '+self.Tipo+' - '+self.Nome
-
-    def __str__(self):
-        return 'Placa: '+self.Placa+' - Tipo: '+self.Tipo+' - '+self.Nome
+        return 'Placa: '+self.Placa+' - Tipo: '+self.TipoVeiculo+' - '+self.Nome
 
     class Meta:
         ordering = ['Placa']
@@ -525,9 +482,6 @@ class Assunto_Processo(models.Model):
     def __unicode__(self):
         return self.Nome
 
-    def __str__(self):
-        return self.Nome
-
     class Meta:
         verbose_name = 'Assunto do Processo'
         verbose_name_plural = 'Assuntos do Processo'
@@ -580,9 +534,6 @@ class Situacao(models.Model):
     def __unicode__(self):
         return self.Processo+' - '+self.Situacao
 
-    def __str__(self):
-        return self.Processo+' - '+self.Situacao
-
     class Meta:
         verbose_name = 'Situação de Processo'
         verbose_name_plural = 'Situações de Processos'
@@ -601,18 +552,12 @@ class Documento(models.Model):
     def __unicode__(self):
         return unicode(self.DataHora)+' - '+self.Assunto+' ('+self.Descricao+')'
 
-    def __str__(self):
-        return str(self.DataHora)+' - '+self.Assunto+' ('+self.Descricao+')'
-
 class Setor(models.Model):
     Nome = models.CharField(max_length=100)
     Sigla = models.CharField(max_length=20)
     Unidade = models.CharField(max_length=100)
 
     def __unicode__(self):
-        return self.Sigla+' - '+self.Unidade
-
-    def __str__(self):
         return self.Sigla+' - '+self.Unidade
 
     class Meta:
@@ -652,9 +597,6 @@ class Valor_UFR(models.Model):
 
     def __unicode__(self):
         return unicode(self.Data)+' - '+unicode(self.Valor)
-
-    def __str__(self):
-        return str(self.Data)+' - '+str(self.Valor)
 
     class Meta:
         verbose_name = 'Valor da UFR'

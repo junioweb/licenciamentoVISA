@@ -8,15 +8,17 @@ from reportlab.lib.pagesizes import A4
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 import os
+from django.forms.formsets import formset_factory, BaseFormSet
 
 from segCadastro.models import Processo, Estabelecimento, Pessoa_Fisica, Pessoa_Juridica
 from segCadastro.models import Estabelecimento_Desempenha_Atv, Atividade, Processo_Tramita_Setor
 from segCadastro.models import Responsavel
 
 from segCadastro.forms import ProcessoForm, PessoaFisicaForm, PessoaJuridicaForm
-from segCadastro.forms import TramitaSetorForm, Estabelecimento_Desempenha_AtvForm
-from segCadastro.forms import ResponsavelForm
+from segCadastro.forms import TramitaSetorForm, EstabelecimentoDesempenhaAtvForm
+from segCadastro.forms import ResponsavelForm, EquipamentoSaudeForm, AutorizacaoFuncionamentoForm
 
 def home(request):
 	return render(request, 'index.html')
@@ -107,17 +109,126 @@ def p_fisica_create(request):
 
     return render(request, 'p_fisica_create.html', {'form':form})
 
-def p_juridica_create(request):
-    form = PessoaFisicaForm(None)
+def pessoa_juridica_create(request):
+    class RequiredFormSet(BaseFormSet):
+        def __init__(self, *args, **kwargs):
+            super(RequiredFormSet, self).__init__(*args, **kwargs)
+            for form in self.forms:
+                form.empty_permitted = False
+    AtividadesFormSet = formset_factory(EstabelecimentoDesempenhaAtvForm, max_num=None, formset=RequiredFormSet)
+    AfeFormSet = formset_factory(AutorizacaoFuncionamentoForm, max_num=None, formset=RequiredFormSet)
+    EquipamentoFormSet = formset_factory(EquipamentoSaudeForm, max_num=None, formset=RequiredFormSet)
+
+    formPessoaJuridica = PessoaJuridicaForm(None)
+    atividade_formset = AtividadesFormSet(None)
+    afe_formset = AfeFormSet(None)
+    equipamento_formset = EquipamentoFormSet(None)
 
     if request.POST:
-        form = PessoaJuridicaForm(request.POST)
+        atividade_formset = AtividadesFormSet(request.POST, request.FILES)
+        formPessoaJuridica = PessoaJuridicaForm(request.POST)
+        afe_formset = AfeFormSet(request.POST, request.FILES)
+        equipamento_formset = EquipamentoFormSet(request.POST, request.FILES)
 
-        if form.is_valid():
-            form.save()
+        if formPessoaJuridica.is_valid() and atividade_formset.is_valid and afe_formset.is_valid and equipamento_formset.is_valid:
+            pessoaJuridica = formPessoaJuridica.save()
+
+            for form in afe_formset.forms:
+                autorizacao = form.save(commit=False)
+                autorizacao.PessoaJuridica = pessoaJuridica
+                autorizacao.save()
+            for form in equipamento_formset.forms:
+                equipamento = form.save(commit=False)
+                equipamento.Estabelecimento = pessoaJuridica
+                equipamento.save()
+            for form in atividade_formset.forms:
+                atividade = form.save(commit=False)
+                atividade.Estabelecimento = pessoaJuridica
+                atividade.save()
+
+                '''
+				atividade = form.cleaned_data.get('Atividade')
+                manipular = form.cleaned_data.get('Manipular')
+                fracionar = form.cleaned_data.get('Fracionar')
+                dispensar = form.cleaned_data.get('Dispensar')
+                aferirParam = form.cleaned_data.get('AferirParam')
+                prestarAten = form.cleaned_data.get('PrestarAten')
+                admAplicar = form.cleaned_data.get('AdmAplicar')
+                perfurar = form.cleaned_data.get('Perfurar')
+                dispRemoto = form.cleaned_data.get('DispRemoto')
+                fabricar = form.cleaned_data.get('Fabricar')
+                transformar = form.cleaned_data.get('Transformar')
+                purificar = form.cleaned_data.get('Purificar')
+                extrair = form.cleaned_data.get('Extrair')
+                fragmentar = form.cleaned_data.get('Fragmentar')
+                sintetizar = form.cleaned_data.get('Sintetizar')
+                estRadiacaoIon = form.cleaned_data.get('EstRadiacaoIon')
+                estETO = form.cleaned_data.get('EstETO')
+                estOutras = form.cleaned_data.get('EstOutras')
+                reprocessar = form.cleaned_data.get('Reprocessar')
+                irradiar = form.cleaned_data.get('Irradiar')
+                transportar = form.cleaned_data.get('Transportar')
+                expedir = form.cleaned_data.get('Expedir')
+                armazenar = form.cleaned_data.get('Armazenar')
+                embalar = form.cleaned_data.get('Embalar')
+                distribuir = form.cleaned_data.get('Distribuir')
+                importar = form.cleaned_data.get('Importar')
+                impUsoProprio = form.cleaned_data.get('ImpUsoProprio')
+                exportar = form.cleaned_data.get('Exportar')
+                realEtapFab = form.cleaned_data.get('RealEtapFab')
+                responsavelForm = form.cleaned_data.get('ResponsavelTecnico')
+                veiculo = form.cleaned_data.get('Veiculo')
+                setor = form.cleaned_data.get('Setor')
+
+                pj_atividade = Estabelecimento_Desempenha_Atv(Estabelecimento=pessoaJuridica,
+															  Atividade=atividade,
+															  Manipular=manipular,
+															  Fracionar = fracionar,
+											  				  Dispensar = dispensar,
+											  				  AferirParam = aferirParam,
+											  				  PrestarAten = prestarAten,
+											  				  AdmAplicar = admAplicar,
+											  			      Perfurar = perfurar,
+											  			      DispRemoto = dispRemoto,
+											  			      Fabricar = fabricar,
+											  			      Transformar = transformar,
+											  			      Purificar = purificar,
+											  			      Extrair = extrair,
+											  			      Fragmentar = fragmentar,
+											  			      Sintetizar = sintetizar,
+											  			      EstRadiacaoIon = estRadiacaoIon,
+											  			      EstETO = estETO,
+											  			      EstOutras = estOutras,
+											  			      Reprocessar = reprocessar,
+											  			      Irradiar = irradiar,
+											  			      Transportar = transportar,
+											  			      Expedir = expedir,
+											  			      Armazenar = armazenar,
+											  			      Embalar = embalar,
+											  			      Distribuir = distribuir,
+											  			      Importar = importar,
+											  			      ImpUsoProprio = impUsoProprio,
+											  			      Exportar = exportar,
+											  			      RealEtapFab = realEtapFab,
+															  Veiculo = veiculo,
+															  Setor=setor,
+															 )
+
+                for responsavel in responsavelForm:
+                    pj_atividade.save()
+                    pj_atividade.ResponsavelTecnico.add(responsavel)
+                    #import pdb; pdb.set_trace()
+					'''
+
+
             return redirect('p_juridica_listar')
 
-    return render(request, 'p_juridica_create.html', {'form':form})
+    c = {'formPessoaJuridica':formPessoaJuridica,
+		 'atividade_formset':atividade_formset,
+		 'afe_formset':afe_formset,
+         'equipamento_formset':equipamento_formset,
+	    }
+    return render(request, 'pessoa_juridica_form.html', c)
 
 def estab_atv_vincular(request):
     form = Estabelecimento_Desempenha_AtvForm(None)

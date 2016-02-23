@@ -1,0 +1,924 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+  <div class="row">
+    <section>
+      <ol class="breadcrumb">
+        <li><a href="/">Principal</a></li>
+        <li><a href="#">Cadastro</a></li>
+        <li class="active">Estabelecimento - Pessoa Jurídica</li>
+      </ol>
+
+      <div class="wizard">
+        <div class="wizard-inner">
+          <div class="connecting-line"></div>
+          <ul class="nav nav-tabs" role="tablist">
+
+            <li role="presentation" class="active">
+              <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Dados Iniciais">
+                <span class="round-tab">
+                  <i class="glyphicon glyphicon-briefcase"></i>
+                </span>
+              </a>
+            </li>
+
+            <li role="presentation" class="disabled">
+              <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Caracterização do Serviço de Saúde">
+                <span class="round-tab">
+                  <i class="glyphicon glyphicon-folder-open"></i>
+                </span>
+              </a>
+            </li>
+
+            <li role="presentation" class="disabled">
+              <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Equipamentos de Saúde">
+                <span class="round-tab">
+                  <i class="glyphicon glyphicon-facetime-video"></i>
+                </span>
+              </a>
+            </li>
+
+            <li role="presentation" class="disabled">
+              <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab" title="Caracterização da Atividade">
+                <span class="round-tab">
+                  <i class="glyphicon glyphicon-list-alt"></i>
+                </span>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+
+        <form class="form-horizontal" method="POST">{% csrf_token %}
+          <div class="tab-content">
+            <div class="tab-pane active" role="tabpanel" id="step1">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Dados Pessoa Jurídica</h3>
+              </div>
+              <div class="panel-body">
+                <div class="form-group">
+                   {{ formPessoaJuridica.TipoCadastro.errors }}
+                   <label class="col-sm-3 control-label">Tipo de Cadastro: <span class="asterisk">*</span></label>
+                   <div class="col-sm-2">
+                     {{ formPessoaJuridica.TipoCadastro|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.Pasta.errors }}
+                   <label class="col-sm-3 control-label">Pasta: <span class="asterisk">*</span></label>
+                   <div class="col-sm-2">
+                     {{ formPessoaJuridica.Pasta|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.RazaoSocial.errors }}
+                   <label class="col-sm-3 control-label">Razão Social: <span class="asterisk">*</span></label>
+                   <div class="col-sm-8">
+                     {{ formPessoaJuridica.RazaoSocial|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.NomeFantasia.errors }}
+                   <label class="col-sm-3 control-label">Nome Fantasia: </label>
+                   <div class="col-sm-8">
+                     {{ formPessoaJuridica.NomeFantasia|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.CNPJ.errors }}
+                   <label class="col-sm-3 control-label">CNPJ: </label>
+                   <div class="col-sm-3">
+                     {{ formPessoaJuridica.CNPJ|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.NIRE.errors }}
+                   <label class="col-sm-2 control-label">NIRE: </label>
+                   <div class="col-sm-3">
+                     {{ formPessoaJuridica.NIRE|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.NaturezaJuridica.errors }}
+                   <label class="col-sm-3 control-label">Natureza Jurídica: </label>
+                   <div class="col-sm-8">
+                     {{ formPessoaJuridica.NaturezaJuridica|add_class:"js-example-basic-single form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.CEP.errors }}
+                   <label class="col-sm-3 control-label">CEP: </label>
+                   <div class="col-sm-3">
+                     {{ formPessoaJuridica.CEP|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.Endereco.errors }}
+                   <label class="col-sm-3 control-label">Endereço: </label>
+                   <div class="col-sm-6">
+                     {{ formPessoaJuridica.Endereco|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.Numero.errors }}
+                   <label class="col-sm-1 control-label">Número: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.Numero|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.Complemento.errors }}
+                   <label class="col-sm-3 control-label">Complemento: </label>
+                   <div class="col-sm-2">
+                     {{ formPessoaJuridica.Complemento|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.PontoReferencia.errors }}
+                   <label class="col-sm-2 control-label">Ponto de Referência: </label>
+                   <div class="col-sm-4">
+                     {{ formPessoaJuridica.PontoReferencia|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.Bairro.errors }}
+                   <label class="col-sm-3 control-label">Bairro: </label>
+                   <div class="col-sm-3">
+                     {{ formPessoaJuridica.Bairro|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.Municipio.errors }}
+                   <label class="col-sm-1 control-label">Município: </label>
+                   <div class="col-sm-4">
+                     {{ formPessoaJuridica.Municipio|add_class:"js-example-basic-single form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.TelefonePrimario.errors }}
+                   <label class="col-sm-3 control-label">Telefone Primário: </label>
+                   <div class="col-sm-3">
+                     {{ formPessoaJuridica.TelefonePrimario|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.TelefoneSecundario.errors }}
+                   <label class="col-sm-2 control-label">Telefone Secundário: </label>
+                   <div class="col-sm-3">
+                     {{ formPessoaJuridica.TelefoneSecundario|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.Email.errors }}
+                   <label class="col-sm-3 control-label">E-mail: </label>
+                   <div class="col-sm-8">
+                     {{ formPessoaJuridica.Email|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.Porte.errors }}
+                   <label class="col-sm-3 control-label">Porte: <span class="asterisk">*</span></label>
+                   <div class="col-sm-3">
+                     {{ formPessoaJuridica.Porte|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.Tipo.errors }}
+                   <label class="col-sm-2 control-label">Tipo: <span class="asterisk">*</span></label>
+                   <div class="col-sm-2">
+                     {{ formPessoaJuridica.Tipo|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.CNPJMatriz.errors }}
+                   <label class="col-sm-3 control-label">CNPJ da Matriz: </label>
+                   <div class="col-sm-3">
+                     {{ formPessoaJuridica.CNPJMatriz|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.Natureza.errors }}
+                   <label class="col-sm-2 control-label">Natureza: <span class="asterisk">*</span></label>
+                   <div class="col-sm-3">
+                     {{ formPessoaJuridica.Natureza|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.InicioAtividades.errors }}
+                   <label class="col-sm-3 control-label">Início das Atividades: </label>
+                   <div class="col-sm-2">
+                     {{ formPessoaJuridica.InicioAtividades|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.TerminoAtividades.errors }}
+                   <label class="col-sm-3 control-label">Término das Atividades: </label>
+                   <div class="col-sm-2">
+                     {{ formPessoaJuridica.TerminoAtividades|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.Situacao.errors }}
+                   <label class="col-sm-3 control-label">Situação: <span class="asterisk">*</span></label>
+                   <div class="col-sm-3">
+                     {{ formPessoaJuridica.Situacao|add_class:"js-example-basic-single form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.ObjetoSocial.errors }}
+                   <label class="col-sm-3 control-label">Objeto Social: </label>
+                   <div class="col-sm-8">
+                     {{ formPessoaJuridica.ObjetoSocial|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.AreaUtilizada.errors }}
+                   <label class="col-sm-3 control-label">Área Utilizada: </label>
+                   <div class="col-sm-3">
+                     {{ formPessoaJuridica.AreaUtilizada|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.Metragem.errors }}
+                   <label class="col-sm-2 control-label">Metragem: </label>
+                   <div class="col-sm-3">
+                     {{ formPessoaJuridica.Metragem|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.ResponsaveisLegais.errors }}
+                   <label class="col-sm-3 control-label">Responsável(eis) Legal(ais): </label>
+                   <div class="col-sm-8">
+                     {{ formPessoaJuridica.ResponsaveisLegais|add_class:"js-example-basic-single form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.EstabelecimentoMantenedor.errors }}
+                   <label class="col-sm-3 control-label">Estabelecimento Mantenedor: </label>
+                   <div class="col-sm-8">
+                     {{ formPessoaJuridica.EstabelecimentoMantenedor|add_class:"js-example-basic-single form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.Obs.errors }}
+                   <label class="col-sm-3 control-label">Observação: </label>
+                   <div class="col-sm-8">
+                     {{ formPessoaJuridica.Obs|add_class:"form-control" }}
+                   </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Autorização de Funcionamento (ANVISA)</h3>
+              </div>
+              <div class="panel-body">
+                {{ afe_formset.management_form }}
+                {% for formAfe in afe_formset.forms %}
+                <div class="itemA">
+                  <div class="form-group">
+                     {{ formAfe.NumeroAF.errors }}
+                     <label class="col-sm-1 control-label">Número: </label>
+                     <div class="col-sm-2">
+                       {{ formAfe.NumeroAF|add_class:"form-control" }}
+                     </div>
+
+                     {{ formAfe.DataPublicacao.errors }}
+                     <label class="col-sm-1 control-label">Dt. Publicação: </label>
+                     <div class="col-sm-2">
+                       {{ formAfe.DataPublicacao|add_class:"form-control" }}
+                     </div>
+
+                     {{ formAfe.TipoAF.errors }}
+                     <label class="col-sm-1 control-label">Tipo: </label>
+                     <div class="col-sm-2">
+                       {{ formAfe.TipoAF|add_class:"form-control" }}
+                     </div>
+
+                     {{ formAfe.Categoria.errors }}
+                     <label class="col-sm-1 control-label">Categoria: </label>
+                     <div class="col-sm-2">
+                       {{ formAfe.Categoria|add_class:"form-control" }}
+                     </div>
+                  </div>
+                  <p style=""><a class="delete" href="#">Delete</a></p>
+                </div>
+                {% endfor %}
+                <p><a id="add" href="#">Add another item</a></p>
+              </div>
+            </div>
+
+          <br>
+          <ul class="list-inline pull-right">
+            <li>
+              <button type="button" class="btn btn-primary next-step">
+                Continuar
+                <i class="glyphicon glyphicon-chevron-right"></i>
+              </button>
+            </li>
+          </ul>
+          </div>
+
+          <div class="tab-pane" role="tabpanel" id="step2">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Caracterização do Serviço de Saúde</h3>
+              </div>
+              <div class="panel-body">
+                <div class="form-group">
+                   {{ formPessoaJuridica.CNES.errors }}
+                   <label class="col-sm-3 control-label">CNES: </label>
+                   <div class="col-sm-2">
+                     {{ formPessoaJuridica.CNES|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.ProfissionaisCCIH.errors }}
+                   <label class="col-sm-3 control-label">Comissão de Controle de Infecção Hospitalar (CCIH): </label>
+                   <div class="col-sm-8">
+                     {{ formPessoaJuridica.ProfissionaisCCIH|add_class:"js-example-basic-single form-control" }}
+                   </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Estrutura do Serviço de Saúde SEM Internação</h3>
+              </div>
+              <div class="panel-body">
+                <h4>Preencha com as quantidades, de acordo com os tipos abaixo:</h4>
+                <div class="form-group">
+                   {{ formPessoaJuridica.ConsultorioOdontologico.errors }}
+                   <label class="col-sm-2 control-label">Cons. Odontológico: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.ConsultorioOdontologico|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.Equipo.errors }}
+                   <label class="col-sm-2 control-label">Equipo: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.Equipo|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.ConsultorioMedicoPediatrico.errors }}
+                   <label class="col-sm-2 control-label">Cons. Médico Pediátrico: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.ConsultorioMedicoPediatrico|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.ConsultorioMedicoFeminino.errors }}
+                   <label class="col-sm-2 control-label">Cons. Médico Feminino: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.ConsultorioMedicoFeminino|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.ConsultorioMedicoMasculino.errors }}
+                   <label class="col-sm-2 control-label">Cons. Médico Masculino: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.ConsultorioMedicoMasculino|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.ConsultorioMedicoOutro.errors }}
+                   <label class="col-sm-2 control-label">Outro Cons. Médico: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.ConsultorioMedicoOutro|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.OutroConsultorio.errors }}
+                   <label class="col-sm-2 control-label">Outro Consultório: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.OutroConsultorio|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.SalaPediatrico.errors }}
+                   <label class="col-sm-2 control-label">Sala Pediátrico: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaPediatrico|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LeitoRepousoPediatrico.errors }}
+                   <label class="col-sm-2 control-label">Leito Repouso Pediátrico: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LeitoRepousoPediatrico|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.SalaFeminino.errors }}
+                   <label class="col-sm-2 control-label">Sala Feminino: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaFeminino|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.LeitoRepousoFeminino.errors }}
+                   <label class="col-sm-2 control-label">Leito Repouso Feminino: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LeitoRepousoFeminino|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.SalaMasculino.errors }}
+                   <label class="col-sm-2 control-label">Sala Masculino: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaMasculino|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LeitoRepousoMasculino.errors }}
+                   <label class="col-sm-2 control-label">Leito Repouso Masculino: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LeitoRepousoMasculino|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.SalaOutro.errors }}
+                   <label class="col-sm-2 control-label">Outra Sala: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaOutro|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.LeitoRepousoOutro.errors }}
+                   <label class="col-sm-2 control-label">Outro Leito Repouso: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LeitoRepousoOutro|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.SalaPequenaCirurgia.errors }}
+                   <label class="col-sm-2 control-label">Sala Pequena Cirurgia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaPequenaCirurgia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.SalaNebulizacao.errors }}
+                   <label class="col-sm-2 control-label">Sala Nebulização: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaNebulizacao|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.SalaGesso.errors }}
+                   <label class="col-sm-2 control-label">Sala Gesso: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaGesso|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.SalaImunizacao.errors }}
+                   <label class="col-sm-2 control-label">Sala Imunização: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaImunizacao|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.SalaCurativo.errors }}
+                   <label class="col-sm-2 control-label">Sala Curativo: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaCurativo|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.SalaEnfermagem.errors }}
+                   <label class="col-sm-2 control-label">Sala Enfermagem: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaEnfermagem|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.SalaCirurgiaAmbulatorial.errors }}
+                   <label class="col-sm-2 control-label">Sala Cirurgia Ambulatorial: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaCirurgiaAmbulatorial|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.SalaQuimioterapia.errors }}
+                   <label class="col-sm-2 control-label">Sala Quimioterapia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaQuimioterapia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.PoltronaQuimioterapia.errors }}
+                   <label class="col-sm-2 control-label">Poltrona Quimioterapia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.PoltronaQuimioterapia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.SalaDialise.errors }}
+                   <label class="col-sm-2 control-label">Sala Diálise: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaDialise|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.PoltronaDialise.errors }}
+                   <label class="col-sm-2 control-label">Poltrona Diálise: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.PoltronaDialise|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.SalaImunizacao.errors }}
+                   <label class="col-sm-2 control-label">Sala Imunização: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaImunizacao|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.SalaCurativo.errors }}
+                   <label class="col-sm-2 control-label">Sala Curativo: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaCurativo|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.SalaEnfermagem.errors }}
+                   <label class="col-sm-2 control-label">Sala Enfermagem: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaEnfermagem|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.SalaCirurgiaAmbulatorial.errors }}
+                   <label class="col-sm-2 control-label">Sala Cirurgia Ambulatorial: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.SalaCirurgiaAmbulatorial|add_class:"form-control" }}
+                   </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Estrutura do Serviço de Saúde COM Internação</h3>
+              </div>
+              <div class="panel-body">
+                <h4>Preencha com as quantidades, de acordo com os tipos abaixo:</h4>
+
+                <h5><u>Cirúrgica</u></h5>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.LtIntCirurgicaBucoMaxiloFacial.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Buco Maxilo Facial: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaBucoMaxiloFacial|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntCirurgicaCardiologia.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Cardiologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaCardiologia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntCirurgicaCirurgiaGeral.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Cirurgia Geral: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaCirurgiaGeral|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntCirurgicaEndocrinologia.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Endocrinologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaEndocrinologia|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.LtIntCirurgicaGenterologia.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Gastroenterologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaGenterologia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntCirurgicaGinecologia.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Ginecologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaGinecologia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntCirurgicaLeitoDia.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Leito/Dia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaLeitoDia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntCirurgicaNefroUrologia.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Nefrologia/Urologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaNefroUrologia|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.LtIntCirurgicaNeurocirurgia.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Neurocirurgia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaNeurocirurgia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntCirurgicaObstetricia.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Obstetrícia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaObstetricia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntCirurgicaOftalmologia.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Oftalmologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaOftalmologia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntCirurgicaOncologia.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Oncologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaOncologia|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.LtIntCirurgicaOrtTraumatologia.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Ortopedia / Traumatologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaOrtTraumatologia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntCirurgicaOtorrinolaringo.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Otorrinolaringologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaOtorrinolaringo|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntCirurgicaPlastica.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Plástica: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaPlastica|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntCirurgicaToracica.errors }}
+                   <label class="col-sm-2 control-label">Lt. Cirúrgica Torácica: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntCirurgicaToracica|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <h5><u>Clínica</u></h5>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.LtIntClinicaAIDS.errors }}
+                   <label class="col-sm-2 control-label">Leito AIDS: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaAIDS|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntClinicaCardiologia.errors }}
+                   <label class="col-sm-2 control-label">Leito Cardiologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaCardiologia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntClinicaClinicaGeral.errors }}
+                   <label class="col-sm-2 control-label">Leito Clínica Geral: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaClinicaGeral|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntClinicaCronicos.errors }}
+                   <label class="col-sm-2 control-label">Leito Crônicos: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaCronicos|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.LtIntClinicaDermatologia.errors }}
+                   <label class="col-sm-2 control-label">Leito Dermatologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaDermatologia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntClinicaGeriatria.errors }}
+                   <label class="col-sm-2 control-label">Leito Geriatria: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaGeriatria|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntClinicaHansenologia.errors }}
+                   <label class="col-sm-2 control-label">Leito Hansenologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaHansenologia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntClinicaHematologia.errors }}
+                   <label class="col-sm-2 control-label">Leito Hematologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaHematologia|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.LtIntClinicaLeitoDia.errors }}
+                   <label class="col-sm-2 control-label">Leito Leito/Dia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaLeitoDia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntClinicaNefroUrologia.errors }}
+                   <label class="col-sm-2 control-label">Leito Nefrologia / Urologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaNefroUrologia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntClinicaNeonatologia.errors }}
+                   <label class="col-sm-2 control-label">Leito Neonatologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaNeonatologia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntClinicaNeurologia.errors }}
+                   <label class="col-sm-2 control-label">Leito Neurologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaNeurologia|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.LtIntClinicaObstetricia.errors }}
+                   <label class="col-sm-2 control-label">Leito Obstetrícia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaObstetricia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntClinicaOncologia.errors }}
+                   <label class="col-sm-2 control-label">Leito Oncologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaOncologia|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntClinicaPediatria.errors }}
+                   <label class="col-sm-2 control-label">Leito Pediatria: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaPediatria|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntClinicaPneumologia.errors }}
+                   <label class="col-sm-2 control-label">Leito Pneumologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaPneumologia|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.LtIntClinicaPsiquiatria.errors }}
+                   <label class="col-sm-2 control-label">Leito Psiquiatria: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaPsiquiatria|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntClinicaReabilitacao.errors }}
+                   <label class="col-sm-2 control-label">Leito Reabilitação: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaReabilitacao|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.LtIntClinicaTisiologia.errors }}
+                   <label class="col-sm-2 control-label">Leito Tisiologia: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.LtIntClinicaTisiologia|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <h5><u>Urgência e Emergência</u></h5>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.UrgIntUTIAdulto.errors }}
+                   <label class="col-sm-2 control-label">UTI Adulto: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.UrgIntUTIAdulto|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.UrgIntUTIInfantil.errors }}
+                   <label class="col-sm-2 control-label">UTI Infantil: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.UrgIntUTIInfantil|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.UrgIntUTINeonatal.errors }}
+                   <label class="col-sm-2 control-label">UTI Neonatal: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.UrgIntUTINeonatal|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.UrgIntUTIUnidadeIntermediaria.errors }}
+                   <label class="col-sm-2 control-label">UTI Unidade Intermediária: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.UrgIntUTIUnidadeIntermediaria|add_class:"form-control" }}
+                   </div>
+                </div>
+
+                <div class="form-group">
+                   {{ formPessoaJuridica.UrgIntUTIUnidadeInterNeonatal.errors }}
+                   <label class="col-sm-2 control-label">UTI Unidade Intermediária Neonatal: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.UrgIntUTIUnidadeInterNeonatal|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.UrgIntUTIUnidadeIsolamento.errors }}
+                   <label class="col-sm-2 control-label">UTI Unidade de Isolamento: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.UrgIntUTIUnidadeIsolamento|add_class:"form-control" }}
+                   </div>
+
+                   {{ formPessoaJuridica.UrgLtObservacaoProntoSocorro.errors }}
+                   <label class="col-sm-2 control-label">Leito Observação Pronto-Socorro: </label>
+                   <div class="col-sm-1">
+                     {{ formPessoaJuridica.UrgLtObservacaoProntoSocorro|add_class:"form-control" }}
+                   </div>
+                </div>
+              </div>
+            </div>
+
+            <ul class="list-inline pull-right">
+                <li><button type="button" class="btn btn-default prev-step">
+                  <i class="glyphicon glyphicon-chevron-left"></i> Voltar
+                </button></li>
+                <li><button type="button" class="btn btn-primary next-step"> Continuar
+                  <i class="glyphicon glyphicon-chevron-right"></i>
+                </button></li>
+            </ul>
+          </div>
+
+          <div class="tab-pane" role="tabpanel" id="step3">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Equipamentos de Interesse à Saúde</h3>
+              </div>
+              <div class="panel-body">
+                {{ equipamento_formset.management_form }}
+                {% for formEquip in equipamento_formset.forms %}
+                <div class="itensEquip">
+                  <div id="itemEquip">
+                    {{ formEquip.as_p }}
+                    <p style=""><a class="deleteEquip" href="javascript:void(0);" onclick="$(this).closest('#itemEquip').remove();">Apagar</a></p>
+                  </div>
+                </div>
+                {% endfor %}
+                <p><a id="addEquip" href="javascript:void(0);">Adicionar outro equipamento</a></p>
+              </div>
+            </div>
+
+            <ul class="list-inline pull-right">
+                <li><button type="button" class="btn btn-default prev-step">
+                  <i class="glyphicon glyphicon-chevron-left"></i> Voltar
+                </button></li>
+                <li><button type="button" class="btn btn-primary next-step">Continuar
+                  <i class="glyphicon glyphicon-chevron-right"></i>
+                </button></li>
+            </ul>
+          </div>
+
+          <div class="tab-pane" role="tabpanel" id="step4">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Caracterização da(s) Atividade(s)</h3>
+              </div>
+              <div class="panel-body">
+                {{ atividade_formset.management_form }}
+                {% for form in atividade_formset.forms %}
+                <div class="itensAtv">
+                  <div id="itemAtv">
+                     {{ form.as_p }}
+                    <p style=""><a class="delete" href="javascript:void(0);" onclick="$(this).closest('#itemAtv').remove();">Apagar</a></p>
+                  </div>
+                </div>
+                {% endfor %}
+                <p><a id="addAtv" href="javascript:void(0);">Adicionar outra atividade</a></p>
+              </div>
+            </div>
+
+            <ul class="list-inline pull-right">
+                <li><button type="button" class="btn btn-default prev-step">
+                  <i class="glyphicon glyphicon-chevron-left"></i> Voltar
+                </button></li>
+                <li><button type="submit" class="btn btn-primary next-step">Salvar
+                  <i class="glyphicon glyphicon-chevron-right"></i>
+                </button></li>
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </form>
+    </div>
+
+  </section>
+</div>
+{% endblock content %}

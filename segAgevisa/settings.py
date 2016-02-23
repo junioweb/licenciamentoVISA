@@ -23,12 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'e0w6^97=pa+@bxc&2f04bip638_x%3k&t3*)%)kj-!v&%n+e9e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [
-	'www.agevisa.tk',
-	'agevisa.tk',
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -41,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'segCadastro',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -83,7 +81,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'agevisa_seg',
         'USER': 'agevisa_root',
-        'PASSWORD': 'WFN3HpAsBXwWPDVx',
+        'PASSWORD': '173635',
+        'HOST': '127.0.0.1',
+        'PORT': '',
     }
 }
 
@@ -125,6 +125,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/servidorvps/sites/agevisa.tk/htdocs/static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_ROOT = '/servidorvps/sites/agevisa.tk/htdocs/media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'segCadastro/media/')
