@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row">
+    <section>
+      <ol class="breadcrumb">
+        <li><a href="/">Principal</a></li>
+        <li><a href="#">Listar</a></li>
+        <li class="active">Estabelecimento - Pessoa Física</li>
+      </ol>
+      <h3>Listagem de Estabelecimentos - Pessoa Física</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>Município</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p_fisica in lista_p_fisica %}
+            <tr>
+              <td>{{p_fisica.CPF}}</td>
+              <td>{{p_fisica.Nome}}</td>
+              <td>{{p_fisica.Municipio}}</td>
+              <td><a href="{% url 'p_fisica_editar' p_fisica.pk %}">Editar</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </div>
+{% endblock content %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row">
+    <section>
+      <ol class="breadcrumb">
+        <li><a href="/">Principal</a></li>
+        <li><a href="#">Alteração</a></li>
+        <li class="active">Responsavel</li>
+      </ol>
+
+      <form class="form-horizontal" method="POST">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Edição de Responsável</h3>
+          </div>
+          <div class="panel-body">
+            {% csrf_token %}
+
+            {{form.as_p}}
+
+            <button type="submit">Salvar</button>
+
+            <!--
+            <div class="form-group">
+	             <label class="col-sm-3 control-label">Tipo de solicitação: <span class="asterisk">*</span></label>
+               <div class="col-sm-8">
+                 <select class="form-control" title="O tipo de solicitação é obrigatório!" required name="assunto" id="assunto">
+                  <option></option>
+                  <option value="AUTORIZAÇÃO DE FUNCIONAMENTO - INICIAL">AUTORIZAÇÃO DE FUNCIONAMENTO - INICIAL</option>
+                  <option value="AUTORIZAÇÃO DE FUNCIONAMENTO - RENOVAÇÃO">AUTORIZAÇÃO DE FUNCIONAMENTO - RENOVAÇÃO</option>
+                  <option value="AVALIAÇÃO DE PROJETO ARQUITETÔNICO - INICIAL (À CONSTRUIR)">AVALIAÇÃO DE PROJETO ARQUITETÔNICO - INICIAL (À CONSTRUIR)</option>
+                  <option value="AVALIAÇÃO DE PROJETO ARQUITETÔNICO - INICIAL (JÁ CONSTRUÍDO)">AVALIAÇÃO DE PROJETO ARQUITETÔNICO - INICIAL (JÁ CONSTRUÍDO)</option>
+                  <option value="AVALIAÇÃO DE PROJETO ARQUITETÔNICO - REFORMA">AVALIAÇÃO DE PROJETO ARQUITETÔNICO - REFORMA</option>
+                  <option value="AVALIAÇÃO DE PROJETO ARQUITETÔNICO - MUDANÇA DE ENDEREÇO">AVALIAÇÃO DE PROJETO ARQUITETÔNICO - MUDANÇA DE ENDEREÇO</option>
+                  <option value="PROCESSO ADMINISTRATIVO SANITÁRIO">PROCESSO ADMINISTRATIVO SANITÁRIO</option>
+                  <option value="CERTIFICAÇÃO DE BOAS PRÁTICAS DE FABRICAÇÃO / LINHA DE PRODUÇÃO DE ALIMENTOS">CERTIFICAÇÃO DE BOAS PRÁTICAS DE FABRICAÇÃO / LINHA DE PRODUÇÃO DE ALIMENTOS</option>
+                  <option value="CERTIFICAÇÃO DE BOAS PRÁTICAS DE FABRICAÇÃO / LINHA DE PRODUÇÃO DE MEDICAMENTOS">CERTIFICAÇÃO DE BOAS PRÁTICAS DE FABRICAÇÃO / LINHA DE PRODUÇÃO DE MEDICAMENTOS</option>
+                  <option value="AUTORIZAÇÃO ESPECIAL DE COMERCIALIZAÇÃO DE MEDICAMENTOS CONTROLADOS PARA DROGARIAS E FARMÁCIAS">AUTORIZAÇÃO ESPECIAL DE COMERCIALIZAÇÃO DE MEDICAMENTOS CONTROLADOS PARA DROGARIAS E FARMÁCIAS</option>
+                  <option value="SAÚDE AMBIENTAL E DO TRABALHADOR">SAÚDE AMBIENTAL E DO TRABALHADOR</option>
+                  <option value="EMISSÃO DE CERTIDÃO, ATESTADO E DEMAIS ATOS DECLARATÓRIOS">EMISSÃO DE CERTIDÃO, ATESTADO E DEMAIS ATOS DECLARATÓRIOS</option>
+                  <option value="AUTORIZAÇÃO DE SISTEMA INFORMATIZADO DOS LIVROS PARA MEDICAMENTOS SOB CONTROLE ESPECIAL">AUTORIZAÇÃO DE SISTEMA INFORMATIZADO DOS LIVROS PARA MEDICAMENTOS SOB CONTROLE ESPECIAL</option>
+                  <option value="EMISSÃO DE 2ª VIA DE LICENÇA SANITÁRIA OU DE LICENÇA ESPECIAL DE COMERCIALIZAÇÃO DE MEDICAMENTOS CONTROLADOS">EMISSÃO DE 2ª VIA DE LICENÇA SANITÁRIA OU DE LICENÇA ESPECIAL DE COMERCIALIZAÇÃO DE MEDICAMENTOS CONTROLADOS</option>
+                  <option value="ASSUNÇÃO OU ALTERAÇÃO DE RESPONSÁVEL TÉCNICO">ASSUNÇÃO OU ALTERAÇÃO DE RESPONSÁVEL TÉCNICO</option>
+                  <option value="ALTERAÇÃO DE RAZÃO SOCIAL">ALTERAÇÃO DE RAZÃO SOCIAL</option>
+                  <option value="REGISTRO DE LIVRO">REGISTRO DE LIVRO</option>
+                  <option value="PROCESSO ADMINISTRATIVO - COMPRAS E SERVIÇOS (DAFIR)">PROCESSO ADMINISTRATIVO - COMPRAS E SERVIÇOS (DAFIR)</option>
+                  <option value="PROCESSO ADMINISTRATIVO - OUTROS (DAFIR)">PROCESSO ADMINISTRATIVO - OUTROS (DAFIR)</option>
+                 </select>
+	             </div>
+	          </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Processo Mãe: </label>
+              <div class="col-sm-4">
+                <input type="text" name="processoMae" id="processoMae" class="form-control" title="Processo Mãe" />
+              </div>
+
+              <label class="col-sm-2 control-label">Pasta: </label>
+              <div class="col-sm-2">
+                <input type="text" name="pasta" id="pasta" class="form-control" title="Pasta" />
+              </div>
+            </div> -->
+
+          </div> <!-- panel-body -->
+        </div> <!-- panel panel-default -->
+      </form>
+    </section>
+  </div>
+{% endblock content %}

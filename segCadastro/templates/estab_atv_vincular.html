@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row">
+    <section>
+      <ol class="breadcrumb">
+        <li><a href="/">Principal</a></li>
+        <li><a href="#">Estabelecimento</a></li>
+        <li class="active">Atividade</li>
+      </ol>
+
+      <form class="form-horizontal" method="POST">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Caracterização de Atividade Econômica</h3>
+          </div>
+          <div class="panel-body">
+            {% csrf_token %}
+
+            <div class="form-group">
+               {{ form.Estabelecimento.errors }}
+               <label class="col-sm-2 control-label">Estabelecimento: <span class="asterisk">*</span></label>
+               <div class="col-sm-9">
+                 {{ form.Estabelecimento }}
+               </div>
+            </div>
+            <div class="form-group">
+               {{ form.Atividade.errors }}
+               <label class="col-sm-2 control-label">Atividade: <span class="asterisk">*</span></label>
+               <div class="col-sm-9">
+                 {{ form.Atividade }}
+               </div>
+            </div>
+            <div class="form-group">
+               {{ form.Veiculo.errors }}
+               <label class="col-sm-2 control-label">Veículo: <span class="asterisk">*</span></label>
+               <div class="col-sm-9">
+                 {{ form.Veiculo }}
+               </div>
+            </div>
+            <div class="form-group">
+               {{ form.ResponsavelTecnico.errors }}
+               <label class="col-sm-2 control-label">Responsável Técnico: <span class="asterisk">*</span></label>
+               <div class="col-sm-9">
+                 {{ form.ResponsavelTecnico }}
+               </div>
+            </div>
+            <div class="form-group">
+               {{ form.Setor.errors }}
+               <label class="col-sm-2 control-label">Setor: <span class="asterisk">*</span></label>
+               <div class="col-sm-9">
+                 {{ form.Setor }}
+               </div>
+            </div>
+            <div class="form-group">
+               {{ form.Manipular.errors }}
+               <div class="form-group col-sm-12">
+                 <div class="col-sm-2">
+                   {{ form.Manipular }} Manipular
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Fracionar }} Fracionar
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Dispensar }} Dispensar
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.AferirParam }} Aferir parâmetros fisiológicos e bioquímico
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.PrestarAten }} Prestar atenção farmacêutica domiciliar
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.AdmAplicar }} Administrar/aplicar medicamentos
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Perfurar }} Perfurar lóbulo auricular para colocação de brinco
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.DispRemoto }} Dispensar por meio remoto
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Fabricar }} Fabricar
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Transformar }} Transformar
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Purificar }} Purificar
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Extrair }} Extrair
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Fragmentar }} Fragmentar
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Sintetizar }} Sintetizar
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.EstRadiacaoIon }} Esterelizar radiação ionizante
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.EstETO }} Esterelizar ETO
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.EstOutras }} Esterelizar outras
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Reprocessar }} Reprocessar
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Irradiar }} Irradiar
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Transportar }} Transportar
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Expedir }} Expedir
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Armazenar }} Armazenar
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Embalar }} Embalar
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Distribuir }} Distribuir
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Importar }} Importar
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.ImpUsoProprio }} Importar para uso próprio
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.Exportar }} Exportar
+                 </div>
+                 <div class="col-sm-2">
+                   {{ form.RealEtapFab }} Realizar etapas de fabricação
+                 </div>
+               </div>
+            </div>
+            <ul class="list-inline pull-left">
+                <li><button type="submit" class="btn btn-primary btn-info-full">
+                  <i class="glyphicon glyphicon-ok"></i> Vincular
+                </button></li>
+            </ul>
+
+          </div> <!-- panel-body -->
+        </div> <!-- panel panel-default -->
+      </form>
+    </section>
+  </div>
+{% endblock content %}

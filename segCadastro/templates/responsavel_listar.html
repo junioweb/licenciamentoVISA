@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row">
+    <section>
+      <ol class="breadcrumb">
+        <li><a href="/">Principal</a></li>
+        <li><a href="#">Listar</a></li>
+        <li class="active">Responsável</li>
+      </ol>
+      <h3>Listagem de Responsáveis</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for responsavel in lista_responsaveis %}
+            <tr>
+              <td>{{responsavel.CPF}}</td>
+              <td>{{responsavel.Nome}}</td>
+              <td>{{responsavel.TelefonePrimario}}</td>
+              <td>
+                <a href="{% url 'responsavel_editar' responsavel.pk %}">Editar</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </div>
+{% endblock content %}

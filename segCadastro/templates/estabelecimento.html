@@ -1,0 +1,2167 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row">
+    <section>
+      <ol class="breadcrumb">
+        <li><a href="/">Principal</a></li>
+        <li><a href="#">Cadastro</a></li>
+        <li class="active">Estabelecimento</li>
+      </ol>
+
+      <div class="wizard">
+        <div class="wizard-inner">
+          <div class="connecting-line"></div>
+          <ul class="nav nav-tabs" role="tablist">
+
+            <li role="presentation" class="active">
+              <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Dados Iniciais">
+                <span class="round-tab">
+                  <i class="glyphicon glyphicon-folder-open"></i>
+                </span>
+              </a>
+            </li>
+
+            <li role="presentation" class="disabled">
+              <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Caracterização da Atividade">
+                <span class="round-tab">
+                  <i class="glyphicon glyphicon-list-alt"></i>
+                </span>
+              </a>
+            </li>
+            <li role="presentation" class="disabled">
+              <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Envio de Arquivos">
+                <span class="round-tab">
+                  <i class="glyphicon glyphicon-cloud-upload"></i>
+                </span>
+              </a>
+            </li>
+
+            <li role="presentation" class="disabled">
+              <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Confirmação">
+                <span class="round-tab">
+                  <i class="glyphicon glyphicon-ok"></i>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <form class="form-horizontal">
+          <div class="tab-content">
+            <div class="tab-pane active" role="tabpanel" id="step1">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Solicitação</h3>
+              </div>
+              <div class="panel-body">
+
+                <div class="form-group">
+    	             <label class="col-sm-3 control-label">Tipo de solicitação: <span class="asterisk">*</span></label>
+                   <div class="col-sm-8">
+                     <select class="form-control" title="O tipo de solicitação é obrigatório!" required name="assunto" id="assunto">
+                      <option></option>
+                      <option value="AUTORIZAÇÃO DE FUNCIONAMENTO - INICIAL">AUTORIZAÇÃO DE FUNCIONAMENTO - INICIAL</option>
+                      <option value="AUTORIZAÇÃO DE FUNCIONAMENTO - RENOVAÇÃO">AUTORIZAÇÃO DE FUNCIONAMENTO - RENOVAÇÃO</option>
+                      <option value="AVALIAÇÃO DE PROJETO ARQUITETÔNICO - INICIAL (À CONSTRUIR)">AVALIAÇÃO DE PROJETO ARQUITETÔNICO - INICIAL (À CONSTRUIR)</option>
+                      <option value="AVALIAÇÃO DE PROJETO ARQUITETÔNICO - INICIAL (JÁ CONSTRUÍDO)">AVALIAÇÃO DE PROJETO ARQUITETÔNICO - INICIAL (JÁ CONSTRUÍDO)</option>
+                      <option value="AVALIAÇÃO DE PROJETO ARQUITETÔNICO - REFORMA">AVALIAÇÃO DE PROJETO ARQUITETÔNICO - REFORMA</option>
+                      <option value="AVALIAÇÃO DE PROJETO ARQUITETÔNICO - MUDANÇA DE ENDEREÇO">AVALIAÇÃO DE PROJETO ARQUITETÔNICO - MUDANÇA DE ENDEREÇO</option>
+                      <option value="PROCESSO ADMINISTRATIVO SANITÁRIO">PROCESSO ADMINISTRATIVO SANITÁRIO</option>
+                      <option value="CERTIFICAÇÃO DE BOAS PRÁTICAS DE FABRICAÇÃO / LINHA DE PRODUÇÃO DE ALIMENTOS">CERTIFICAÇÃO DE BOAS PRÁTICAS DE FABRICAÇÃO / LINHA DE PRODUÇÃO DE ALIMENTOS</option>
+                      <option value="CERTIFICAÇÃO DE BOAS PRÁTICAS DE FABRICAÇÃO / LINHA DE PRODUÇÃO DE MEDICAMENTOS">CERTIFICAÇÃO DE BOAS PRÁTICAS DE FABRICAÇÃO / LINHA DE PRODUÇÃO DE MEDICAMENTOS</option>
+                      <option value="AUTORIZAÇÃO ESPECIAL DE COMERCIALIZAÇÃO DE MEDICAMENTOS CONTROLADOS PARA DROGARIAS E FARMÁCIAS">AUTORIZAÇÃO ESPECIAL DE COMERCIALIZAÇÃO DE MEDICAMENTOS CONTROLADOS PARA DROGARIAS E FARMÁCIAS</option>
+                      <option value="SAÚDE AMBIENTAL E DO TRABALHADOR">SAÚDE AMBIENTAL E DO TRABALHADOR</option>
+                      <option value="EMISSÃO DE CERTIDÃO, ATESTADO E DEMAIS ATOS DECLARATÓRIOS">EMISSÃO DE CERTIDÃO, ATESTADO E DEMAIS ATOS DECLARATÓRIOS</option>
+                      <option value="AUTORIZAÇÃO DE SISTEMA INFORMATIZADO DOS LIVROS PARA MEDICAMENTOS SOB CONTROLE ESPECIAL">AUTORIZAÇÃO DE SISTEMA INFORMATIZADO DOS LIVROS PARA MEDICAMENTOS SOB CONTROLE ESPECIAL</option>
+                      <option value="EMISSÃO DE 2ª VIA DE LICENÇA SANITÁRIA OU DE LICENÇA ESPECIAL DE COMERCIALIZAÇÃO DE MEDICAMENTOS CONTROLADOS">EMISSÃO DE 2ª VIA DE LICENÇA SANITÁRIA OU DE LICENÇA ESPECIAL DE COMERCIALIZAÇÃO DE MEDICAMENTOS CONTROLADOS</option>
+                      <option value="ASSUNÇÃO OU ALTERAÇÃO DE RESPONSÁVEL TÉCNICO">ASSUNÇÃO OU ALTERAÇÃO DE RESPONSÁVEL TÉCNICO</option>
+                      <option value="ALTERAÇÃO DE RAZÃO SOCIAL">ALTERAÇÃO DE RAZÃO SOCIAL</option>
+                      <option value="REGISTRO DE LIVRO">REGISTRO DE LIVRO</option>
+                      <option value="PROCESSO ADMINISTRATIVO - COMPRAS E SERVIÇOS (DAFIR)">PROCESSO ADMINISTRATIVO - COMPRAS E SERVIÇOS (DAFIR)</option>
+                      <option value="PROCESSO ADMINISTRATIVO - OUTROS (DAFIR)">PROCESSO ADMINISTRATIVO - OUTROS (DAFIR)</option>
+                     </select>
+    	             </div>
+    	          </div>
+
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Processo Mãe: </label>
+                  <div class="col-sm-4">
+                    <input type="text" name="processoMae" id="processoMae" class="form-control" title="Processo Mãe" />
+                  </div>
+
+                  <label class="col-sm-2 control-label">Pasta: </label>
+                  <div class="col-sm-2">
+                    <input type="text" name="pasta" id="pasta" class="form-control" title="Pasta" />
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Identificação do Estabelecimento</h3>
+              </div>
+              <div class="panel-body">
+
+                <div class="form-group">
+                  <label class="col-sm-1 control-label">CNPJ/CPF: </label>
+                  <div class="col-sm-3">
+                    <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                  </div>
+
+                  <div class="col-sm-7">
+                    <input type="text" name="estabelecimento" readonly="readonly" id="estabelecimento" class="form-control" title="Estabelecimento" />
+                  </div>
+
+                  <div class="col-sm-1">
+                    <a href="#"><i class="control-label glyphicon glyphicon-home"></i></a> | <a href="#"><i class="control-label glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Caracterização do Estabelecimento</h3>
+              </div>
+              <div class="panel-body">
+
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">CNAE Obrigatório? </label>
+                  <div class="col-sm-8">
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-info">
+                        <input type="radio" name="cnaeObrig" id="sim" autocomplete="off"> SIM
+                      </label>
+                      <label class="btn btn-info">
+                        <input type="radio" name="cnaeObrig" id="nao" autocomplete="off"> NÃO
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">Diretoria responsável: </label>
+                  <div class="col-sm-3">
+                    <select class="form-control" id="diretoria" name="diretoria" title="Selecione a Diretoria responsável" required >
+                      <option value=''></option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">Categoria(s) da(s) Atividade(s): </label>
+                  <div class="col-sm-8">
+                    <select multiple class="form-control" id="categoria" name="categoria[]" title="Selecione a(s) categoria(s) da(s) atividade(s)" required >
+                      <option value=''></option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">Atividade(s) Econômica(s) de Interesse à Saúde: </label>
+                  <div class="col-sm-8">
+                    <select multiple class="form-control" id="atividade" name="atividade[]" title="A(s) atividade(s) não foi(foram) selecionada(s)!" required >
+                      <option value=''></option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Placa do Veículo: </label>
+                  <div class="col-sm-2">
+                    <input type="text" name="placa" id="placa" class="form-control" title="Placa" />
+                  </div>
+
+                  <div class="col-sm-7">
+                    <input type="text" name="nomeVeiculo" readonly="readonly" id="nomeVeiculo" class="form-control" title="Nome ou Razão Social" />
+                  </div>
+
+                  <div class="col-sm-1">
+                    <a href="#"><i class="control-label glyphicon glyphicon-bed"></i></a> | <a href="#"><i class="control-label glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Identificação do(s) Responsável(is) Técnico(s)</h3>
+              </div>
+              <div class="panel-body">
+
+                <div class="form-group">
+                  <label class="col-sm-1 control-label">CPF: </label>
+                  <div class="col-sm-2">
+                    <input type="text" name="cpf" id="cpf" class="form-control" title="CPF" />
+                  </div>
+
+                  <div class="col-sm-4">
+                    <input type="text" name="nome" readonly="readonly" id="nome" class="form-control" title="Nome do Responsável Técnico" />
+                  </div>
+
+                  <label class="col-sm-1 control-label">Atividade: </label>
+                  <div class="col-sm-3">
+                    <select class="form-control" id="atividade" name="atividade" title="Selecione a Atividade ao qual é responsável" required >
+                      <option value=''></option>
+                    </select>
+                  </div>
+
+                  <div class="col-sm-1">
+                    <a href="#"><i class="control-label glyphicon glyphicon-user"></i></a> | <a href="#"><i class="control-label glyphicon glyphicon-plus"></i></a>
+                    | <a href="#"><i class="control-label glyphicon glyphicon-pencil"></i></a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          <br>
+          <ul class="list-inline pull-right">
+            <li>
+              <button type="button" class="btn btn-primary next-step">
+                Salvar e continuar
+                <i class="glyphicon glyphicon-chevron-right"></i>
+              </button>
+            </li>
+          </ul>
+          </div>
+
+            <div class="tab-pane" role="tabpanel" id="step2">
+              <h3>Caracterização da Atividade</h3>
+              <p><u>Atividade de Prestação de Serviço de Saúde</u></p>
+              <br>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Caracterização do Serviço de Saúde</h3>
+                </div>
+                <div class="panel-body">
+
+                  <div class="col-sm-8">
+                    <div class="form-group">
+                      <label class="col-sm-8 control-label">Cód. e Descrição do Tipo de Serviço de Saúde Objeto da Solicitação: </label><br><br>
+                      <div class="col-sm-12">
+                        <select class="form-control" title="O tipo de solicitação é obrigatório!" required name="assunto" id="assunto">
+                         <option></option>
+                         <option value="20">020 - Clínica Odontológica - Tipo I</option>
+                         <option value="21">021 - Clínica Odontológica - Tipo II</option>
+                         <option value="19">019 - Clínica Odontológica Modular</option>
+                         <option value="28">028 - Consultório Odontológico - Tipo I</option>
+                         <option value="29">029 - Consultório Odontológico - Tipo II</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <br>
+                      <p>
+                        <strong>Nota: </strong>Clín. Odontol. Tipo I - Possui 2 a 3 consultórios, independentes, fazendo uso ou não de equipamentos de Raio X Odontológico Intra-Oral.
+                      </p>
+                    </div>
+                  </div>
+
+                  <h4>Tipos de Serviços de Saúde Abrigados</h4>
+
+                  <div class="col-sm-8">
+                    <div class="form-group">
+                      <label class="col-sm-1 control-label">Próprios: </label><br><br>
+                      <div class="col-sm-11">
+                        <select class="form-control" title="O tipo de solicitação é obrigatório!" required name="assunto" id="assunto">
+                         <option></option>
+                         <option value="20">020 - Clínica Odontológica - Tipo I</option>
+                         <option value="21">021 - Clínica Odontológica - Tipo II</option>
+                         <option value="19">019 - Clínica Odontológica Modular</option>
+                         <option value="28">028 - Consultório Odontológico - Tipo I</option>
+                         <option value="29">029 - Consultório Odontológico - Tipo II</option>
+                        </select>
+                      </div>
+
+                      <div class="col-sm-1">
+                        <a href="#"><i class="control-label glyphicon glyphicon-plus"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <br>
+                      <p>
+                        <strong>Nota: </strong>Clín. Odontol. Tipo I - Possui 2 a 3 consultórios, independentes, fazendo uso ou não de equipamentos de Raio X Odontológico Intra-Oral.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-8">
+                    <div class="form-group">
+                      <label class="col-sm-1 control-label">Terceirizados: </label><br><br>
+                      <div class="col-sm-11">
+                        <select class="form-control" title="O tipo de solicitação é obrigatório!" required name="assunto" id="assunto">
+                         <option></option>
+                         <option value="20">020 - Clínica Odontológica - Tipo I</option>
+                         <option value="21">021 - Clínica Odontológica - Tipo II</option>
+                         <option value="19">019 - Clínica Odontológica Modular</option>
+                         <option value="28">028 - Consultório Odontológico - Tipo I</option>
+                         <option value="29">029 - Consultório Odontológico - Tipo II</option>
+                        </select>
+                      </div>
+
+                      <div class="col-sm-1">
+                        <a href="#"><i class="control-label glyphicon glyphicon-plus"></i></a>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-1 control-label">CNPJ: </label>
+                      <div class="col-sm-6">
+                        <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <br>
+                      <p>
+                        <strong>Nota: </strong>Clín. Odontol. Tipo I - Possui 2 a 3 consultórios, independentes, fazendo uso ou não de equipamentos de Raio X Odontológico Intra-Oral.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Estabelecimento de Saúde de Natureza Ambulatorial <small>Informações Estruturais</small></h3>
+                </div>
+                <div class="panel-body">
+
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <h4>Total de Consultórios Médicos, segundo o tipo:</h4>
+
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Pediátrico: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Feminino: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Masculino: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Outros: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Total de Outros Consultórios: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <h4>Total de Salas e de Leitos de Repouso / Observação, segundo o tipo:</h4>
+
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Pediátrico: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" /> Sala(s)
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" /> Leito(s)
+                        </div>
+
+                        <label class="col-sm-2 control-label">Feminino: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" /> Sala(s)
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" /> Leito(s)
+                        </div>
+
+                        <label class="col-sm-2 control-label">Masculino: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" /> Sala(s)
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" /> Leito(s)
+                        </div>
+
+                        <label class="col-sm-2 control-label">Outros: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" /> Sala(s)
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" /> Leito(s)
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <h4>Total de:</h4>
+
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">Consultório(s) Odontológico(s): </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Equipo(s): </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <h4>Total de Salas, segundo o tipo:</h4>
+
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Peq. Cirurgias: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Nebulização: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Gesso: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Imunização: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+                        <br><br><br>
+                        <label class="col-sm-2 control-label">Curativo: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Enfermagem: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Cirurgia Ambulatorial: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+                        <br><br><br>
+                        <label class="col-sm-2 control-label">Quimioterapia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" /> Sala(s)
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" /> Poltona(s)
+                        </div>
+
+                        <label class="col-sm-2 control-label">Diálise: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" /> Sala(s)
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" /> Poltona(s)
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+
+                </div>
+              </div>
+
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Comissão de Controle de Infecção Hospitalar / CCIH <small>Informações de Profissionais Membros Executores</small></h3>
+                </div>
+                <div class="panel-body">
+
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">CPF: </label>
+                    <div class="col-sm-3">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+
+                    <div class="col-sm-7">
+                      <input type="text" name="estabelecimento" readonly="readonly" id="estabelecimento" class="form-control" title="Estabelecimento" />
+                    </div>
+
+                    <div class="col-sm-1">
+                      <a href="#"><i class="control-label glyphicon glyphicon-user"></i></a> | <a href="#"><i class="control-label glyphicon glyphicon-plus"></i></a>
+                      | <a href="#"><i class="control-label glyphicon glyphicon-pencil"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Leitos de Estabelecimentos de Saúde com Internação e de Unidades de Urgência / Emergência</h3>
+                </div>
+                <div class="panel-body">
+
+                  <h4>Estabelecimentos de Saúde com Internação - Registre o número de leitos existentes, segundo a especialidade:</h4>
+
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <h5><u>Cirurgica:</u></h5>
+
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Buco Maxilo Facial: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Cardiologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Cirurgia Geral: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Endocrinologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+                        <br><br><br>
+                        <label class="col-sm-2 control-label">Gastroenterologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Ginecologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Leito / Dia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Nefrologia / Urologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+                        <br><br><br>
+                        <label class="col-sm-2 control-label">Neurocirurgia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Obstetrícia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Oftalmologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Oncologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+                        <br><br><br>
+                        <label class="col-sm-2 control-label">Ortopedia / Traumatologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Otorrinolaringologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Plástica: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Torácica: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+                      </div>
+                    </li>
+                    <li class="list-group-item">
+                      <h5><u>Clínica:</u></h5>
+
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">AIDS: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Cardiologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Clínica Geral: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Crônicos: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+                        <br><br><br>
+                        <label class="col-sm-2 control-label">Dermatologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Geriatria: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Hansenologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Hematologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+                        <br><br><br>
+                        <label class="col-sm-2 control-label">Leito / Dia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Nefro / Urologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Neonatologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Neurologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+                        <br><br><br>
+                        <label class="col-sm-2 control-label">Obstetrícia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Oncologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Pediatria: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Pneumologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+                        <br><br><br>
+                        <label class="col-sm-2 control-label">Psiquiatria: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Reabilitação: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+
+                        <label class="col-sm-2 control-label">Tisiologia: </label>
+                        <div class="col-sm-1">
+                          <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  <br>
+                  <h4>Estabelecimentos de Saúde com Internação - Registre o número de leitos complementares existentes:</h4>
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">UTI Adulto: </label>
+                    <div class="col-sm-1">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+
+                    <label class="col-sm-2 control-label">UTI Infantil: </label>
+                    <div class="col-sm-1">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+
+                    <label class="col-sm-2 control-label">UTI Neonatal: </label>
+                    <div class="col-sm-1">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+
+                    <label class="col-sm-2 control-label">Unidade Intermediária: </label>
+                    <div class="col-sm-1">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+                    <br><br><br>
+                    <label class="col-sm-2 control-label">Unidade Intermediária Neonatal: </label>
+                    <div class="col-sm-1">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+
+                    <label class="col-sm-2 control-label">Unidade de Isolamento: </label>
+                    <div class="col-sm-1">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+                  </div>
+                  <br><br>
+                  <h4>Unidade de Urgência / Emergência (Pronto-Socorro):</h4>
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Nº Leitos Observação: </label>
+                    <div class="col-sm-1">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Equipamentos de Interesse à Saude</h3>
+                </div>
+                <div class="panel-body">
+
+                  <div class="col-sm-8">
+                    <div class="form-group">
+                      <label class="col-sm-6 control-label">Cód. e Característica do Tipo de Equipamento: </label><br><br>
+                      <div class="col-sm-11">
+                        <select class="form-control" title="O tipo de solicitação é obrigatório!" required name="assunto" id="assunto">
+                         <option></option>
+                         <option value="20">020 - Clínica Odontológica - Tipo I</option>
+                         <option value="21">021 - Clínica Odontológica - Tipo II</option>
+                         <option value="19">019 - Clínica Odontológica Modular</option>
+                         <option value="28">028 - Consultório Odontológico - Tipo I</option>
+                         <option value="29">029 - Consultório Odontológico - Tipo II</option>
+                        </select>
+                      </div>
+
+                      <div class="col-sm-1">
+                        <a href="#"><i class="control-label glyphicon glyphicon-plus"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <br>
+                      <p>
+                        <strong>Nota: </strong>Clín. Odontol. Tipo I - Possui 2 a 3 consultórios, independentes, fazendo uso ou não de equipamentos de Raio X Odontológico Intra-Oral.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p><u>Atividade Relacionada a Produtos de Interesse da Saúde</u></p>
+              <br>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Caracterização da Atividade</h3>
+                </div>
+                <div class="panel-body">
+
+                  <h4>Autorização de Funcionamento de Empresa (AFE) - Segundo a Classe do Produto:</h4>
+                  <h5><u>Medicamento / Insumo Farmacêutico</u></h5>
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Número da AFE: </label>
+                    <div class="col-sm-2">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+
+                    <label class="col-sm-2 control-label">Data da Publicação: </label>
+                    <div class="col-sm-2">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+                  </div>
+
+                  <h5><u>Farmácia / Drogaria</u></h5>
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Número da AFE: </label>
+                    <div class="col-sm-2">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+
+                    <label class="col-sm-2 control-label">Data da Publicação: </label>
+                    <div class="col-sm-2">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+                  </div>
+
+                  <h5><u>Saneante Domissanitário</u></h5>
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Número da AFE: </label>
+                    <div class="col-sm-2">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+
+                    <label class="col-sm-2 control-label">Data da Publicação: </label>
+                    <div class="col-sm-2">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+                  </div>
+
+                  <h5><u>Produto para Saúde / Correlato</u></h5>
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Número da AFE: </label>
+                    <div class="col-sm-2">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+
+                    <label class="col-sm-2 control-label">Data da Publicação: </label>
+                    <div class="col-sm-2">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+                  </div>
+
+                  <h5><u>Cosmético / Perfume / Produto de Higiene</u></h5>
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Número da AFE: </label>
+                    <div class="col-sm-2">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+
+                    <label class="col-sm-2 control-label">Data da Publicação: </label>
+                    <div class="col-sm-2">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+                  </div>
+                  <br><br>
+                  <h4>Autorização Especial (AE):</h4>
+                  <h5><u>Medicamento de Controle Especial / Insumo Farmacêutico de Controle Especial / Precursor</u></h5>
+
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Número da AE: </label>
+                    <div class="col-sm-2">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+
+                    <label class="col-sm-2 control-label">Data da Publicação: </label>
+                    <div class="col-sm-2">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Controle de Qualidade</h3>
+                </div>
+                <div class="panel-body">
+                  <h4>Próprio:</h4>
+
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th colspan="4" style="text-align:center;">Controle de Qualidade</th>
+                        </tr>
+                        <tr>
+                          <th style="text-align:center;">Classe de Produto</th>
+                          <th style="text-align:center;">Físico-Químico</th>
+                          <th style="text-align:center;">Químico</th>
+                          <th style="text-align:center;">Biológico</th>
+                          <th style="text-align:center;">Microbiológico</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Medicamento</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Medicamento de Controle Especial</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Insumo Farmacêutico</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Insumo Farmacêutico de Controle Especial</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Precursor</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Cosmético</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Perfume</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Produto de Higiene</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Alimento</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Aditivo para Alimento</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Embalagem para Alimento</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Vernizes Sanitários para Embalagens de Alimentos</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Produto para Saúde / Correlato</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Saneante Domissanitário</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <h4>Terceirizado:</h4>
+
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">CNPJ: </label>
+                    <div class="col-sm-3">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+
+                    <div class="col-sm-7">
+                      <input type="text" name="estabelecimento" readonly="readonly" id="estabelecimento" class="form-control" title="Estabelecimento" />
+                    </div>
+
+                    <div class="col-sm-1">
+                      <a href="#"><i class="control-label glyphicon glyphicon-home"></i></a> | <a href="#"><i class="control-label glyphicon glyphicon-plus"></i></a>
+                      | <a href="#"><i class="control-label glyphicon glyphicon-pencil"></i></a>
+                    </div>
+                  </div>
+
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th colspan="4" style="text-align:center;">Controle de Qualidade</th>
+                        </tr>
+                        <tr>
+                          <th style="text-align:center;">Classe de Produto</th>
+                          <th style="text-align:center;">Físico-Químico</th>
+                          <th style="text-align:center;">Químico</th>
+                          <th style="text-align:center;">Biológico</th>
+                          <th style="text-align:center;">Microbiológico</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>Medicamento</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Medicamento de Controle Especial</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Insumo Farmacêutico</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Insumo Farmacêutico de Controle Especial</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Precursor</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Cosmético</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Perfume</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Produto de Higiene</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Alimento</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Aditivo para Alimento</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Embalagem para Alimento</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Vernizes Sanitários para Embalagens de Alimentos</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Produto para Saúde / Correlato</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Saneante Domissanitário</th>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                          <td>
+                            <input type="checkbox" name="cqMedicamento" class="form-control">
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Atividades Exercidas por Classe de Produto</h3>
+                </div>
+                <div class="panel-body">
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Medicamentos</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fabricar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Expedir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Armazenar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Distribuir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Exportar
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar etapas de fabricação
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Medicamentos de Controle Especial</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fabricar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Expedir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Armazenar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Distribuir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Exportar
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar etapas de fabricação
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Insumos Farmacêuticos</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fabricar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Purificar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Extrair
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fragmentar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Sintetizar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fracionar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Expedir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Armazenar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Distribuir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar para uso próprio
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Exportar
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar etapas de fabricação
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Insumos Farmacêuticos de Controle Especial</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fabricar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Purificar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Extrair
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fragmentar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Sintetizar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fracionar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Expedir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Armazenar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Distribuir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar para uso próprio
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Exportar
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar etapas de fabricação
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Precursores</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fabricar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transformar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Purificar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Extrair
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fragmentar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Sintetizar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fracionar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Expedir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Armazenar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Distribuir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar para uso próprio
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Exportar
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar etapas de fabricação
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Cosméticos</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fabricar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Expedir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Armazenar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Distribuir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Exportar
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar etapas de fabricação
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Perfumes</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fabricar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fracionar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Expedir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Armazenar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Distribuir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Exportar
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar etapas de fabricação
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Produtos de Higiene</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fabricar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fracionar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Expedir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Armazenar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Distribuir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Exportar
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar etapas de fabricação
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Alimentos</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fabricar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fracionar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Irradiar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Expedir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Armazenar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Distribuir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Exportar
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar etapas de fabricação
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Alimentos Artesanais</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fabricar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Expedir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Armazenar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar etapas de fabricação
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Aditivos para Alimentos</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fabricar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Expedir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Armazenar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Distribuir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar para uso próprio
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Exportar
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar etapas de fabricação
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Embalagens para Alimentos</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fabricar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Irradiar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Expedir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Armazenar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Distribuir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar para uso próprio
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Exportar
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar etapas de fabricação
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Vernizes Sanitários para Embalagens de Alimentos</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fabricar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Expedir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Armazenar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Distribuir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar para uso próprio
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Exportar
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar etapas de fabricação
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Produtos para Saúde / Correlatos</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fabricar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Esterelizar radiação ionizante
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Esterelizar ETO
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Esterelizar outras
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Reprocessar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Expedir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Armazenar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Distribuir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Exportar
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar etapas de fabricação
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Saneantes Domissanitários</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fabricar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Expedir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Armazenar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Distribuir
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Importar
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Exportar
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar etapas de fabricação
+                    </div>
+                  </div>
+                  <br><br><br><br>
+                  <h4>Estabelecimentos Enquadrados nos CNAES 4771-7/01 (Drogaria) e/ou 4771-7/02 (Farmácias)</h4>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-3">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Manipular
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Fracionar
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Dispensar
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Aferir parâmetros fisiológicos e bioquímico
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Prestar atenção farmacêutica domiciliar
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Administrar/aplicar medicamentos
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Perfurar lóbulo auricular para colocação de brinco
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Dispensar por meio remoto
+                    </div>
+                  </div>
+                  <br><br><br><br><br><br>
+                  <h4>Atividades Terceirizadas</h4>
+
+                  <div class="form-group">
+                    <label class="col-sm-1 control-label">CNPJ: </label>
+                    <div class="col-sm-3">
+                      <input type="text" name="cnpj" id="cnpj" class="form-control" title="CNPJ" />
+                    </div>
+
+                    <div class="col-sm-7">
+                      <input type="text" name="estabelecimento" readonly="readonly" id="estabelecimento" class="form-control" title="Estabelecimento" />
+                    </div>
+
+                    <div class="col-sm-1">
+                      <a href="#"><i class="control-label glyphicon glyphicon-home"></i></a> | <a href="#"><i class="control-label glyphicon glyphicon-plus"></i></a>
+                      | <a href="#"><i class="control-label glyphicon glyphicon-pencil"></i></a>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-3">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Embalar
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Transportar
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Realizar Etapa de Fabricação
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Adequação de Rotulagem de Produto Acabado
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Assistência Técnica
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Atendimento ao Cliente
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-5">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" />
+                      <b> Armazenar</b>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-sm-12">
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Matéria Prima
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Material Embalagem
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="checkbox" name="medicamentos" id="medicamentos" title="Medicamentos" /> Produto Acabado
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <ul class="list-inline pull-right">
+                  <li><button type="button" class="btn btn-default prev-step">
+                    <i class="glyphicon glyphicon-chevron-left"></i> Voltar
+                  </button></li>
+                  <li><button type="button" class="btn btn-primary next-step">Salvar e Continuar
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                  </button></li>
+              </ul>
+            </div>
+
+            <div class="tab-pane" role="tabpanel" id="step3">
+              <h3>Envio de Arquivos</h3>
+              <p>Insira os arquivos necessários para dar prosseguimento ao processo.</p>
+
+              <div class="form-group">
+                <div class="fileUpload btn btn-primary">
+                    <span>Envio de Arquivo</span>
+                    <input id="uploadBtn" type="file" class="upload" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-1 control-label">Assunto: </label><br><br>
+                <div class="col-sm-5">
+                  <select class="form-control" title="O tipo de solicitação é obrigatório!" required name="assunto" id="assunto">
+                   <option></option>
+                   <option value="20">Requerimento</option>
+                   <option value="21">Termo de Responsabilidade Técnica</option>
+                   <option value="19">Carteira de Trabalho</option>
+                   <option value="28">Carteira do Conselho de Classe</option>
+                   <option value="29">Diploma/Certificado</option>
+                   <option value="29">Carteira de Motorista</option>
+                   <option value="29">Documento do Veículo</option>
+                   <option value="29">POP - Procedimento Operacional Padrão</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-1 control-label">Observação: </label><br><br>
+                <div class="col-sm-5">
+                  <textarea class="form-control"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <button type="button" class="btn btn-success">
+                  <i class="glyphicon glyphicon-cloud-upload"></i> Enviar
+                </button>
+              </div>
+
+              <ul class="list-inline pull-right">
+                  <li><button type="button" class="btn btn-default prev-step">
+                    <i class="glyphicon glyphicon-chevron-left"></i> Voltar
+                  </button></li>
+                  <li><button type="button" class="btn btn-primary btn-info-full next-step">Salvar e Continuar
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                  </button></li>
+              </ul>
+            </div>
+
+            <div class="tab-pane" role="tabpanel" id="complete">
+              <h3>Concluído</h3>
+              <p>Todos os passos foram completados com sucesso.</p>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </form>
+      </div>
+
+    </section>
+  </div>
+{% endblock content %}
