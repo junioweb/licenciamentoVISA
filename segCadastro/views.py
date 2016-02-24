@@ -156,10 +156,10 @@ def p_juridica_create(request):
 
 @login_required
 def estab_atv_vincular(request):
-    form = Estabelecimento_Desempenha_AtvForm(None)
+    form = EstabelecimentoDesempenhaAtvForm(None)
 
     if request.POST:
-        form = Estabelecimento_Desempenha_AtvForm(request.POST)
+        form = EstabelecimentoDesempenhaAtvForm(request.POST)
 
         if form.is_valid():
             form.save()
