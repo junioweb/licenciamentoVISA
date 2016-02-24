@@ -26,8 +26,6 @@ SECRET_KEY = 'e0w6^97=pa+@bxc&2f04bip638_x%3k&t3*)%)kj-!v&%n+e9e'
 DEBUG = False
 
 ALLOWED_HOSTS = [
-	'www.agevisa.tk',
-	'agevisa.tk',
 	'seg.agevisa.pb.gov.br',
 ]
 
