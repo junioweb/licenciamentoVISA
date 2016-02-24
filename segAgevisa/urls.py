@@ -30,14 +30,14 @@ urlpatterns = [
     url('^accounts/reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/', auth_views.password_reset_confirm, name='password_reset_confirm'),
     url('^accounts/reset/done/', auth_views.password_reset_complete, name='password_reset_complete'),
     url('^accounts/create/user/', views.cadastrar_user, name='cadastrar_user'),
-
+    
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
     url(r'^example/', views.example, name='example'),
     url(r'^cadastro/processo/', views.processo_create, name='processo_create'),
     url(r'^cadastro/responsavel/', views.responsavel_create, name='responsavel_create'),
     url(r'^cadastro/estabelecimento/pessoa_fisica/', views.p_fisica_create, name='p_fisica_create'),
-    url(r'^cadastro/estabelecimento/pessoa_juridica/', views.pessoa_juridica_create, name='p_juridica_create'),
+    url(r'^cadastro/estabelecimento/pessoa_juridica/', views.p_juridica_create, name='p_juridica_create'),
     url(r'^processo/listar/', views.processo_listar, name='processo_listar'),
     url(r'^responsavel/listar/', views.responsavel_listar, name='responsavel_listar'),
     url(r'^estabelecimento/pessoa_fisica/listar/', views.p_fisica_listar, name='p_fisica_listar'),
@@ -49,5 +49,4 @@ urlpatterns = [
     url(r'^processo/(?P<pk>[0-9]+)/tramitar', views.processo_tramitar, name='processo_tramitar'),
     url(r'^responsavel/(?P<pk>[0-9]+)/editar', views.responsavel_editar, name='responsavel_editar'),
     # url(r'^cadastro/estabelecimento/', views.estabelecimento, name='estabelecimento'),
-
 ]

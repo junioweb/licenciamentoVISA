@@ -25,16 +25,30 @@ class PessoaFisicaForm(ModelForm):
             'Municipio': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
         }
 
-
 class PessoaJuridicaForm(ModelForm):
     class Meta:
         model = Pessoa_Juridica
         exclude = ['Atividade']
+        widgets = {
+            'NaturezaJuridica': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
+            'Situacao': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
+            'Municipio': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
+            'EstabelecimentoMantenedor': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
+            'ProfissionaisCCIH': SelectMultiple(attrs={'class': 'js-example-basic-single js-states form-control'}),
+            'ResponsaveisLegais': SelectMultiple(attrs={'class': 'js-example-basic-single js-states form-control'}),
+        }
 
 class EstabelecimentoDesempenhaAtvForm(ModelForm):
     class Meta:
         model = Estabelecimento_Desempenha_Atv
-        exclude = ['Estabelecimento']
+        exclude = ['']
+        widgets = {
+            'Estabelecimento': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
+            'Atividade': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
+            'ResponsavelTecnico': SelectMultiple(attrs={'class': 'js-example-basic-single js-states form-control'}),
+            'Veiculo': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
+            'Setor': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
+        }
 
 class TramitaSetorForm(ModelForm):
     class Meta:
