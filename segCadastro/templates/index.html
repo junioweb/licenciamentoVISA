@@ -1,5 +1,10 @@
-{% extends 'base.html' %}
+{% extends "base_menu.html" %}
+{% load staticfiles %}
 
 {% block content %}
-  <h1>Olá mundo!</h1>
-{% endblock content %}
+<h1>Olá {% if full_name %}{{full_name}}{% else %}{{username}}{% endif %}.</h1>
+<h2>Aos poucos estamos melhorando.<h2>
+<img src="{% static "img/development.gif" %}" alt="GIF Animado de Desenvolvimento."/>
+<h3>Agradecemos sua compreensão!</h3>
+<h4>Clique <a href="{% url 'logout' %}">aqui</a> para sair.</h4>
+{% endblock %}

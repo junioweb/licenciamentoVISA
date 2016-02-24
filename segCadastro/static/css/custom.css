@@ -138,3 +138,60 @@ span.round-tab:hover {
         left: 35%;
     }
 }
+
+/* sign in */
+
+.signinpanel {
+   width: 780px;
+   margin: 10% auto 0 auto;
+}
+
+.signinpanel .logopanel {
+   float: none;
+   width: auto;
+   padding: 0;
+   background: none;
+}
+
+.signinpanel .signin-info ul {
+   list-style: none;
+   padding: 0;
+   margin: 20px 0;
+}
+
+.signinpanel .signin-info a {
+   color: #333;
+}
+
+.signinpanel .form-control {
+   display: block;
+   margin-top: 15px;
+}
+
+.signinpanel .uname {
+   background: #fff url(../img/user.png) no-repeat 95% center;
+}
+
+.signinpanel .pword {
+   background: #fff url(../img/locked.png) no-repeat 95% center;
+}
+
+.signinpanel .btn {
+   margin-top: 15px;
+}
+
+.signinpanel form {
+   background: rgba(255,255,255,0.2);
+   border: 1px solid #ccc;
+   -moz-box-shadow: 0 3px 0 rgba(12,12,12,0.03);
+   -webkit-box-shadow: 0 3px 0 rgba(12,12,12,0.03);
+   box-shadow: 0 3px 0 rgba(12,12,12,0.03);
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   border-radius: 3px;
+   padding: 30px;
+}
+
+.signinpanel form a {
+   color: #666;
+}
