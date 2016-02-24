@@ -41,7 +41,8 @@ def cadastrar_user(request):
 
 @login_required
 def home(request):
-	return render(request, 'index.html')
+	return render(request, 'index.html',
+							{'full_name': request.user.first_name, 'username':request.user.username})
 
 def example(request):
 	return render(request, 'example.html')
