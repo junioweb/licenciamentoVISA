@@ -8,45 +8,74 @@ from reportlab.lib.pagesizes import A4
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 import os
+from django.forms.formsets import formset_factory, BaseFormSet
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.contrib.auth.forms import UserCreationForm
 
 from segCadastro.models import Processo, Estabelecimento, Pessoa_Fisica, Pessoa_Juridica
 from segCadastro.models import Estabelecimento_Desempenha_Atv, Atividade, Processo_Tramita_Setor
 from segCadastro.models import Responsavel
 
 from segCadastro.forms import ProcessoForm, PessoaFisicaForm, PessoaJuridicaForm
-from segCadastro.forms import TramitaSetorForm, Estabelecimento_Desempenha_AtvForm
-from segCadastro.forms import ResponsavelForm
+from segCadastro.forms import TramitaSetorForm, EstabelecimentoDesempenhaAtvForm
+from segCadastro.forms import ResponsavelForm, EquipamentoSaudeForm, AutorizacaoFuncionamentoForm
 
+def cadastrar_user(request):
+    # Se dados forem passados via POST
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid(): # se o formulario for valido
+            form.save() # cria um novo usuario a partir dos dados enviados
+            return redirect("login") # redireciona para a tela de login
+        else:
+            # mostra novamente o formulario de cadastro com os erros do formulario atual
+            return render(request, "cadastrar_user.html", {"form": form})
+
+    # se nenhuma informacao for passada, exibe a pagina de cadastro com o formulario
+    return render(request, "cadastrar_user.html", {"form": UserCreationForm() })
+
+@login_required
 def home(request):
-	return render(request, 'index.html')
+	return render(request, 'index.html',
+							{'full_name': request.user.first_name, 'username':request.user.username})
 
 def example(request):
 	return render(request, 'example.html')
 
+@login_required
 def estabelecimento(request):
 	return render(request, 'estabelecimento.html')
 
+@login_required
 def processo_listar(request):
 	data = {}
 	data['lista_processos'] = Processo.objects.all()
 	return render(request, 'processo_listar.html', data)
 
+@login_required
 def responsavel_listar(request):
 	data = {}
 	data['lista_responsaveis'] = Responsavel.objects.all()
 	return render(request, 'responsavel_listar.html', data)
 
+@login_required
 def p_fisica_listar(request):
 	data = {}
 	data['lista_p_fisica'] = Pessoa_Fisica.objects.all()
 	return render(request, 'p_fisica_listar.html', data)
 
+@login_required
 def p_juridica_listar(request):
 	data = {}
 	data['lista_p_juridica'] = Pessoa_Juridica.objects.all()
 	return render(request, 'p_juridica_listar.html', data)
 
+@login_required
 def p_fisica_editar(request, pk):
     p_fisica = Pessoa_Fisica.objects.get(pk=pk)
 
@@ -58,6 +87,7 @@ def p_fisica_editar(request, pk):
 
     return render(request, 'p_fisica_editar.html', {'object':p_fisica, 'form':form})
 
+@login_required
 def p_juridica_editar(request, pk):
     p_juridica = Pessoa_Juridica.objects.get(pk=pk)
 
@@ -69,6 +99,7 @@ def p_juridica_editar(request, pk):
 
     return render(request, 'p_juridica_editar.html', {'object':p_juridica, 'form':form})
 
+@login_required
 def responsavel_editar(request, pk):
     responsavel = Responsavel.objects.get(pk=pk)
 
@@ -80,6 +111,7 @@ def responsavel_editar(request, pk):
 
     return render(request, 'responsavel_editar.html', {'object':responsavel, 'form':form})
 
+@login_required
 def processo_create(request):
     form = ProcessoForm(request.POST or None)
 
@@ -89,6 +121,7 @@ def processo_create(request):
 
     return render(request, 'processo_create.html', {'form':form})
 
+@login_required
 def responsavel_create(request):
     form = ResponsavelForm(request.POST or None)
 
@@ -98,6 +131,7 @@ def responsavel_create(request):
 
     return render(request, 'responsavel_create.html', {'form':form})
 
+@login_required
 def p_fisica_create(request):
     form = PessoaFisicaForm(request.POST or None)
 
@@ -107,8 +141,9 @@ def p_fisica_create(request):
 
     return render(request, 'p_fisica_create.html', {'form':form})
 
+@login_required
 def p_juridica_create(request):
-    form = PessoaFisicaForm(None)
+    form = PessoaJuridicaForm(None)
 
     if request.POST:
         form = PessoaJuridicaForm(request.POST)
@@ -119,11 +154,12 @@ def p_juridica_create(request):
 
     return render(request, 'p_juridica_create.html', {'form':form})
 
+@login_required
 def estab_atv_vincular(request):
-    form = Estabelecimento_Desempenha_AtvForm(None)
+    form = EstabelecimentoDesempenhaAtvForm(None)
 
     if request.POST:
-        form = Estabelecimento_Desempenha_AtvForm(request.POST)
+        form = EstabelecimentoDesempenhaAtvForm(request.POST)
 
         if form.is_valid():
             form.save()
@@ -131,6 +167,7 @@ def estab_atv_vincular(request):
 
     return render(request, 'estab_atv_vincular.html', {'object':estabelecimento, 'form':form})
 
+@login_required
 def processo_tramitar(request, pk):
     processo = Processo.objects.get(pk=pk)
 
@@ -142,6 +179,7 @@ def processo_tramitar(request, pk):
 
     return render(request, 'processo_tramitar.html', {'object':processo, 'form':form})
 
+@login_required
 def p_imprimir(request, pk):
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(content_type='application/pdf')

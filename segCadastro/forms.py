@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 
-from django.forms import ModelForm, Select, SelectMultiple
+from django.forms import ModelForm, Select, SelectMultiple, TextInput
 from segCadastro.models import Processo, Pessoa_Fisica, Pessoa_Juridica, Processo_Tramita_Setor
-from segCadastro.models import Estabelecimento_Desempenha_Atv, Responsavel
+from segCadastro.models import Estabelecimento_Desempenha_Atv, Responsavel, Equipamento_Saude
+from segCadastro.models import Autorizacao_Funcionamento
 
 class ProcessoForm(ModelForm):
     class Meta:
@@ -37,7 +38,7 @@ class PessoaJuridicaForm(ModelForm):
             'ResponsaveisLegais': SelectMultiple(attrs={'class': 'js-example-basic-single js-states form-control'}),
         }
 
-class Estabelecimento_Desempenha_AtvForm(ModelForm):
+class EstabelecimentoDesempenhaAtvForm(ModelForm):
     class Meta:
         model = Estabelecimento_Desempenha_Atv
         exclude = ['']
@@ -67,3 +68,13 @@ class ResponsavelForm(ModelForm):
             'Municipio': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'CBO': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
         }
+
+class EquipamentoSaudeForm(ModelForm):
+    class Meta:
+        model = Equipamento_Saude
+        exclude = ['Estabelecimento']
+
+class AutorizacaoFuncionamentoForm(ModelForm):
+    class Meta:
+        model = Autorizacao_Funcionamento
+        exclude = ['PessoaJuridica']
