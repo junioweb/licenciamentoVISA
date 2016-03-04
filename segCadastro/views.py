@@ -20,6 +20,8 @@ from segCadastro.models import Processo, Estabelecimento, Pessoa_Fisica, Pessoa_
 from segCadastro.models import Estabelecimento_Desempenha_Atv, Atividade, Processo_Tramita_Setor
 from segCadastro.models import Responsavel
 
+from segCadastro.printing import MyPrint
+
 from segCadastro.forms import ProcessoForm, PessoaFisicaForm, PessoaJuridicaForm
 from segCadastro.forms import TramitaSetorForm, EstabelecimentoDesempenhaAtvForm
 from segCadastro.forms import ResponsavelForm, EquipamentoSaudeForm, AutorizacaoFuncionamentoForm
@@ -38,6 +40,19 @@ def cadastrar_user(request):
 
     # se nenhuma informacao for passada, exibe a pagina de cadastro com o formulario
     return render(request, "cadastrar_user.html", {"form": UserCreationForm() })
+
+def print_users(request):
+    # Create the HttpResponse object with the appropriate PDF headers.
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="My Users.pdf"'
+
+    buffer = BytesIO()
+
+    report = MyPrint(buffer, 'Letter')
+    pdf = report.print_users()
+
+    response.write(pdf)
+    return response
 
 @login_required
 def home(request):

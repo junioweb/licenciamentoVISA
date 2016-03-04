@@ -30,7 +30,8 @@ urlpatterns = [
     url('^accounts/reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/', auth_views.password_reset_confirm, name='password_reset_confirm'),
     url('^accounts/reset/done/', auth_views.password_reset_complete, name='password_reset_complete'),
     url('^accounts/create/user/', views.cadastrar_user, name='cadastrar_user'),
-    
+
+    url(r'^teste/', views.print_users, name='print_users'),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
     url(r'^example/', views.example, name='example'),
