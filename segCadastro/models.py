@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-
+import uuid
 from django.db import models
 from django.core.validators import MaxValueValidator
 
@@ -540,9 +540,10 @@ class Situacao(models.Model):
 
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return '{0}/{1}'.format(instance.Processo, str(instance.DataHora)+'('+instance.Assunto)+')'
+    return '{0}/{1}'.format(instance.Processo, filename)
 
 class Documento(models.Model):
+    CodAutenticidade = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     DataHora = models.DateTimeField(auto_now_add=True)
     Assunto = models.CharField(max_length=50)
     Arquivo = models.FileField(upload_to=user_directory_path)

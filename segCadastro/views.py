@@ -44,11 +44,12 @@ def cadastrar_user(request):
 def print_users(request):
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="My Users.pdf"'
+    teste = "oooo.pdf"
+    response['Content-Disposition'] = 'attachment; filename='+teste
 
     buffer = BytesIO()
 
-    report = MyPrint(buffer, 'Letter')
+    report = MyPrint(buffer, 'A4')
     pdf = report.print_users()
 
     response.write(pdf)
