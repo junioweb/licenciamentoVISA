@@ -243,9 +243,9 @@ def p_imprimir(request, pk):
 
     # Draw things on the PDF. Here's where the PDF generation happens.
     # See the ReportLab documentation for the full list of functionality.
-    i = os.path.join('/servidorvps/sites/agevisa.tk/htdocs/static/img/topo-A4.jpg')
+    i = os.path.join('/servidorvps/sites/seg.agevisa.pb.gov.br/htdocs/static/img/topo-A4.jpg')
     p.setFont("Helvetica", 10)
-    p.drawString(40, 820, str(timezone.now().strftime("%d-%m-%Y %H:%M:%S")))
+    p.drawString(40, 820, unicode(timezone.now().strftime("%d-%m-%Y %H:%M:%S")))
     p.drawImage(i, 0, 750, width=21.6*cm, height=2.2*cm)
     p.setFont("Helvetica", 14)
     p.drawCentredString(293, 730, u'GOVERNO DO ESTADO DA PARAÍBA')
