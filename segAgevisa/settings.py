@@ -127,9 +127,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/servidorvps/sites/agevisa.tk/htdocs/static'
+STATIC_ROOT = '/servidorvps/sites/seg.agevisa.pb.gov.br/htdocs/static'
 
-MEDIA_ROOT = '/servidorvps/sites/agevisa.tk/htdocs/media'
+MEDIA_ROOT = '/servidorvps/sites/seg.agevisa.pb.gov.br/htdocs/media'
 
 # url to redirect after successfull login
 LOGIN_REDIRECT_URL = '/'
