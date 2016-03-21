@@ -1,0 +1,253 @@
+{% extends 'base_menu.html' %}
+
+{% block content %}
+  <div class="row">
+    <section>
+      <ol class="breadcrumb">
+        <li><a href="/">Principal</a></li>
+        <li><a href="#">Pessoa Jurídica</a></li>
+        <li class="active">Detalhes</li>
+      </ol>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">Detalhes do Estabelecimento - Pessoa Jurídica</h3>
+        </div>
+        <div class="panel-body">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Razão Social:</label>
+              <div class="col-sm-4">
+                <p class="form-control-static">{{p_juridica.RazaoSocial}}</p>
+              </div>
+              <label class="col-sm-1 control-label">CNPJ:</label>
+              <div class="col-sm-2">
+                <p class="form-control-static">{{p_juridica.CNPJ}}</p>
+              </div>
+              <label class="col-sm-1 control-label">Porte:</label>
+              <div class="col-sm-2">
+                <p class="form-control-static">{{p_juridica.Porte}}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Nome Fantasia:</label>
+              <div class="col-sm-4">
+                <p class="form-control-static">{{p_juridica.NomeFantasia}}</p>
+              </div>
+              <label class="col-sm-1 control-label">Tipo:</label>
+              <div class="col-sm-2">
+                <p class="form-control-static">{{p_juridica.Tipo}}</p>
+              </div>
+              <label class="col-sm-1 control-label">Natureza:</label>
+              <div class="col-sm-2">
+                <p class="form-control-static">{{p_juridica.Natureza}}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Situação:</label>
+              <div class="col-sm-3">
+                <p class="form-control-static">{{p_juridica.Situacao}}</p>
+              </div>
+              <label class="col-sm-2 control-label">Pasta:</label>
+              <div class="col-sm-2">
+                <p class="form-control-static">{{p_juridica.Pasta}}</p>
+              </div>
+              <label class="col-sm-1 control-label">CEP:</label>
+              <div class="col-sm-2">
+                <p class="form-control-static">{{p_juridica.CEP}}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Endereço:</label>
+              <div class="col-sm-4">
+                <p class="form-control-static">{{p_juridica.Endereco}}</p>
+              </div>
+              <label class="col-sm-1 control-label">Número:</label>
+              <div class="col-sm-1">
+                <p class="form-control-static">{{p_juridica.Numero}}</p>
+              </div>
+              <label class="col-sm-2 control-label">Complemento:</label>
+              <div class="col-sm-2">
+                <p class="form-control-static">{{p_juridica.Complemento}}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Ponto de Referência:</label>
+              <div class="col-sm-4">
+                <p class="form-control-static">{{p_juridica.PontoReferencia}}</p>
+              </div>
+              <label class="col-sm-1 control-label">Bairro:</label>
+              <div class="col-sm-2">
+                <p class="form-control-static">{{p_juridica.Bairro}}</p>
+              </div>
+              <label class="col-sm-1 control-label">Cidade:</label>
+              <div class="col-sm-2">
+                <p class="form-control-static">{{p_juridica.Municipio}}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Telefone 1:</label>
+              <div class="col-sm-1">
+                <p class="form-control-static">{{p_juridica.TelefonePrimario}}</p>
+              </div>
+              <label class="col-sm-2 control-label">Telefone 2:</label>
+              <div class="col-sm-1">
+                <p class="form-control-static">{{p_juridica.TelefoneSecundario}}</p>
+              </div>
+              <label class="col-sm-2 control-label">E-mail:</label>
+              <div class="col-sm-4">
+                <p class="form-control-static">{{p_juridica.Email}}</p>
+              </div>
+            </div>
+          </form>
+
+          <!-- Navegação Tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#processos" aria-controls="processos" role="tab" data-toggle="tab">Histórico de Processos</a></li>
+            <li role="presentation"><a href="#resp_legais" aria-controls="resp_legais" role="tab" data-toggle="tab">Responsável(is) Legal(is)</a></li>
+            <li role="presentation"><a href="#atv_economicas" aria-controls="atv_economicas" role="tab" data-toggle="tab">Atividade(s) Econômica(s)</a></li>
+          </ul>
+
+          <!-- Conteúdo das Navegações -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="processos">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Nº Processo</th>
+                        <th>Exercício</th>
+                        <th>Assunto</th>
+                        <th>Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for processo in lista_processos %}
+                        <tr>
+                          <th>{{processo.Tipo}} - {{processo.Numero}}{{processo.Ano}}.
+                            {{processo.Exercicio}}.{% if processo.ProcessoMae == None %}0{% else %}1{% endif %}
+                          </th>
+                          <td>{{processo.Exercicio}}</td>
+                          <td>{{processo.Assunto}}</td>
+                          <td>
+                            <a href="{% url 'p_imprimir' processo.Numero %}">Ver tramitação</a> |
+                            <a href="{% url 'processo_tramitar' processo.Numero %}">Detalhes</a>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="resp_legais">
+              {% for resp_legal in lista_resp_legais %}
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <form class="form-horizontal">
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Nome:</label>
+                      <div class="col-sm-4">
+                        <p class="form-control-static">{{resp_legal.Nome}}</p>
+                      </div>
+                      <label class="col-sm-1 control-label">CPF:</label>
+                      <div class="col-sm-2">
+                        <p class="form-control-static">{{resp_legal.CPF}}</p>
+                      </div>
+                      <label class="col-sm-1 control-label">CEP:</label>
+                      <div class="col-sm-2">
+                        <p class="form-control-static">{{resp_legal.CEP}}</p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Endereço:</label>
+                      <div class="col-sm-6">
+                        <p class="form-control-static">{{resp_legal.Endereco}}</p>
+                      </div>
+                      <label class="col-sm-1 control-label">Número:</label>
+                      <div class="col-sm-3">
+                        <p class="form-control-static">{{resp_legal.Numero}}</p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Complemento:</label>
+                      <div class="col-sm-3">
+                        <p class="form-control-static">{{resp_legal.Complemento}}</p>
+                      </div>
+                      <label class="col-sm-1 control-label">Bairro:</label>
+                      <div class="col-sm-2">
+                        <p class="form-control-static">{{resp_legal.Bairro}}</p>
+                      </div>
+                      <label class="col-sm-1 control-label">Cidade:</label>
+                      <div class="col-sm-3">
+                        <p class="form-control-static">{{resp_legal.Municipio}}</p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Telefone 1:</label>
+                      <div class="col-sm-1">
+                        <p class="form-control-static">{{resp_legal.TelefonePrimario}}</p>
+                      </div>
+                      <label class="col-sm-2 control-label">Telefone 2:</label>
+                      <div class="col-sm-1">
+                        <p class="form-control-static">{{resp_legal.TelefoneSecundario}}</p>
+                      </div>
+                      <label class="col-sm-2 control-label">E-mail:</label>
+                      <div class="col-sm-4">
+                        <p class="form-control-static">{{resp_legal.Email}}</p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <div role="tabpanel" class="tab-pane" id="atv_economicas">
+              {% for atividade, desempenha in zipped_data %}
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <form class="form-horizontal">
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">Atividade Econômica:</label>
+                      <div class="col-sm-10">
+                        <p class="form-control-static">{{atividade.Subclasse}} - {{atividade.Denominacao}}</p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Nº Processo</th>
+            <th>Assunto</th>
+            <th>Estabelecimento</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for processo in lista_processos %}
+            <tr>
+              <th>{{processo.Tipo}} - {{processo.Numero}}{{processo.Ano}}.
+                {{processo.Exercicio}}.{% if processo.ProcessoMae == None %}0{% else %}1{% endif %}
+              </th>
+              <td>{{processo.Assunto}}</td>
+              <td>{{processo.Estabelecimento}}</td>
+              <td>
+                <a href="{% url 'p_imprimir' processo.Numero %}">Imprimir</a> |
+                <a href="{% url 'processo_tramitar' processo.Numero %}">Tramitar</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    -->
+    </section>
+  </div>
+{% endblock content %}

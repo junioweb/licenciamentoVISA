@@ -6,7 +6,7 @@ from reportlab.platypus import Paragraph, Table, TableStyle, Image
 from reportlab.lib.units import cm, mm, inch, pica
 from reportlab.lib.pagesizes import A4
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 import os
@@ -25,6 +25,7 @@ from segCadastro.printing import MyPrint
 from segCadastro.forms import ProcessoForm, PessoaFisicaForm, PessoaJuridicaForm
 from segCadastro.forms import TramitaSetorForm, EstabelecimentoDesempenhaAtvForm
 from segCadastro.forms import ResponsavelForm, EquipamentoSaudeForm, AutorizacaoFuncionamentoForm
+from django.utils import timezone
 
 def cadastrar_user(request):
     # Se dados forem passados via POST
@@ -62,6 +63,24 @@ def home(request):
 
 def example(request):
 	return render(request, 'example.html')
+
+@login_required
+def consulta_geral(request):
+    value = request.GET['value']
+
+    if len(value) == 14:
+        try:
+            data = {}
+            data['p_juridica'] = Pessoa_Juridica.objects.get(CNPJ=value)
+            data['lista_processos'] = Processo.objects.filter(Estabelecimento__pk=data['p_juridica'].pk)
+            data['lista_resp_legais'] = data['p_juridica'].ResponsaveisLegais.all()
+            data['lista_atividades'] = data['p_juridica'].Atividade.all()
+            data['lista_desempenha'] = Estabelecimento_Desempenha_Atv.objects.filter(Estabelecimento__pk=data['p_juridica'].pk)
+            data['zipped_data'] = zip(data['lista_atividades'], data['lista_desempenha'])
+        except Pessoa_Juridica.DoesNotExist:
+            raise Http404("Estabelecimento - Pessoa Jurídica não existe!")
+        return render(request, 'p_juridica_detalhes.html', data)
+    return HttpResponse("Por favor, digite um CNPJ válido")
 
 @login_required
 def estabelecimento(request):
@@ -224,8 +243,10 @@ def p_imprimir(request, pk):
 
     # Draw things on the PDF. Here's where the PDF generation happens.
     # See the ReportLab documentation for the full list of functionality.
-    i = os.path.join('/servidorvps/sites/agevisa.tk/htdocs/static/img/topo-A4.jpg')
-    p.drawImage(i, 0, 750, width=21.6*cm, height=2.2*cm)
+    #i = os.path.join('/servidorvps/sites/agevisa.tk/htdocs/static/img/topo-A4.jpg')
+    p.setFont("Helvetica", 10)
+    p.drawString(40, 820, str(timezone.now().strftime("%d-%m-%Y %H:%M:%S")))
+    #p.drawImage(i, 0, 750, width=21.6*cm, height=2.2*cm)
     p.setFont("Helvetica", 14)
     p.drawCentredString(293, 730, u'GOVERNO DO ESTADO DA PARAÍBA')
     p.drawCentredString(293, 710, u'AGÊNCIA ESTADUAL DE VIGILÂNCIA SANITÁRIA')

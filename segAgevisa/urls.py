@@ -45,6 +45,7 @@ urlpatterns = [
     url(r'^estabelecimento/pessoa_juridica/listar/', views.p_juridica_listar, name='p_juridica_listar'),
     url(r'^estabelecimento/pessoa_fisica/(?P<pk>[0-9]+)/editar/', views.p_fisica_editar, name='p_fisica_editar'),
     url(r'^estabelecimento/pessoa_juridica/(?P<pk>[0-9]+)/editar/', views.p_juridica_editar, name='p_juridica_editar'),
+    url(r'^consulta/detalhes/$', views.consulta_geral, name='consulta_geral'),
     url(r'^estabelecimento/atividade/vincular/', views.estab_atv_vincular, name='estab_atv_vincular'),
     url(r'^processo/(?P<pk>[0-9]+)/imprimir', views.p_imprimir, name='p_imprimir'),
     url(r'^processo/(?P<pk>[0-9]+)/tramitar', views.processo_tramitar, name='processo_tramitar'),
