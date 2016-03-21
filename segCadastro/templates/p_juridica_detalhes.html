@@ -23,29 +23,94 @@
               <div class="col-sm-2">
                 <p class="form-control-static">{{p_juridica.CNPJ}}</p>
               </div>
-              <label class="col-sm-1 control-label">Porte:</label>
+              <label class="col-sm-1 control-label">Tipo:</label>
               <div class="col-sm-2">
-                <p class="form-control-static">{{p_juridica.Porte}}</p>
+                {% if p_juridica.Tipo == 1 %}
+                  <p class="form-control-static">MATRIZ</p>
+                {% endif %}
+                {% if p_juridica.Tipo == 2 %}
+                  <p class="form-control-static">FILIAL</p>
+                {% endif %}
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Nome Fantasia:</label>
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <p class="form-control-static">{{p_juridica.NomeFantasia}}</p>
               </div>
-              <label class="col-sm-1 control-label">Tipo:</label>
-              <div class="col-sm-2">
-                <p class="form-control-static">{{p_juridica.Tipo}}</p>
+              <label class="col-sm-1 control-label">Porte:</label>
+              <div class="col-sm-3">
+                {% if p_juridica.Porte == 1 %}
+                  <p class="form-control-static">AGRICULTURA FAMILIAR</p>
+                {% endif %}
+                {% if p_juridica.Porte == 2 %}
+                  <p class="form-control-static">ECONOMIA SOLIDÁRIA</p>
+                {% endif %}
+                {% if p_juridica.Porte == 3 %}
+                  <p class="form-control-static">MICROEMPREENDEDOR INDIVIDUAL</p>
+                {% endif %}
+                {% if p_juridica.Porte == 4 %}
+                  <p class="form-control-static">MICRO EMPRESA</p>
+                {% endif %}
+                {% if p_juridica.Porte == 5 %}
+                  <p class="form-control-static">PEQUENO PORTE</p>
+                {% endif %}
+                {% if p_juridica.Porte == 6 %}
+                  <p class="form-control-static">GRANDE PORTE</p>
+                {% endif %}
               </div>
               <label class="col-sm-1 control-label">Natureza:</label>
               <div class="col-sm-2">
-                <p class="form-control-static">{{p_juridica.Natureza}}</p>
+                {% if p_juridica.Natureza == 1 %}
+                  <p class="form-control-static">PRIVADA</p>
+                {% endif %}
+                {% if p_juridica.Natureza == 2 %}
+                  <p class="form-control-static">PÚBLICA</p>
+                {% endif %}
+                {% if p_juridica.Natureza == 3 %}
+                  <p class="form-control-static">FILANTRÓPICA</p>
+                {% endif %}
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Situação:</label>
               <div class="col-sm-3">
-                <p class="form-control-static">{{p_juridica.Situacao}}</p>
+                {% if p_juridica.Situacao == 0 %}
+                  <p class="form-control-static">ATIVA</p>
+                {% endif %}
+                {% if p_juridica.Situacao == 1 %}
+                  <p class="form-control-static">SEM STATUS</p>
+                {% endif %}
+                {% if p_juridica.Situacao == 2 %}
+                  <p class="form-control-static">CANCELADA - ART.60 LEI 8934/94</p>
+                {% endif %}
+                {% if p_juridica.Situacao == 3 %}
+                  <p class="form-control-static">EXTINTA</p>
+                {% endif %}
+                {% if p_juridica.Situacao == 4 %}
+                  <p class="form-control-static">CONVERTIDA SOC. CIVIL/SIMPLES</p>
+                {% endif %}
+                {% if p_juridica.Situacao == 5 %}
+                  <p class="form-control-static">CINDIDA TOTALMENTE</p>
+                {% endif %}
+                {% if p_juridica.Situacao == 6 %}
+                  <p class="form-control-static">TRANSFERIDA PARA OUTRA UF</p>
+                {% endif %}
+                {% if p_juridica.Situacao == 7 %}
+                  <p class="form-control-static">FALIDA</p>
+                {% endif %}
+                {% if p_juridica.Situacao == 8 %}
+                  <p class="form-control-static">CANCELADA</p>
+                {% endif %}
+                {% if p_juridica.Situacao == 9 %}
+                  <p class="form-control-static">REGISTRO ATIVO PROVISÓRIO</p>
+                {% endif %}
+                {% if p_juridica.Situacao == 10 %}
+                  <p class="form-control-static">CANCELADA-MEI</p>
+                {% endif %}
+                {% if p_juridica.Situacao == 11 %}
+                  <p class="form-control-static">SUSPENSÃO TEMPORÁRIA DE ATIVIDADES</p>
+                {% endif %}
               </div>
               <label class="col-sm-2 control-label">Pasta:</label>
               <div class="col-sm-2">
@@ -130,8 +195,8 @@
                           <td>{{processo.Exercicio}}</td>
                           <td>{{processo.Assunto}}</td>
                           <td>
-                            <a href="{% url 'p_imprimir' processo.Numero %}">Ver tramitação</a> |
-                            <a href="{% url 'processo_tramitar' processo.Numero %}">Detalhes</a>
+                            <a href="#">Ver tramitação</a> |
+                            <a href="#">Detalhes</a>
                           </td>
                         </tr>
                       {% endfor %}
