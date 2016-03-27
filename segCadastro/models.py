@@ -130,7 +130,7 @@ class Estabelecimento(models.Model):
         (CADDEF, 'Cadastro Definitivo'),
     )
     TipoCadastro = models.IntegerField('Tipo de Cadastro', choices=TIPO_CADASTRO_CHOICES)
-    Pasta = models.IntegerField(null=True, blank=True)
+    Pasta = models.IntegerField(null=True, blank=True, unique=True)
     CEP = models.CharField(max_length=8, blank=True)
     Endereco = models.CharField('Endereço', max_length=100)
     Numero = models.CharField('Número', max_length=10)
@@ -322,7 +322,7 @@ class Pessoa_Juridica(Estabelecimento):
     )
     RazaoSocial = models.CharField('Razão Social', max_length=150)
     NomeFantasia = models.CharField('Nome Fantasia', max_length=150, blank=True)
-    CNPJ = models.CharField(max_length=14)
+    CNPJ = models.CharField(max_length=14, blank=True, unique=True)
     NIRE = models.CharField(max_length=12, blank=True)
     NaturezaJuridica = models.ForeignKey(Natureza_Juridica, verbose_name='Natureza Jurídica', null=True, blank=True)
     Porte = models.IntegerField(choices=PORTE_CHOICES, null=True, blank=True)
