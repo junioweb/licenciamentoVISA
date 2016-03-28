@@ -10,6 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 import os
+import re
 from django.forms.formsets import formset_factory, BaseFormSet
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
@@ -18,9 +19,10 @@ from django.contrib.auth.forms import UserCreationForm
 
 from segCadastro.models import Processo, Estabelecimento, Pessoa_Fisica, Pessoa_Juridica
 from segCadastro.models import Estabelecimento_Desempenha_Atv, Atividade, Processo_Tramita_Setor
-from segCadastro.models import Responsavel
+from segCadastro.models import Responsavel, Documento
 
 from segCadastro.printing import MyPrint
+from django.core.validators import EMPTY_VALUES
 
 from segCadastro.forms import ProcessoForm, PessoaFisicaForm, PessoaJuridicaForm
 from segCadastro.forms import TramitaSetorForm, EstabelecimentoDesempenhaAtvForm
@@ -64,23 +66,100 @@ def home(request):
 def example(request):
 	return render(request, 'example.html')
 
-@login_required
 def consulta_geral(request):
     value = request.GET['value']
+    data = {}
+    errors = []
 
-    if len(value) == 14:
-        try:
-            data = {}
-            data['p_juridica'] = Pessoa_Juridica.objects.get(CNPJ=value)
-            data['lista_processos'] = Processo.objects.filter(Estabelecimento__pk=data['p_juridica'].pk)
-            data['lista_resp_legais'] = data['p_juridica'].ResponsaveisLegais.all()
-            data['lista_atividades'] = data['p_juridica'].Atividade.all()
-            data['lista_desempenha'] = Estabelecimento_Desempenha_Atv.objects.filter(Estabelecimento__pk=data['p_juridica'].pk)
-            data['zipped_data'] = zip(data['lista_atividades'], data['lista_desempenha'])
-        except Pessoa_Juridica.DoesNotExist:
-            raise Http404("Estabelecimento - Pessoa Jurídica não existe!")
+    try:
+        if value in EMPTY_VALUES:
+            raise ValueError("Nenhum valor foi informado.")
+    except ValueError as e:
+        data['errors'] = e
         return render(request, 'p_juridica_detalhes.html', data)
-    return HttpResponse("Por favor, digite um CNPJ válido")
+
+    if not value.isdigit():
+        if not value[0].isdigit():
+            numero = value[2:-11]
+
+            try:
+                data['processo'] = Processo.objects.get(pk=numero)
+                data['lista_tramitacao'] = Processo_Tramita_Setor.objects.filter(Processo__pk=numero)
+                data['lista_documentos'] = Documento.objects.filter(Processo__pk=numero)
+                return render(request, 'p_juridica_detalhes.html', data)
+            except Processo.DoesNotExist as e:
+                errors.append('Processo não existe.')
+                data['errors'] = errors
+                return render(request, 'p_juridica_detalhes.html', data)
+            except ValueError as e:
+                errors.append("O valor informado é inválido: " + str(e))
+                data['errors'] = errors
+                return render(request, 'p_juridica_detalhes.html', data)
+        else:
+            value = re.sub("[-/\.]", "", value)
+
+    try:
+        int(value)
+    except ValueError:
+        errors.append('O valor informado é inválido.')
+        data['errors'] = errors
+        return render(request, 'p_juridica_detalhes.html', data)
+
+    if len(value) == 14 or len(value) == 11:
+        def DV_maker(v):
+            if v >= 2:
+                return 11 - v
+            return 0
+
+        if len(value) == 14:
+            orig_dv = value[-2:]
+
+            new_1dv = sum([i * int(value[idx]) for idx, i in enumerate(range(5, 1, -1) + range(9, 1, -1))])
+            new_1dv = DV_maker(new_1dv % 11)
+            value = value[:-2] + str(new_1dv) + value[-1]
+            new_2dv = sum([i * int(value[idx]) for idx, i in enumerate(range(6, 1, -1) + range(9, 1, -1))])
+            new_2dv = DV_maker(new_2dv % 11)
+            value = value[:-1] + str(new_2dv)
+
+            if value[-2:] != orig_dv:
+                errors.append("O CNPJ é inválido.")
+                data['errors'] = errors
+                return render(request, 'p_juridica_detalhes.html', data)
+
+            try:
+                data['p_juridica'] = Pessoa_Juridica.objects.get(CNPJ=value)
+                data['lista_processos'] = Processo.objects.filter(Estabelecimento__pk=data['p_juridica'].pk)
+                data['lista_resp_legais'] = data['p_juridica'].ResponsaveisLegais.all()
+                data['lista_atividades'] = data['p_juridica'].Atividade.all()
+                data['lista_desempenha'] = Estabelecimento_Desempenha_Atv.objects.filter(Estabelecimento__pk=data['p_juridica'].pk)
+                data['zipped_data'] = zip(data['lista_atividades'], data['lista_desempenha'])
+
+                return render(request, 'p_juridica_detalhes.html', data)
+            except Pessoa_Juridica.DoesNotExist:
+                errors.append("Estabelecimento - Pessoa Jurídica não está cadastrada.")
+            	data['errors'] = errors
+                return render(request, 'p_juridica_detalhes.html', data)
+
+
+        elif len(value) == 11:
+            orig_dv = value[-2:]
+
+            new_1dv = sum([i * int(value[idx]) for idx, i in enumerate(range(10, 1, -1))])
+            new_1dv = DV_maker(new_1dv % 11)
+            value = value[:-2] + str(new_1dv) + value[-1]
+            new_2dv = sum([i * int(value[idx]) for idx, i in enumerate(range(11, 1, -1))])
+            new_2dv = DV_maker(new_2dv % 11)
+            value = value[:-1] + str(new_2dv)
+
+            if value[-2:] != orig_dv:
+                errors.append("O CPF é inválido.")
+                data['errors'] = errors
+                return render(request, 'p_juridica_detalhes.html', data)
+
+    else:
+        errors.append("O valor requer 11 dígitos para CPF ou 14 dígitos para CNPJ.")
+    	data['errors'] = errors
+        return render(request, 'p_juridica_detalhes.html', data)
 
 @login_required
 def estabelecimento(request):
@@ -204,15 +283,15 @@ def estab_atv_vincular(request):
 
 @login_required
 def processo_tramitar(request, pk):
-    processo = Processo.objects.get(pk=pk)
-
     form = TramitaSetorForm(request.POST or None)
 
     if form.is_valid():
-        form.save()
+        tramitacao = form.save(commit=False)
+        tramitacao.Usuario = request.user
+        tramitacao.save()
         return redirect('processo_listar')
 
-    return render(request, 'processo_tramitar.html', {'object':processo, 'form':form})
+    return render(request, 'processo_tramitar.html', {'form':form})
 
 @login_required
 def p_imprimir(request, pk):
@@ -245,7 +324,7 @@ def p_imprimir(request, pk):
     # See the ReportLab documentation for the full list of functionality.
     i = os.path.join('/servidorvps/sites/seg.agevisa.pb.gov.br/htdocs/static/img/topo-A4.jpg')
     p.setFont("Helvetica", 10)
-    p.drawString(40, 820, unicode(timezone.now().strftime("%d-%m-%Y %H:%M:%S")))
+    p.drawString(40, 820, unicode(timezone.localtime(timezone.now()).strftime("%d-%m-%Y %H:%M:%S")))
     p.drawImage(i, 0, 750, width=21.6*cm, height=2.2*cm)
     p.setFont("Helvetica", 14)
     p.drawCentredString(293, 730, u'GOVERNO DO ESTADO DA PARAÍBA')

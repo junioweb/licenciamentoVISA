@@ -15,10 +15,12 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.conf.urls import patterns, url, include
 from django.contrib import admin
 from segCadastro import views
 from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     url('^accounts/login/', auth_views.login, name='login'),
@@ -51,4 +53,4 @@ urlpatterns = [
     url(r'^processo/(?P<pk>[0-9]+)/tramitar', views.processo_tramitar, name='processo_tramitar'),
     url(r'^responsavel/(?P<pk>[0-9]+)/editar', views.responsavel_editar, name='responsavel_editar'),
     # url(r'^cadastro/estabelecimento/', views.estabelecimento, name='estabelecimento'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

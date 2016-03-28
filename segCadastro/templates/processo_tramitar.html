@@ -41,6 +41,22 @@
                </div>
             </div>
 
+            <div class="form-group">
+               {{ form.Situacao.errors }}
+               <label class="col-sm-3 control-label">Situação: </label>
+               <div class="col-sm-8">
+                 {{ form.Situacao }}
+               </div>
+            </div>
+
+            <div class="form-group">
+               {{ form.Obs.errors }}
+               <label class="col-sm-3 control-label">Observação: </label>
+               <div class="col-sm-8">
+                 {{ form.Obs }}
+               </div>
+            </div>
+
             <ul class="list-inline pull-left">
                 <li><button type="submit" class="btn btn-primary btn-info-full">
                   <i class="glyphicon glyphicon-ok"></i> Tramitar

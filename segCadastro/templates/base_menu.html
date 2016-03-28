@@ -39,72 +39,74 @@
       </div>
     </div>
 
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">SEG - Agevisa/PB</a>
+    {% if request.user.is_authenticated %}
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">SEG - Agevisa/PB</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="/">Principal</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastro <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/cadastro/processo">Processo</a></li>
+                  <li><a href="/cadastro/responsavel">Responsável</a></li>
+                  <li><a href="/cadastro/estabelecimento/pessoa_fisica">Estabelecimento - Pessoa Física</a></li>
+                  <li><a href="/cadastro/estabelecimento/pessoa_juridica">Estabelecimento - Pessoa Jurídica</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Atividade <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/estabelecimento/atividade/vincular">Vincular</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lista <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/processo/listar">Processo</a></li>
+                  <li><a href="/responsavel/listar">Responsável</a></li>
+                  <li><a href="/estabelecimento/pessoa_fisica/listar">Estabelecimento - Pessoa Física</a></li>
+                  <li><a href="/estabelecimento/pessoa_juridica/listar">Estabelecimento - Pessoa Jurídica</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <form class="navbar-form navbar-left" action="/consulta/detalhes/" method="GET" role="search">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="input-group">
+                      <input type="text" class="form-control" name="value" placeholder="Pesquise aqui...">
+                      <span class="input-group-btn">
+                        <button class="btn btn-info" type="submit">
+                          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+                      </span>
+                    </div><!-- /input-group -->
+                  </div><!-- /.col-sm-12 -->
+                </div><!-- /.row -->
+              </form>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% if request.user.first_name %}{{ request.user.first_name }}{% else %}{{ request.user.username }}{% endif %} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/accounts/password_change/">Alterar Senha</a></li>
+                  <li><a href="/accounts/logout/">Sair</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="/">Principal</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastro <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="/cadastro/processo">Processo</a></li>
-                <li><a href="/cadastro/responsavel">Responsável</a></li>
-                <li><a href="/cadastro/estabelecimento/pessoa_fisica">Estabelecimento - Pessoa Física</a></li>
-                <li><a href="/cadastro/estabelecimento/pessoa_juridica">Estabelecimento - Pessoa Jurídica</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Atividade <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="/estabelecimento/atividade/vincular">Vincular</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lista <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="/processo/listar">Processo</a></li>
-                <li><a href="/responsavel/listar">Responsável</a></li>
-                <li><a href="/estabelecimento/pessoa_fisica/listar">Estabelecimento - Pessoa Física</a></li>
-                <li><a href="/estabelecimento/pessoa_juridica/listar">Estabelecimento - Pessoa Jurídica</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <form class="navbar-form navbar-left" action="/consulta/detalhes/" method="GET" role="search">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="value" placeholder="Pesquise aqui...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-info" type="submit">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                      </button>
-                    </span>
-                  </div><!-- /input-group -->
-                </div><!-- /.col-sm-12 -->
-              </div><!-- /.row -->
-            </form>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% if request.user.first_name %}{{ request.user.first_name }}{% else %}{{ request.user.username }}{% endif %} <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="/accounts/password_change/">Alterar Senha</a></li>
-                <li><a href="/accounts/logout/">Sair</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+      </nav>
+    {% endif %}
 
     <div class="container">
 

@@ -6,7 +6,7 @@ from .models import Tipo_Equipamento_Saude, Autorizacao_Funcionamento
 from .models import Pessoa_Fisica, Pessoa_Juridica, Equipamento_Saude
 from .models import Atividade, Redesim, Natureza_Juridica
 from .models import Estabelecimento_Desempenha_Atv
-from .models import Assunto_Processo, Processo, Documento, Situacao, Setor
+from .models import Assunto_Processo, Processo, Documento, Setor
 from .models import Processo_Tramita_Setor, Valor_UFR, Atividade, Categoria_Atividade
 
 class EquipamentoInline(admin.TabularInline):
@@ -157,7 +157,6 @@ admin.site.register(Estabelecimento_Desempenha_Atv, Estabelecimento_Desempenha_A
 admin.site.register(Redesim)
 admin.site.register(Processo, ProcessoAdmin)
 admin.site.register(Assunto_Processo)
-admin.site.register(Situacao)
 admin.site.register(Setor)
 admin.site.register(Processo_Tramita_Setor)
 admin.site.register(Valor_UFR)

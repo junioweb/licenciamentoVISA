@@ -1,7 +1,9 @@
 # -*- encoding: utf-8 -*-
 import uuid
 from django.db import models
+from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
+from django.conf import settings
 
 # Create your models here.
 class Municipio(models.Model):
@@ -526,59 +528,53 @@ class Processo(models.Model):
     class Meta:
         unique_together = (('Tipo', 'Numero', 'Ano'),)
 
-class Situacao(models.Model):
-    Situacao = models.CharField(max_length=50)
-    Obs = models.TextField(blank=True)
-    Processo = models.ForeignKey(Processo)
-
-    def __unicode__(self):
-        return self.Processo+' - '+self.Situacao
-
-    class Meta:
-        verbose_name = 'Situação de Processo'
-        verbose_name_plural = 'Situações de Processos'
-
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return '{0}/{1}'.format(instance.Processo, filename)
 
 class Documento(models.Model):
     ASSUNTO_CHOICES = (
-        ('AUTORIZAÇÃO DE FUNCIONAMENTO (AGEVISA)', 'AUTORIZAÇÃO DE FUNCIONAMENTO (AGEVISA)'),
-        ('RELATÓRIO TÉCNICO DE INSPEÇÃO', 'RELATÓRIO TÉCNICO DE INSPEÇÃO'),
-        ('TERMO DE INSPEÇÃO', 'TERMO DE INSPEÇÃO'),
-        ('AUTO DE INFRAÇÃO', 'AUTO DE INFRAÇÃO'),
-        ('TERMO DE APREENSÃO', 'TERMO DE APREENSÃO'),
-        ('COMUNICADO DE DESINTERDIÇÃO', 'COMUNICADO DE DESINTERDIÇÃO'),
-        ('TERMO DE INTERDIÇÃO CAUTELAR', 'TERMO DE INTERDIÇÃO CAUTELAR'),
-        ('TERMO DE NOTIFICAÇÃO', 'TERMO DE NOTIFICAÇÃO'),
+        (u'AUTORIZAÇÃO DE FUNCIONAMENTO (AGEVISA)', 'AUTORIZAÇÃO DE FUNCIONAMENTO (AGEVISA)'),
+        (u'RELATÓRIO TÉCNICO DE INSPEÇÃO', 'RELATÓRIO TÉCNICO DE INSPEÇÃO'),
+        (u'TERMO DE INSPEÇÃO', 'TERMO DE INSPEÇÃO'),
+        (u'AUTO DE INFRAÇÃO', 'AUTO DE INFRAÇÃO'),
+        (u'TERMO DE APREENSÃO', 'TERMO DE APREENSÃO'),
+        (u'COMUNICADO DE DESINTERDIÇÃO', 'COMUNICADO DE DESINTERDIÇÃO'),
+        (u'TERMO DE INTERDIÇÃO CAUTELAR', 'TERMO DE INTERDIÇÃO CAUTELAR'),
+        (u'TERMO DE NOTIFICAÇÃO', 'TERMO DE NOTIFICAÇÃO'),
         ('COMPROVANTE DE TAXA', 'COMPROVANTE DE TAXA'),
-        ('ALVARÁ DE LOCALIZAÇÃO DA PREFEITURA', 'ALVARÁ DE LOCALIZAÇÃO DA PREFEITURA'),
+        (u'ALVARÁ DE LOCALIZAÇÃO DA PREFEITURA', 'ALVARÁ DE LOCALIZAÇÃO DA PREFEITURA'),
         ('PLANTA BAIXA', 'PLANTA BAIXA'),
         ('MEMORIAL DESCRITIVO', 'MEMORIAL DESCRITIVO'),
-        ('CERTIDÃO DE REGULARIDADE TÉCNICA', 'CERTIDÃO DE REGULARIDADE TÉCNICA'),
-        ('MANUAL DE BOAS PRÁTICAS', 'MANUAL DE BOAS PRÁTICAS'),
-        ('PROCEDIMENTO OPERACIONAL PADRÃO', 'PROCEDIMENTO OPERACIONAL PADRÃO'),
-        ('PLANO DE GERENCIAMENTO DE RESÍDUOS', 'PLANO DE GERENCIAMENTO DE RESÍDUOS'),
-        ('AUTORIZAÇÃO DE FUNCIONAMENTO (ANVISA)', 'AUTORIZAÇÃO DE FUNCIONAMENTO (ANVISA)'),
+        (u'CERTIDÃO DE REGULARIDADE TÉCNICA', 'CERTIDÃO DE REGULARIDADE TÉCNICA'),
+        (u'MANUAL DE BOAS PRÁTICAS', 'MANUAL DE BOAS PRÁTICAS'),
+        (u'PROCEDIMENTO OPERACIONAL PADRÃO', 'PROCEDIMENTO OPERACIONAL PADRÃO'),
+        (u'PLANO DE GERENCIAMENTO DE RESÍDUOS', 'PLANO DE GERENCIAMENTO DE RESÍDUOS'),
+        (u'AUTORIZAÇÃO DE FUNCIONAMENTO (ANVISA)', 'AUTORIZAÇÃO DE FUNCIONAMENTO (ANVISA)'),
         ('CONTRATO DE TRABALHO', 'CONTRATO DE TRABALHO'),
-        ('STATUS DE TRANSMISSÃO (SNGPC)', 'STATUS DE TRANSMISSÃO (SNGPC)'),
+        (u'STATUS DE TRANSMISSÃO (SNGPC)', 'STATUS DE TRANSMISSÃO (SNGPC)'),
         ('IDENTIDADE PROFISSIONAL DO CONSELHO DE CLASSE', 'IDENTIDADE PROFISSIONAL DO CONSELHO DE CLASSE'),
-        ('ESCALA DE PLANTÃO DOS PROFISSIONAIS', 'ESCALA DE PLANTÃO DOS PROFISSIONAIS'),
-        ('DOCUMENTO DO VEÍCULO', 'DOCUMENTO DO VEÍCULO'),
-        ('TREINAMENTO DOS FUNCIONÁRIOS', 'TREINAMENTO DOS FUNCIONÁRIOS'),
-        ('CONTRATO DE PRESTAÇÃO DE SERVIÇO', 'CONTRATO DE PRESTAÇÃO DE SERVIÇO'),
+        (u'ESCALA DE PLANTÃO DOS PROFISSIONAIS', 'ESCALA DE PLANTÃO DOS PROFISSIONAIS'),
+        (u'DOCUMENTO DO VEÍCULO', 'DOCUMENTO DO VEÍCULO'),
+        (u'TREINAMENTO DOS FUNCIONÁRIOS', 'TREINAMENTO DOS FUNCIONÁRIOS'),
+        (u'CONTRATO DE PRESTAÇÃO DE SERVIÇO', 'CONTRATO DE PRESTAÇÃO DE SERVIÇO'),
         ('RELAÇÃO DOS PROFISSIONAIS CONDUTORES', 'RELAÇÃO DOS PROFISSIONAIS CONDUTORES'),
-        ('DOCUMENTO DE HABILITAÇÃO DE CONDUTOR', 'DOCUMENTO DE HABILITAÇÃO DE CONDUTOR'),
-        ('CADASTRO NACIONAL DOS ESTABELECIMENTOS DE SAÚDE (CNES)', 'CADASTRO NACIONAL DOS ESTABELECIMENTOS DE SAÚDE (CNES)'),
+        (u'DOCUMENTO DE HABILITAÇÃO DE CONDUTOR', 'DOCUMENTO DE HABILITAÇÃO DE CONDUTOR'),
+        (u'CADASTRO NACIONAL DOS ESTABELECIMENTOS DE SAÚDE (CNES)', 'CADASTRO NACIONAL DOS ESTABELECIMENTOS DE SAÚDE (CNES)'),
         ('COMPROVANTE DE PROCESSO', 'COMPROVANTE DE PROCESSO'),
         ('OUTRO', 'OUTRO'),
     )
     CodAutenticidade = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     DataHora = models.DateTimeField(auto_now_add=True)
+    Publico = models.BooleanField("Público")
     Assunto = models.CharField(max_length=100, choices=ASSUNTO_CHOICES)
-    Arquivo = models.FileField(upload_to=user_directory_path)
+    Arquivo = models.FileField(blank=True, upload_to=user_directory_path)
     Descricao = models.TextField(blank=True)
+    Usuario = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        null=True, blank=True,
+    )
     Processo = models.ForeignKey(Processo)
 
     def __unicode__(self):
@@ -596,16 +592,35 @@ class Setor(models.Model):
         verbose_name_plural = 'Setores'
 
 class Processo_Tramita_Setor(models.Model):
-    ENVIAR = False
-    RECEBER = True
+    ENVIAR = 0
+    RECEBER = 1
+    SITUACAO = 2
     OPERACAO_CHOICES = (
         (ENVIAR, 'Enviar'),
         (RECEBER, 'Receber'),
+        (SITUACAO, 'Alterar Situação'),
+    )
+    SITUACAO_CHOICES = (
+        ('PEN_ANA', 'PENDENTE - EM ANÁLISE'),
+        ('PEN_DOC_INC', 'PENDENTE - DOCUMENTAÇÃO INCOMPLETA'),
+        ('PEN_AGU_INSP', 'PENDENTE - AGUARDANDO INSPEÇÃO'),
+        ('PEN_AGU_CUMP_EXI', 'PENDENTE - AGUARDANDO CUMPRIMENTO DE EXIGÊNCIAS'),
+        ('DEF', 'DEFERIDO'),
+        ('IND', 'INDEFERIDO'),
+        ('ARQ', 'ARQUIVADO'),
+        ('OUT', 'OUTROS'),
     )
     Processo = models.ForeignKey(Processo)
     Setor = models.ForeignKey(Setor)
-    Operacao = models.BooleanField('Operação', choices=OPERACAO_CHOICES)
+    Operacao = models.IntegerField('Operação', choices=OPERACAO_CHOICES)
+    Situacao = models.CharField(max_length=20, choices=SITUACAO_CHOICES, blank=True)
+    Obs = models.TextField(blank=True)
     DataHora = models.DateTimeField(auto_now_add=True)
+    Usuario = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        null=True, blank=True, editable=False,
+    )
 
     def __unicode__(self):
         if self.Operacao == 0:

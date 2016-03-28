@@ -6,22 +6,30 @@
     <div class="row">
       <div class="col-md-7">
         <div class="signin-info">
+          <div class="mb20"></div>
           <div class="logopanel">
             <h1><span>[</span> SEG <span>]</span></h1>
           </div><!-- logopanel -->
-
-          <div class="mb20"></div>
-
-          <h5><strong>Bem vindo ao SEG 1.0!</strong></h5>
           <ul>
-            <li>Sistema Eletrônico de Gestão com vários módulos;</li>
-            <li>Layout adaptável em vários dispositivo;</li>
-            <li>Visual agradável;</li>
-            <li>Relatórios e Gráficos em tempo real;</li>
-            <li>E muitas outras ferramentas de gestão...</li>
+            <li>Sistema Eletrônico de Gestão</li>
           </ul>
           <div class="mb20"></div>
-          <strong>Ainda não é cadastrado? <a href="{% url 'cadastrar_user' %}">Cadastre-se</a></strong>
+          <!--<strong>Ainda não é cadastrado? <a href="{% url 'cadastrar_user' %}">Cadastre-se aqui</a></strong>-->
+          <form action="/consulta/detalhes/" method="GET" role="search">
+            <h4 class="nomargin">Acompanhamento do Processo<br/><small>Ex.: X-999999.9999.9</small></h4>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="input-group has-success">
+                  <input type="text" class="form-control" name="value" placeholder="Informe o processo ou CNPJ">
+                  <span class="input-group-btn">
+                    <button class="btn btn-success" type="submit">
+                      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                  </span>
+                </div><!-- /input-group -->
+              </div><!-- /.col-sm-12 -->
+            </div><!-- /.row -->
+          </form>
         </div><!-- signin0-info -->
       </div><!-- col-sm-7 -->
 
@@ -29,16 +37,6 @@
         {% if form.errors %}
           <div class="alert alert-danger" role="alert">
             <p>Seu Usuário e Senha não estão corretos. Por favor, tente novamente.</p>
-          </div>
-        {% endif %}
-
-        {% if next %}
-          <div class="alert alert-warning" role="alert">
-            {% if user.is_authenticated %}
-            <p>Efetue o login com permissões para acessar esta página.</p>
-            {% else %}
-            <p>Efetue o login para acessar esta página.</p>
-            {% endif %}
           </div>
         {% endif %}
         <form action="{% url 'login' %}" method="post">{% csrf_token %}
