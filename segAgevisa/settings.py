@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'e0w6^97=pa+@bxc&2f04bip638_x%3k&t3*)%)kj-!v&%n+e9e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
 	'www.agevisa.tk',
@@ -130,6 +130,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/servidorvps/sites/seg.agevisa.pb.gov.br/htdocs/static'
 
 MEDIA_ROOT = '/servidorvps/sites/seg.agevisa.pb.gov.br/htdocs/media'
+MEDIA_URL = '/media/'
 
 # url to redirect after successfull login
 LOGIN_REDIRECT_URL = '/'
