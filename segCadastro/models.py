@@ -244,7 +244,10 @@ class Estabelecimento(models.Model):
         if hasattr(pessoa, 'Nome'):
             return pessoa.CPF+' - '+pessoa.Nome
         elif hasattr(pessoa, 'RazaoSocial'):
-            return pessoa.CNPJ+' - '+pessoa.RazaoSocial
+            if pessoa.CNPJ:
+	        return pessoa.CNPJ +' - '+pessoa.RazaoSocial
+            else:
+                return pessoa.RazaoSocial
 
 class Pessoa_Fisica(Estabelecimento):
     Nome = models.CharField(max_length=100)
