@@ -362,7 +362,10 @@ class Pessoa_Juridica(Estabelecimento):
     )
 
     def __unicode__(self):
-        return self.CNPJ+' - '+self.RazaoSocial+' ('+self.NomeFantasia+')'
+        if self.CNPJ:
+            return self.CNPJ+' - '+self.RazaoSocial+' ('+self.NomeFantasia+')'
+        else:
+            return self.RazaoSocial+' ('+self.NomeFantasia+')'
 
     class Meta:
         verbose_name = 'Estabelecimento - Pessoa Jurídica'
