@@ -1,0 +1,21 @@
+{% extends 'base_menu.html' %}
+
+{% block content %}
+  <div class="row">
+    <section>
+      <ol class="breadcrumb">
+        <li><a href="/">Principal</a></li>
+        <li class="active">Resultado</li>
+      </ol>
+      {% if errors %}
+        {% for error in errors %}
+          <div class="alert alert-danger" role="alert"><strong>Ops! Erro: </strong>{{error}}</div>
+        {% endfor %}
+      {% elif successes %}
+        {% for success in successes %}
+          <div class="alert alert-success" role="alert"><strong>Yeah! Sucesso: </strong>{{success}}</div>
+        {% endfor %}
+      {% endif %}
+    </section>
+  </div>
+{% endblock content %}

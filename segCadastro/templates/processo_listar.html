@@ -21,8 +21,7 @@
         <tbody>
           {% for processo in lista_processos %}
             <tr>
-              <th>{{processo.Tipo}} - {{processo.Numero}}{{processo.Ano}}.
-                {{processo.Exercicio}}.{% if processo.ProcessoMae == None %}0{% else %}1{% endif %}
+              <th>{{processo.Tipo}}-{{processo.Numero}}{{processo.Ano}}.{{processo.Exercicio}}.{% if processo.ProcessoMae == None %}0{% else %}1{% endif %}
               </th>
               <td>{{processo.Assunto}}</td>
               <td>{{processo.Estabelecimento}}</td>

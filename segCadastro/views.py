@@ -6,14 +6,14 @@ from reportlab.platypus import Paragraph, Table, TableStyle, Image
 from reportlab.lib.units import cm, mm, inch, pica
 from reportlab.lib.pagesizes import A4
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 import os
 import re
 from django.forms.formsets import formset_factory, BaseFormSet
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.forms import UserCreationForm
 
@@ -28,6 +28,9 @@ from segCadastro.forms import ProcessoForm, PessoaFisicaForm, PessoaJuridicaForm
 from segCadastro.forms import TramitaSetorForm, EstabelecimentoDesempenhaAtvForm
 from segCadastro.forms import ResponsavelForm, EquipamentoSaudeForm, AutorizacaoFuncionamentoForm
 from django.utils import timezone
+from django.core.files.base import ContentFile
+from django.core.files import File
+from django.core.exceptions import PermissionDenied, MultipleObjectsReturned
 
 def cadastrar_user(request):
     # Se dados forem passados via POST
@@ -44,19 +47,26 @@ def cadastrar_user(request):
     # se nenhuma informacao for passada, exibe a pagina de cadastro com o formulario
     return render(request, "cadastrar_user.html", {"form": UserCreationForm() })
 
-def print_users(request):
-    # Create the HttpResponse object with the appropriate PDF headers.
-    response = HttpResponse(content_type='application/pdf')
-    teste = "oooo.pdf"
-    response['Content-Disposition'] = 'attachment; filename='+teste
+@login_required
+@permission_required('segCadastro.emitir_alvara', raise_exception=True)
+def emitir_alvara(request, usuario, processo, obs):
+    documentos = Documento.objects.filter(Processo__pk=processo.Numero)
+    for documento in documentos:
+        print documento
+        if documento.Assunto == u'AUTORIZAÇÃO DE FUNCIONAMENTO (AGEVISA)':
+            raise MultipleObjectsReturned("Alvará já foi Emitido.")
 
     buffer = BytesIO()
-
     report = MyPrint(buffer, 'A4')
-    pdf = report.print_users()
 
-    response.write(pdf)
-    return response
+    descricao = "Autorização de Funcionamento referente ao Exercício: "+str(processo.Exercicio)+"."
+    doc = Documento(Publico=True, Assunto='AUTORIZAÇÃO DE FUNCIONAMENTO (AGEVISA)', Descricao=descricao, Usuario=usuario, Processo=processo)
+    doc.save()
+
+    pdf = report.alvara(processo, doc.CodAutenticidade, usuario, obs)
+    arquivo = ContentFile(pdf)
+    filename = "Alvara-"+unicode(processo.Exercicio)+".pdf"
+    doc.Arquivo.save(filename, arquivo)
 
 @login_required
 def home(request):
@@ -284,12 +294,30 @@ def estab_atv_vincular(request):
 @login_required
 def processo_tramitar(request, pk):
     form = TramitaSetorForm(request.POST or None)
+    data = {}
+    errors = []
+    successes = []
 
     if form.is_valid():
         tramitacao = form.save(commit=False)
         tramitacao.Usuario = request.user
-        tramitacao.save()
-        return redirect('processo_listar')
+        try:
+            if tramitacao.Situacao == 'DEF' and tramitacao.Alvara == True:
+                try:
+                    emitir_alvara(request, tramitacao.Usuario, tramitacao.Processo, tramitacao.Obs)
+                except PermissionDenied as e:
+                    raise e
+
+                successes.append("Alvará emitido com sucesso")
+            tramitacao.save()
+            successes.append("Tramitação realizada com sucesso")
+            data['successes'] = successes
+        except MultipleObjectsReturned as e:
+            data['errors'] = e
+        except Exception as e:
+            raise e
+
+        return render(request, 'resultado.html', data)
 
     return render(request, 'processo_tramitar.html', {'form':form})
 

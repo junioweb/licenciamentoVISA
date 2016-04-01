@@ -437,6 +437,7 @@ class Veiculo(models.Model):
 class Estabelecimento_Desempenha_Atv(models.Model):
     Estabelecimento = models.ForeignKey(Estabelecimento, verbose_name='Estabelecimento')
     Atividade = models.ForeignKey(Atividade, verbose_name='Atividade(s) Econômica(s)')
+    MedControlados = models.BooleanField('Medicamentos Controlados, Port. 344/98', default=False)
     Manipular = models.BooleanField()
     Fracionar = models.BooleanField()
     Dispensar = models.BooleanField()
@@ -472,7 +473,6 @@ class Estabelecimento_Desempenha_Atv(models.Model):
                                                 verbose_name='Responsável(eis) Técnico(s)',
                                                 )
     Veiculo = models.ForeignKey(Veiculo, null=True, blank=True)
-    Setor = models.ForeignKey('Setor')
 
     def __unicode__(self):
         if self.Veiculo != None:
@@ -521,7 +521,8 @@ class Processo(models.Model):
                                             blank=True,
                                             verbose_name="Atividade ou Atividade/Veículo"
                                         )
-    TramitaSetor = models.ManyToManyField('Setor', through='Processo_Tramita_Setor', blank=True)
+    TramitaSetor = models.ManyToManyField('Setor', related_name="tramita_setor", through='Processo_Tramita_Setor', blank=True)
+    Setor = models.ForeignKey('Setor', null=True, blank=True)
 
     def __unicode__(self):
         if self.ProcessoMae == None:
@@ -586,6 +587,12 @@ class Documento(models.Model):
     def __unicode__(self):
         return unicode(self.DataHora)+' - '+self.Assunto+' ('+self.Descricao+')'
 
+    class Meta:
+        ordering = ['DataHora']
+        permissions = (
+            ("emitir_alvara", "Pode emitir Alvará"),
+        )
+
 class Setor(models.Model):
     Nome = models.CharField(max_length=100)
     Sigla = models.CharField(max_length=20)
@@ -620,6 +627,7 @@ class Processo_Tramita_Setor(models.Model):
     Setor = models.ForeignKey(Setor)
     Operacao = models.IntegerField('Operação', choices=OPERACAO_CHOICES)
     Situacao = models.CharField(max_length=20, choices=SITUACAO_CHOICES, blank=True)
+    Alvara = models.BooleanField("Alvará", default=False)
     Obs = models.TextField(blank=True)
     DataHora = models.DateTimeField(auto_now_add=True)
     Usuario = models.ForeignKey(
@@ -637,6 +645,7 @@ class Processo_Tramita_Setor(models.Model):
     class Meta:
         verbose_name = 'Tramitação de Processo'
         verbose_name_plural = 'Tramitação de Processos'
+        ordering = ['DataHora']
 
 class Redesim(models.Model):
     Sigla = models.CharField(max_length=4)

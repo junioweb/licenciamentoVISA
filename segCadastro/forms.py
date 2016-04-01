@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from django.forms import ModelForm, Select, SelectMultiple, TextInput
+from django import forms
 from segCadastro.models import Processo, Pessoa_Fisica, Pessoa_Juridica, Processo_Tramita_Setor
 from segCadastro.models import Estabelecimento_Desempenha_Atv, Responsavel, Equipamento_Saude
 from segCadastro.models import Autorizacao_Funcionamento
@@ -15,6 +16,7 @@ class ProcessoForm(ModelForm):
             'Estabelecimento': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'Assunto': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'Atividade_Estabelecimento': SelectMultiple(attrs={'class': 'js-example-basic-single js-states form-control'}),
+            'Setor': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
         }
 
 class PessoaFisicaForm(ModelForm):
@@ -47,7 +49,6 @@ class EstabelecimentoDesempenhaAtvForm(ModelForm):
             'Atividade': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'ResponsavelTecnico': SelectMultiple(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'Veiculo': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
-            'Setor': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
         }
 
 class TramitaSetorForm(ModelForm):

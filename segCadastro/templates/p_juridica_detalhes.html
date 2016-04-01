@@ -113,7 +113,7 @@
                           </thead>
                           <tbody>
                             {% for documento in lista_documentos %}
-                              {% if not request.user.is_authenticated and documento.Publico %}
+                              {% if not request.user.is_authenticated and documento.Publico or request.user.is_authenticated %}
                                 <tr>
                                   <td>{{documento.DataHora}}</td>
                                   <td>
