@@ -156,7 +156,7 @@ class MyPrint:
         for atividade in atividades:
             if atividade.MedControlados and atividade.Atividade.Subclasse == '4771701' or atividade.MedControlados and atividade.Atividade.Subclasse == '4771703':
                 obs = 'APTA A DISPENSAR MEDICAMENTOS CONTROLADOS DA PORTARIA 344/98'
-            data.append([unicode(atividade.Atividade)])
+            data.append([Paragraph(unicode(atividade.Atividade), styles2['default'])])
             data.append(['Responsável(eis) Técnico(s):'])
             resp_tecnicos = atividade.ResponsavelTecnico.all()
             for resp_tecnico in resp_tecnicos:
