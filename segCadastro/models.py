@@ -641,6 +641,8 @@ class Processo_Tramita_Setor(models.Model):
             return unicode(self.Processo)+' => '+unicode(self.Setor)
         elif self.Operacao == 1:
             return unicode(self.Processo)+' <= '+unicode(self.Setor)
+        elif self.Operacao == 2:
+            return unicode(self.Processo)+' = '+unicode(self.Setor)
 
     class Meta:
         verbose_name = 'Tramitação de Processo'
