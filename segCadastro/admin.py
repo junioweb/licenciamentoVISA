@@ -23,12 +23,14 @@ class DocumentoInline(admin.TabularInline):
 
 class Estabelecimento_Desempenha_AtvAdmin(admin.ModelAdmin):
     filter_horizontal = ('ResponsavelTecnico',)
+    search_fields = ['CNPJ']
 
 class ProcessoAdmin(admin.ModelAdmin):
     inlines = [DocumentoInline]
+    search_fields = ['CNPJ']
 
 class Pessoa_FisicaAdmin(admin.ModelAdmin):
-    search_fields = ['Nome', 'CPF', 'Municipio']
+    search_fields = ['CPF']
     list_display = ('Nome', 'CPF', 'Municipio')
     filter_horizontal = ('TiposServicoSaude', 'Atividade')
     fieldsets = [
@@ -84,7 +86,7 @@ class Pessoa_FisicaAdmin(admin.ModelAdmin):
     inlines = [EquipamentoInline]
 
 class Pessoa_JuridicaAdmin(admin.ModelAdmin):
-    search_fields = ['RazaoSocial', 'CNPJ', 'Municipio']
+    search_fields = ['CNPJ']
     list_display = ('RazaoSocial', 'CNPJ', 'Municipio')
     filter_horizontal = ('ResponsaveisLegais', 'TiposServicoSaude', 'ProfissionaisCCIH')
     fieldsets = [
