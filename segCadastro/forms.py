@@ -83,3 +83,4 @@ class AutorizacaoFuncionamentoForm(ModelForm):
 class VeiculoForm(ModelForm):
     class Meta:
         model = Veiculo
+        exclude = ['']
