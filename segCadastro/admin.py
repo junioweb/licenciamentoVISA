@@ -28,7 +28,7 @@ class CaracterizacaoAtividadeInline(admin.TabularInline):
 
 class ProcessoAdmin(admin.ModelAdmin):
     inlines = [DocumentoInline]
-    search_fields = ['Estabelecimento__CNPJ', 'Estabelecimento__CPF', 'Numero']
+    search_fields = ['Estabelecimento__Pessoa_Juridica__CNPJ', 'Estabelecimento__Pessoa_Fisica__CPF', 'Numero']
 
 class Pessoa_FisicaAdmin(admin.ModelAdmin):
     search_fields = ['CPF']
