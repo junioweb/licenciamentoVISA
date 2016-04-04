@@ -26,12 +26,9 @@ class CaracterizacaoAtividadeInline(admin.TabularInline):
     model = Estabelecimento_Desempenha_Atv
     extra = 1
 
-class Estabelecimento_Desempenha_AtvAdmin(admin.ModelAdmin):
-    filter_horizontal = ('ResponsavelTecnico',)
-
 class ProcessoAdmin(admin.ModelAdmin):
     inlines = [DocumentoInline]
-    search_fields = ['CNPJ']
+    search_fields = ['Estabelecimento__CNPJ', 'Estabelecimento__CPF', 'Numero']
 
 class Pessoa_FisicaAdmin(admin.ModelAdmin):
     search_fields = ['CPF']
@@ -159,7 +156,6 @@ admin.site.register(Tipo_Servico_Saude)
 admin.site.register(Tipo_Equipamento_Saude)
 admin.site.register(Pessoa_Fisica, Pessoa_FisicaAdmin)
 admin.site.register(Pessoa_Juridica, Pessoa_JuridicaAdmin)
-admin.site.register(Estabelecimento_Desempenha_Atv, Estabelecimento_Desempenha_AtvAdmin)
 admin.site.register(Redesim)
 admin.site.register(Processo, ProcessoAdmin)
 admin.site.register(Assunto_Processo)

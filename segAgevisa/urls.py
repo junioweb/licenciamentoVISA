@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^example/', views.example, name='example'),
     url(r'^cadastro/processo/', views.processo_create, name='processo_create'),
+    url(r'^cadastro/veiculo/', views.veiculo_create, name='veiculo_create'),
     url(r'^cadastro/responsavel/', views.responsavel_create, name='responsavel_create'),
     url(r'^cadastro/estabelecimento/pessoa_fisica/', views.p_fisica_create, name='p_fisica_create'),
     url(r'^cadastro/estabelecimento/pessoa_juridica/', views.p_juridica_create, name='p_juridica_create'),

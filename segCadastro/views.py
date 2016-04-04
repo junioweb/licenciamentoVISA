@@ -24,7 +24,7 @@ from segCadastro.models import Responsavel, Documento
 from segCadastro.printing import MyPrint
 from django.core.validators import EMPTY_VALUES
 
-from segCadastro.forms import ProcessoForm, PessoaFisicaForm, PessoaJuridicaForm
+from segCadastro.forms import ProcessoForm, PessoaFisicaForm, PessoaJuridicaForm, VeiculoForm
 from segCadastro.forms import TramitaSetorForm, EstabelecimentoDesempenhaAtvForm
 from segCadastro.forms import ResponsavelForm, EquipamentoSaudeForm, AutorizacaoFuncionamentoForm
 from django.utils import timezone
@@ -277,6 +277,16 @@ def p_juridica_create(request):
             return redirect('p_juridica_listar')
 
     return render(request, 'p_juridica_create.html', {'form':form})
+
+@login_required
+def veiculo_create(request):
+    form = VeiculoForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect('home')
+
+    return render(request, 'veiculo_create.html', {'form':form})
 
 @login_required
 def estab_atv_vincular(request):
