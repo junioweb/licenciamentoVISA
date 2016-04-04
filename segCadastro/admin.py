@@ -21,9 +21,13 @@ class DocumentoInline(admin.TabularInline):
     model = Documento
     extra = 3
 
+class CaracterizacaoAtividadeInline(admin.TabularInline):
+    filter_horizontal = ('ResponsavelTecnico',)
+    model = Estabelecimento_Desempenha_Atv
+    extra = 1
+
 class Estabelecimento_Desempenha_AtvAdmin(admin.ModelAdmin):
     filter_horizontal = ('ResponsavelTecnico',)
-    search_fields = ['CNPJ']
 
 class ProcessoAdmin(admin.ModelAdmin):
     inlines = [DocumentoInline]
@@ -83,7 +87,7 @@ class Pessoa_FisicaAdmin(admin.ModelAdmin):
                        'UrgLtObservacaoProntoSocorro',
                        ]}),
     ]
-    inlines = [EquipamentoInline]
+    inlines = [EquipamentoInline, CaracterizacaoAtividadeInline]
 
 class Pessoa_JuridicaAdmin(admin.ModelAdmin):
     search_fields = ['CNPJ']
@@ -147,7 +151,7 @@ class Pessoa_JuridicaAdmin(admin.ModelAdmin):
                        'UrgLtObservacaoProntoSocorro',
                        ]}),
     ]
-    inlines = [EquipamentoInline, AutorizacaoInline]
+    inlines = [EquipamentoInline, AutorizacaoInline, CaracterizacaoAtividadeInline]
 
 admin.site.register(Responsavel)
 admin.site.register(CBO)
