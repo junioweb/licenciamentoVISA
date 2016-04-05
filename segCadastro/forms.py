@@ -45,7 +45,7 @@ class EstabelecimentoDesempenhaAtvForm(ModelForm):
         model = Estabelecimento_Desempenha_Atv
         exclude = ['']
         widgets = {
-            'Estabelecimento': TextInput(attrs={'class': 'js-example-basic-single js-states form-control'}),
+            'Estabelecimento': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'Atividade': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'ResponsavelTecnico': SelectMultiple(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'Veiculo': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
