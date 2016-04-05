@@ -416,7 +416,7 @@ class Veiculo(models.Model):
     Nome = models.CharField(max_length=150)
     CNPJ = models.CharField(max_length=14, blank=True)
     CPF = models.CharField(max_length=11, blank=True)
-    Placa = models.CharField(max_length=7)
+    Placa = models.CharField(max_length=7, unique=True)
     UF = models.CharField(max_length=2)
     Chassi = models.CharField(max_length=17)
     TipoVeiculo = models.CharField(max_length=8)
