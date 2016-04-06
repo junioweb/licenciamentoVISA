@@ -575,7 +575,7 @@ class Documento(models.Model):
     DataHora = models.DateTimeField(auto_now_add=True)
     Publico = models.BooleanField("Público")
     Assunto = models.CharField(max_length=100, choices=ASSUNTO_CHOICES)
-    Arquivo = models.FileField(blank=True, upload_to=user_directory_path)
+    Arquivo = models.FileField(blank=True, upload_to=user_directory_path, max_length=500)
     Descricao = models.TextField(blank=True)
     Usuario = models.ForeignKey(
         settings.AUTH_USER_MODEL,
