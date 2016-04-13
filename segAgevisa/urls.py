@@ -54,3 +54,4 @@ urlpatterns = [
     #url(r'^processo/(?P<pk>[0-9]+)/tramitar', views.processo_tramitar, name='processo_tramitar'),
     #url(r'^responsavel/(?P<pk>[0-9]+)/editar', views.responsavel_editar, name='responsavel_editar'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

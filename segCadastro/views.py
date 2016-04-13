@@ -426,3 +426,4 @@ def p_imprimir(request, pk):
     buffer.close()
     response.write(pdf)
     return response
+
