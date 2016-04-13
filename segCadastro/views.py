@@ -68,14 +68,10 @@ def emitir_alvara(request, usuario, processo, obs):
     filename = "Alvara-"+unicode(processo.Exercicio)+".pdf"
     doc.Arquivo.save(filename, arquivo)
 
-"""
 @login_required
 def home(request):
 	return render(request, 'index.html',
 							{'full_name': request.user.first_name, 'username':request.user.username})
-"""
-def home(request):
-    return HttpResponse("Desculpe o transtorno: Estamos em manutenção. Voltaremos em Breve!")
 
 def example(request):
 	return render(request, 'example.html')
@@ -426,4 +422,3 @@ def p_imprimir(request, pk):
     buffer.close()
     response.write(pdf)
     return response
-
