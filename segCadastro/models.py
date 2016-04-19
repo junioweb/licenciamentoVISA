@@ -636,13 +636,13 @@ class Processo_Tramita_Setor(models.Model):
         null=True, blank=True, editable=False,
     )
 
-    def __unicode__(self):
+    def __str__(self):
         if self.Operacao == 0:
-            return unicode(self.Processo)+' => '+unicode(self.Setor)
+            return str(self.Processo)+' => '+str(self.Setor)
         elif self.Operacao == 1:
-            return unicode(self.Processo)+' <= '+unicode(self.Setor)
+            return str(self.Processo)+' <= '+str(self.Setor)
         elif self.Operacao == 2:
-            return unicode(self.Processo)+' = '+unicode(self.Setor)
+            return str(self.Processo)+' = '+str(self.Setor)
 
     class Meta:
         verbose_name = 'Tramitação de Processo'
