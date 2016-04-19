@@ -302,8 +302,6 @@ def estab_atv_vincular(request):
 
 @login_required
 def processo_tramitar(request, pk):
-    request.encoding = 'utf-8'
-
     form = TramitaSetorForm(request.POST or None)
     data = {}
     errors = []
@@ -311,12 +309,12 @@ def processo_tramitar(request, pk):
 
     if form.is_valid():
         tramitacao = form.save(commit=False)
+        tramitacao.encoding = 'utf-8'
         tramitacao.Usuario = request.user
         try:
             if tramitacao.Situacao == 'DEF' and tramitacao.Alvara == True:
                 try:
-                    processo = str(tramitacao.Processo)
-                    emitir_alvara(request, tramitacao.Usuario, processo, tramitacao.Obs)
+                    emitir_alvara(request, tramitacao.Usuario, tramitacao.Processo, tramitacao.Obs)
                 except PermissionDenied as e:
                     raise e
 
