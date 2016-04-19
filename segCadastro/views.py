@@ -302,6 +302,8 @@ def estab_atv_vincular(request):
 
 @login_required
 def processo_tramitar(request, pk):
+    request.encoding = 'utf-8'
+    request.POST.encoding = 'utf-8'
     form = TramitaSetorForm(request.POST or None)
     data = {}
     errors = []
@@ -309,7 +311,6 @@ def processo_tramitar(request, pk):
 
     if form.is_valid():
         tramitacao = form.save(commit=False)
-        tramitacao = tramitacao.decode('utf-8')
         tramitacao.Usuario = request.user
         try:
             if tramitacao.Situacao == 'DEF' and tramitacao.Alvara == True:
