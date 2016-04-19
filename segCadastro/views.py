@@ -303,6 +303,8 @@ def estab_atv_vincular(request):
 
 @login_required
 def processo_tramitar(request, pk):
+    request.encoding = 'utf-8'
+
     form = TramitaSetorForm(request.POST or None)
     data = {}
     errors = []
