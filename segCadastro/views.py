@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 
 from io import BytesIO
-from __future__ import unicode_literals
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Table, TableStyle, Image
 from reportlab.lib.units import cm, mm, inch, pica
