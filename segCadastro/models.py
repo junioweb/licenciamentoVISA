@@ -530,7 +530,7 @@ class Processo(models.Model):
         else:
             processoMae = 1
 
-        return self.Tipo+'-'+str(self.Numero)+self.Ano+'.'+self.Exercicio+'.'+str(processoMae)+' ('+str(self.Estabelecimento)+')'
+        return self.Tipo+'-'+unicode(self.Numero)+self.Ano+'.'+self.Exercicio+'.'+unicode(processoMae)+' ('+unicode(self.Estabelecimento)+')'
 
     class Meta:
         unique_together = (('Tipo', 'Numero', 'Ano'),)
@@ -636,13 +636,13 @@ class Processo_Tramita_Setor(models.Model):
         null=True, blank=True, editable=False,
     )
 
-    def __str__(self):
+    def __unicode__(self):
         if self.Operacao == 0:
-            return str(self.Processo)+' => '+str(self.Setor)
+            return unicode(self.Processo)+' => '+unicode(self.Setor)
         elif self.Operacao == 1:
-            return str(self.Processo)+' <= '+str(self.Setor)
+            return unicode(self.Processo)+' <= '+unicode(self.Setor)
         elif self.Operacao == 2:
-            return str(self.Processo)+' = '+str(self.Setor)
+            return unicode(self.Processo)+' = '+unicode(self.Setor)
 
     class Meta:
         verbose_name = 'Tramitação de Processo'
