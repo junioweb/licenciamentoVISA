@@ -524,13 +524,13 @@ class Processo(models.Model):
     TramitaSetor = models.ManyToManyField('Setor', related_name="tramita_setor", through='Processo_Tramita_Setor', blank=True)
     Setor = models.ForeignKey('Setor', null=True, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         if self.ProcessoMae == None:
             processoMae = 0
         else:
             processoMae = 1
 
-        return self.Tipo+'-'+unicode(self.Numero)+self.Ano+'.'+self.Exercicio+'.'+unicode(processoMae)+' ('+unicode(self.Estabelecimento)+')'
+        return self.Tipo+'-'+str(self.Numero)+self.Ano+'.'+self.Exercicio+'.'+str(processoMae)+' ('+str(self.Estabelecimento)+')'
 
     class Meta:
         unique_together = (('Tipo', 'Numero', 'Ano'),)
@@ -636,13 +636,13 @@ class Processo_Tramita_Setor(models.Model):
         null=True, blank=True, editable=False,
     )
 
-    def __unicode__(self):
+    def __str__(self):
         if self.Operacao == 0:
-            return unicode(self.Processo.encode('ascii', errors='replace'))+' => '+unicode(self.Setor)
+            return str(self.Processo)+' => '+str(self.Setor)
         elif self.Operacao == 1:
-            return unicode(self.Processo.encode('ascii', errors='replace'))+' <= '+unicode(self.Setor)
+            return str(self.Processo)+' <= '+str(self.Setor)
         elif self.Operacao == 2:
-            return unicode(self.Processo.encode('ascii', errors='replace'))+' = '+unicode(self.Setor)
+            return str(self.Processo)+' = '+str(self.Setor)
 
     class Meta:
         verbose_name = 'Tramitação de Processo'

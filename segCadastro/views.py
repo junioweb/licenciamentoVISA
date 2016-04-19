@@ -315,7 +315,7 @@ def processo_tramitar(request, pk):
         try:
             if tramitacao.Situacao == 'DEF' and tramitacao.Alvara == True:
                 try:
-                    emitir_alvara(request, tramitacao.Usuario, tramitacao.Processo, tramitacao.Obs)
+                    emitir_alvara(request, tramitacao.Usuario, str(tramitacao.Processo), tramitacao.Obs)
                 except PermissionDenied as e:
                     raise e
 
