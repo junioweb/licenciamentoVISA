@@ -309,7 +309,7 @@ def processo_tramitar(request, pk):
 
     if form.is_valid():
         tramitacao = form.save(commit=False)
-        tramitacao.encoding = 'utf-8'
+        tramitacao = tramitacao.decode('utf-8')
         tramitacao.Usuario = request.user
         try:
             if tramitacao.Situacao == 'DEF' and tramitacao.Alvara == True:
