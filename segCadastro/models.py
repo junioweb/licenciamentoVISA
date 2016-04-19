@@ -524,7 +524,7 @@ class Processo(models.Model):
     TramitaSetor = models.ManyToManyField('Setor', related_name="tramita_setor", through='Processo_Tramita_Setor', blank=True)
     Setor = models.ForeignKey('Setor', null=True, blank=True)
 
-    def __str__(self):
+    def __unicode__(self):
         if self.ProcessoMae == None:
             processoMae = 0
         else:
