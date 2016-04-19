@@ -23,14 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'e0w6^97=pa+@bxc&2f04bip638_x%3k&t3*)%)kj-!v&%n+e9e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
-	'www.agevisa.tk',
-	'agevisa.tk',
 	'seg.agevisa.pb.gov.br',
 ]
-
 
 # Application definition
 
