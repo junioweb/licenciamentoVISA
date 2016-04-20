@@ -312,10 +312,10 @@ def processo_tramitar(request, pk):
         tramitacao.Usuario = request.user
         try:
             if tramitacao.Situacao == 'DEF' and tramitacao.Alvara == True:
-                try:
-                    emitir_alvara(request, tramitacao.Usuario, tramitacao.Processo, tramitacao.Obs)
-                except PermissionDenied as e:
-                    raise e
+                #try:
+                emitir_alvara(request, tramitacao.Usuario, tramitacao.Processo, tramitacao.Obs)
+                #except PermissionDenied as e:
+                    #raise e
 
                 successes.append("Alvará emitido com sucesso")
             tramitacao.save()
