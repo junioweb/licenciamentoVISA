@@ -324,7 +324,8 @@ def processo_tramitar(request, pk):
         except MultipleObjectsReturned as e:
             data['errors'] = e
         except UnicodeDecodeError as e:
-            data['errors'] = e
+            #data['errors'] = e
+            raise e
         except OSError as e:
             data['errors'] = e
         except Exception as e:
