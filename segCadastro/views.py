@@ -311,14 +311,6 @@ def processo_tramitar(request, pk):
         tramitacao = form.save(commit=False)
         tramitacao.Usuario = request.user
 
-        if tramitacao.Situacao == 'DEF' and tramitacao.Alvara == True:
-            emitir_alvara(request, tramitacao.Usuario, tramitacao.Processo, tramitacao.Obs)
-
-            successes.append("Alvará emitido com sucesso")
-            tramitacao.save()
-            successes.append("Tramitação realizada com sucesso")
-            data['successes'] = successes
-        """
         try:
             if tramitacao.Situacao == 'DEF' and tramitacao.Alvara == True:
                 try:
@@ -339,7 +331,6 @@ def processo_tramitar(request, pk):
             data['errors'] = e
         except Exception as e:
             raise e
-        """
 
         return render(request, 'resultado.html', data)
 
