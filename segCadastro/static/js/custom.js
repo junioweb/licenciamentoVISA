@@ -140,3 +140,37 @@ jQuery(window).load(function() {
       jQuery('body').delay(350).css({'overflow':'visible'});
    });
 });
+
+/**************************************************************
+
+jslint  browser: true, white: true, plusplus: true
+global $, countries
+
+***************************************************************/
+
+$(function () {
+    'use strict';
+    var processos = {
+        "1": "Processo 1",
+        "2": "Processo 2",
+        "3": "Processo 3",
+    }
+    var processosArray = $.map(processos, function (value, key) { return { value: value, data: key }; });
+
+    // Initialize ajax autocomplete:
+    $('#autocomplete-ajax').autocomplete({
+        serviceUrl: '/autocomplete/service/',
+        dataType: 'jsonp',
+        //lookup: processosArray,
+        //lookupFilter: function(suggestion, originalQuery, queryLowerCase) {
+            //var re = new RegExp('\\b' + $.Autocomplete.utils.escapeRegExChars(queryLowerCase), 'gi');
+            //return re.test(suggestion.value);
+        //},
+        onSelect: function (suggestion) {
+            alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+        },
+        onHint: function (hint) {
+            $('#autocomplete-ajax-x').val(hint);
+        },
+    });
+});

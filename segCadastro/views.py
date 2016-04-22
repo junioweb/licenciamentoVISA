@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-import os, re
+import os, re, json
 from django.forms.formsets import formset_factory, BaseFormSet
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required, permission_required
@@ -335,6 +335,14 @@ def processo_tramitar(request, pk):
         return render(request, 'resultado.html', data)
 
     return render(request, 'processo_tramitar.html', {'form':form})
+
+def busca_autocomplete(request, query):
+    busca = request.GET.get("query")
+    processos = Processo.objects.filter(Numero__istartswith=busca)
+    data = [ dict(value=p.__unicode__(), data=p.pk,) for p in processos ]
+    res = [ dict(query="Unit", suggestions=data) ]
+
+    return HttpResponse(json.dumps(res),)
 
 @login_required
 def p_imprimir(request, pk):
