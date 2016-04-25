@@ -43,10 +43,10 @@ class PessoaJuridicaForm(ModelForm):
 class EstabelecimentoDesempenhaAtvForm(ModelForm):
     class Meta:
         model = Estabelecimento_Desempenha_Atv
-        exclude = ['']
+        exclude = ['Estabelecimento', 'Atividade']
         widgets = {
-            'Estabelecimento': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
-            'Atividade': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
+            #'Estabelecimento': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
+            #'Atividade': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'ResponsavelTecnico': SelectMultiple(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'Veiculo': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
         }

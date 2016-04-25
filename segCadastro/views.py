@@ -336,10 +336,30 @@ def processo_tramitar(request, pk):
 
     return render(request, 'processo_tramitar.html', {'form':form})
 
-def busca_autocomplete(request):
+def busca_autocomplete_processo(request):
     busca = request.GET.get("term")
     processos = Processo.objects.filter(Numero__istartswith=busca)
     res = [ dict(name=p.__unicode__(), id=p.pk,) for p in processos ]
+
+    return HttpResponse(json.dumps(res),)
+
+def busca_autocomplete_estabelecimento(request):
+    busca = request.GET.get("term")
+    estabelecimento = processo.Estabelecimento.child_object()
+
+    estabelecimentosCPF = estabelecimento.objects.filter(CPF__istartswith=busca)
+    estabelecimentosCNPJ = estabelecimento.objects.filter(CNPJ__istartswith=busca)
+    estabelecimentos = []
+    estabelecimentos.append("estabelecimentosCPF")
+    estabelecimentos.append("estabelecimentosCNPJ")
+    res = [ dict(name=e.__unicode__(), id=e.pk,) for e in estabelecimentos ]
+
+    return HttpResponse(json.dumps(res),)
+
+def busca_autocomplete_atividade(request):
+    busca = request.GET.get("term")
+    atividades = Processo.objects.filter(Numero__istartswith=busca)
+    res = [ dict(name=a.__unicode__(), id=a.pk,) for a in atividades ]
 
     return HttpResponse(json.dumps(res),)
 
