@@ -54,9 +54,9 @@ class EstabelecimentoDesempenhaAtvForm(ModelForm):
 class TramitaSetorForm(ModelForm):
     class Meta:
         model = Processo_Tramita_Setor
-        exclude = ['']
+        exclude = ['Processo']
         widgets = {
-            'Processo': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
+            #'Processo': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'Setor': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'Operacao': Select(attrs={'class': 'form-control'}),
         }

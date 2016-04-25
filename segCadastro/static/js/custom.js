@@ -143,34 +143,25 @@ jQuery(window).load(function() {
 
 /**************************************************************
 
-jslint  browser: true, white: true, plusplus: true
-global $, countries
+jQuery UI - Autocomplete
 
 ***************************************************************/
-
-$(function () {
-    'use strict';
-    var processos = {
-        "1": "Processo 1",
-        "2": "Processo 2",
-        "3": "Processo 3",
+$(function() {
+  $( "#autocomplete-processo" ).autocomplete({
+    source: "/autocomplete/service/",
+    focus: function( event, ui ) {
+      $( "#autocomplete-processo" ).val( ui.item.name );
+      return false;
+    },
+    select: function( event, ui ) {
+      $( "#autocomplete-processo" ).val( ui.item.name );
+      $( "#processo-id" ).val( ui.item.id );
+      return false;
     }
-    var processosArray = $.map(processos, function (value, key) { return { value: value, data: key }; });
-
-    // Initialize ajax autocomplete:
-    $('#autocomplete-ajax').autocomplete({
-        serviceUrl: '/autocomplete/service/',
-        dataType: 'jsonp',
-        //lookup: processosArray,
-        //lookupFilter: function(suggestion, originalQuery, queryLowerCase) {
-            //var re = new RegExp('\\b' + $.Autocomplete.utils.escapeRegExChars(queryLowerCase), 'gi');
-            //return re.test(suggestion.value);
-        //},
-        onSelect: function (suggestion) {
-            alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-        },
-        onHint: function (hint) {
-            $('#autocomplete-ajax-x').val(hint);
-        },
-    });
+  })
+  .autocomplete( "instance" )._renderItem = function( ul, item ) {
+    return $( "<li>" )
+      .append( "<a>" + item.name + "</a>" )
+      .appendTo( ul );
+  };
 });

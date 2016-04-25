@@ -308,10 +308,11 @@ def processo_tramitar(request, pk):
     successes = []
 
     if form.is_valid():
-        tramitacao = form.save(commit=False)
-        tramitacao.Usuario = request.user
-
         try:
+            tramitacao = form.save(commit=False)
+            tramitacao.Usuario = request.user
+            tramitacao.Processo = Processo.objects.get(pk=request.POST.get("processo_id"))
+
             if tramitacao.Situacao == 'DEF' and tramitacao.Alvara == True:
                 try:
                     emitir_alvara(request, tramitacao.Usuario, tramitacao.Processo, tramitacao.Obs)
@@ -325,8 +326,7 @@ def processo_tramitar(request, pk):
         except MultipleObjectsReturned as e:
             data['errors'] = e
         except UnicodeDecodeError as e:
-            #data['errors'] = e
-            raise e
+            data['errors'] = e
         except OSError as e:
             data['errors'] = e
         except Exception as e:
@@ -336,11 +336,10 @@ def processo_tramitar(request, pk):
 
     return render(request, 'processo_tramitar.html', {'form':form})
 
-def busca_autocomplete(request, query):
-    busca = request.GET.get("query")
+def busca_autocomplete(request):
+    busca = request.GET.get("term")
     processos = Processo.objects.filter(Numero__istartswith=busca)
-    data = [ dict(value=p.__unicode__(), data=p.pk,) for p in processos ]
-    res = [ dict(query="Unit", suggestions=data) ]
+    res = [ dict(name=p.__unicode__(), id=p.pk,) for p in processos ]
 
     return HttpResponse(json.dumps(res),)
 
