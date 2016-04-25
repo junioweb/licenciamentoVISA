@@ -470,6 +470,7 @@ class Estabelecimento_Desempenha_Atv(models.Model):
     ResponsavelTecnico = models.ManyToManyField(
                                                 Responsavel,
                                                 blank=True,
+                                                related_name="resp_tecnico",
                                                 verbose_name='Responsável(eis) Técnico(s)',
                                                 )
     Veiculo = models.ForeignKey(Veiculo, null=True, blank=True)
@@ -554,9 +555,7 @@ class Documento(models.Model):
         ('PLANTA BAIXA', 'PLANTA BAIXA'),
         ('MEMORIAL DESCRITIVO', 'MEMORIAL DESCRITIVO'),
         (u'CERTIDÃO DE REGULARIDADE TÉCNICA', 'CERTIDÃO DE REGULARIDADE TÉCNICA'),
-        (u'MANUAL DE BOAS PRÁTICAS', 'MANUAL DE BOAS PRÁTICAS'),
-        (u'PROCEDIMENTO OPERACIONAL PADRÃO', 'PROCEDIMENTO OPERACIONAL PADRÃO'),
-        (u'PLANO DE GERENCIAMENTO DE RESÍDUOS', 'PLANO DE GERENCIAMENTO DE RESÍDUOS'),
+        (u'MANUAL DE BOAS PRÁ07206816003645ENTO DE RESÍDUOS', 'PLANO DE GERENCIAMENTO DE RESÍDUOS'),
         (u'AUTORIZAÇÃO DE FUNCIONAMENTO (ANVISA)', 'AUTORIZAÇÃO DE FUNCIONAMENTO (ANVISA)'),
         ('CONTRATO DE TRABALHO', 'CONTRATO DE TRABALHO'),
         (u'STATUS DE TRANSMISSÃO (SNGPC)', 'STATUS DE TRANSMISSÃO (SNGPC)'),

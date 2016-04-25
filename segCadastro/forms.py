@@ -9,11 +9,9 @@ from segCadastro.models import Autorizacao_Funcionamento, Veiculo
 class ProcessoForm(ModelForm):
     class Meta:
         model = Processo
-        exclude = ['TramitaSetor']
+        exclude = ['TramitaSetor', 'ProcessoMae', 'Estabelecimento']
         widgets = {
             'Tipo': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
-            'ProcessoMae': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
-            'Estabelecimento': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'Assunto': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'Atividade_Estabelecimento': SelectMultiple(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'Setor': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
@@ -45,8 +43,6 @@ class EstabelecimentoDesempenhaAtvForm(ModelForm):
         model = Estabelecimento_Desempenha_Atv
         exclude = ['Estabelecimento', 'Atividade']
         widgets = {
-            #'Estabelecimento': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
-            #'Atividade': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'ResponsavelTecnico': SelectMultiple(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'Veiculo': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
         }
@@ -56,7 +52,6 @@ class TramitaSetorForm(ModelForm):
         model = Processo_Tramita_Setor
         exclude = ['Processo']
         widgets = {
-            #'Processo': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'Setor': Select(attrs={'class': 'js-example-basic-single js-states form-control'}),
             'Operacao': Select(attrs={'class': 'form-control'}),
         }

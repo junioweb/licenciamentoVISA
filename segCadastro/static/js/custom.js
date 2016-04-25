@@ -148,7 +148,7 @@ jQuery UI - Autocomplete
 ***************************************************************/
 $(function() {
   $( "#autocomplete-processo" ).autocomplete({
-    source: "/autocomplete/service/processo",
+    source: "/autocomplete/service/processo/",
     focus: function( event, ui ) {
       $( "#autocomplete-processo" ).val( ui.item.name );
       return false;
@@ -159,8 +159,14 @@ $(function() {
       return false;
     }
   })
+  .autocomplete( "instance" )._renderItem = function( ul, item ) {
+    return $( "<li>" )
+      .append( "<a>" + item.name + "</a>" )
+      .appendTo( ul );
+  };
   $( "#autocomplete-estabelecimento" ).autocomplete({
-    source: "/autocomplete/service/estabelecimento",
+    source: "/autocomplete/service/estabelecimento/",
+    minLength: 5,
     focus: function( event, ui ) {
       $( "#autocomplete-estabelecimento" ).val( ui.item.name );
       return false;
@@ -171,8 +177,14 @@ $(function() {
       return false;
     }
   })
+  .autocomplete( "instance" )._renderItem = function( ul, item ) {
+    return $( "<li>" )
+      .append( "<a>" + item.name + "</a>" )
+      .appendTo( ul );
+  };
   $( "#autocomplete-atividade" ).autocomplete({
-    source: "/autocomplete/service/atividade",
+    source: "/autocomplete/service/atividade/",
+    minLength: 2,
     focus: function( event, ui ) {
       $( "#autocomplete-atividade" ).val( ui.item.name );
       return false;

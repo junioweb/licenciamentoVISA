@@ -239,7 +239,11 @@ def processo_create(request):
     form = ProcessoForm(request.POST or None)
 
     if form.is_valid():
-        form.save()
+        processo = form.save(commit=False)
+        if request.POST.get("processo_id"):
+            processo.ProcessoMae = Processo.objects.get(pk=request.POST.get("processo_id"))
+        processo.Estabelecimento = Estabelecimento.objects.get(pk=request.POST.get("estabelecimento_id"))
+        processo.save()
         return redirect('processo_listar')
 
     return render(request, 'processo_create.html', {'form':form})
@@ -289,14 +293,14 @@ def veiculo_create(request):
 
 @login_required
 def estab_atv_vincular(request):
-    form = EstabelecimentoDesempenhaAtvForm(None)
+    form = EstabelecimentoDesempenhaAtvForm(request.POST or None)
 
-    if request.POST:
-        form = EstabelecimentoDesempenhaAtvForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect('p_juridica_listar')
+    if form.is_valid():
+        vincular = form.save(commit=False)
+        vincular.Estabelecimento = Estabelecimento.objects.get(pk=request.POST.get("estabelecimento_id"))
+        vincular.Atividade = Atividade.objects.get(pk=request.POST.get("atividade_id"))
+        vincular.save()
+        return redirect('p_juridica_listar')
 
     return render(request, 'estab_atv_vincular.html', {'object':estabelecimento, 'form':form})
 
@@ -345,21 +349,25 @@ def busca_autocomplete_processo(request):
 
 def busca_autocomplete_estabelecimento(request):
     busca = request.GET.get("term")
-    estabelecimento = processo.Estabelecimento.child_object()
+    estabelecimentosCPF = Pessoa_Fisica.objects.filter(CPF__istartswith=busca)
+    estabelecimentosCNPJ = Pessoa_Juridica.objects.filter(CNPJ__istartswith=busca)
 
-    estabelecimentosCPF = estabelecimento.objects.filter(CPF__istartswith=busca)
-    estabelecimentosCNPJ = estabelecimento.objects.filter(CNPJ__istartswith=busca)
-    estabelecimentos = []
-    estabelecimentos.append("estabelecimentosCPF")
-    estabelecimentos.append("estabelecimentosCNPJ")
-    res = [ dict(name=e.__unicode__(), id=e.pk,) for e in estabelecimentos ]
+    res = [ dict(name=e.__unicode__(), id=e.pk,) for e in estabelecimentosCNPJ ]
+    res2 = [ dict(name=e.__unicode__(), id=e.pk,) for e in estabelecimentosCPF ]
 
-    return HttpResponse(json.dumps(res),)
+    return HttpResponse(json.dumps(res2+res))
 
 def busca_autocomplete_atividade(request):
     busca = request.GET.get("term")
-    atividades = Processo.objects.filter(Numero__istartswith=busca)
+    atividades = Atividade.objects.filter(Subclasse__istartswith=busca)
     res = [ dict(name=a.__unicode__(), id=a.pk,) for a in atividades ]
+
+    return HttpResponse(json.dumps(res),)
+
+def busca_autocomplete_responsavel(request):
+    busca = request.GET.get("term")
+    responsaveis = Responsavel.objects.filter(CPF__istartswith=busca)
+    res = [ dict(name=r.__unicode__(), id=r.pk,) for r in responsaveis ]
 
     return HttpResponse(json.dumps(res),)
 
