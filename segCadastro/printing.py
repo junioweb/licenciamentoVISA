@@ -154,13 +154,20 @@ class MyPrint:
         #atividades = empresa.Atividade.all()
         atividades = processo.Atividade_Estabelecimento.all()
         for atividade in atividades:
-            if atividade.MedControlados and atividade.Atividade.Subclasse == '4771701' or atividade.MedControlados and atividade.Atividade.Subclasse == '4771703':
-                obs = 'APTA A DISPENSAR MEDICAMENTOS CONTROLADOS DA PORTARIA 344/98'
+            if hasattr(empresa, 'RazaoSocial'):
+                if atividade.MedControlados and atividade.Atividade.Subclasse == '4771701' or atividade.MedControlados and atividade.Atividade.Subclasse == '4771703':
+                    obs = 'APTA A DISPENSAR MEDICAMENTOS CONTROLADOS DA PORTARIA 344/98'
             data.append([Paragraph(unicode(atividade.Atividade), styles2['default'])])
-            data.append(['Responsável(eis) Técnico(s):'])
-            resp_tecnicos = atividade.ResponsavelTecnico.all()
-            for resp_tecnico in resp_tecnicos:
-                data.append([unicode(resp_tecnico.Nome)+' - '+unicode(resp_tecnico.SiglaConselhoClasse)+'('+unicode(resp_tecnico.InscricaoConselhoClasse)+')'])
+            if atividade.Veiculo:
+                data.append([Paragraph(unicode(atividade.Veiculo), styles2['bold'])])
+            if hasattr(empresa, 'Nome'):
+                data.append(['Responsável Técnico:'])
+                data.append([unicode(empresa.Nome)+' - '+unicode(empresa.SiglaConselhoClasse)+'('+unicode(empresa.InscricaoConselhoClasse)+')'])
+            elif hasattr(empresa, 'RazaoSocial'):
+                data.append(['Responsável(eis) Técnico(s):'])
+                resp_tecnicos = atividade.ResponsavelTecnico.all()
+                for resp_tecnico in resp_tecnicos:
+                    data.append([unicode(resp_tecnico.Nome)+' - '+unicode(resp_tecnico.SiglaConselhoClasse)+'('+unicode(resp_tecnico.InscricaoConselhoClasse)+')'])
 
         if obs:
             data.append([Paragraph('Observação:', styles2['bold'])])
@@ -183,6 +190,7 @@ class MyPrint:
         elements.append(Paragraph('Número da Agevisa: '+str(estabelecimento.Pasta), styles2['default']))
         if hasattr(empresa, 'Nome'):
             elements.append(Paragraph('Nome: '+unicode(empresa.Nome), styles2['default']))
+            elements.append(Paragraph('CPF: '+empresa.CPF, styles2['default']))
         elif hasattr(empresa, 'RazaoSocial'):
             elements.append(Paragraph(u'Razão Social: '+unicode(empresa.RazaoSocial), styles2['default']))
             if empresa.NomeFantasia:
@@ -196,6 +204,14 @@ class MyPrint:
             resp_legais = empresa.ResponsaveisLegais.all()
             for resp_legal in resp_legais:
                 elements.append(Paragraph(unicode(resp_legal), styles2['default']))
+            if empresa.EstabelecimentoMantenedor:
+                elements.append(Paragraph(u'Estabelecimento Mantenedor: ', styles2['bold']))
+                elements.append(Paragraph(u'Razão Social: '+unicode(empresa.EstabelecimentoMantenedor.RazaoSocial), styles2['default']))
+                if empresa.EstabelecimentoMantenedor.NomeFantasia:
+                    elements.append(Paragraph('Nome Fantasia: '+unicode(empresa.EstabelecimentoMantenedor.NomeFantasia)+', CNPJ: '+empresa.EstabelecimentoMantenedor.CNPJ, styles2['default']))
+                else:
+                    elements.append(Paragraph('CNPJ: '+empresa.EstabelecimentoMantenedor.CNPJ, styles2['default']))
+
         elements.append(Paragraph('', styles2['default']))
         elements.append(t2)
         elements.append(Paragraph('', styles2['default']))

@@ -54,6 +54,6 @@ urlpatterns = [
     url(r'^autocomplete/service/atividade/$', views.busca_autocomplete_atividade, name='busca_autocomplete_atividade'),
     url(r'^autocomplete/service/responsavel/$', views.busca_autocomplete_responsavel, name='busca_autocomplete_responsavel'),
     url(r'^processo/(?P<pk>[0-9]+)/imprimir', views.p_imprimir, name='p_imprimir'),
-    url(r'^processo/(?P<pk>[0-9]+)/tramitar', views.processo_tramitar, name='processo_tramitar'),
+    url(r'^processo/reorientar/$', views.processo_reorientar, name='processo_reorientar'),
     url(r'^responsavel/(?P<pk>[0-9]+)/editar', views.responsavel_editar, name='responsavel_editar'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

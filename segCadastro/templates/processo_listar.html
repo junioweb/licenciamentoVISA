@@ -27,7 +27,7 @@
               <td>{{processo.Estabelecimento}}</td>
               <td>
                 <a href="{% url 'p_imprimir' processo.Numero %}">Imprimir</a> |
-                <a href="{% url 'processo_tramitar' processo.Numero %}">Tramitar</a>
+                <a href="/processo/reorientar/">Tramitar</a>
               </td>
             </tr>
           {% endfor %}

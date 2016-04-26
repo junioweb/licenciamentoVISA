@@ -305,7 +305,7 @@ def estab_atv_vincular(request):
     return render(request, 'estab_atv_vincular.html', {'object':estabelecimento, 'form':form})
 
 @login_required
-def processo_tramitar(request, pk):
+def processo_reorientar(request):
     form = TramitaSetorForm(request.POST or None)
     data = {}
     errors = []
@@ -338,7 +338,7 @@ def processo_tramitar(request, pk):
 
         return render(request, 'resultado.html', data)
 
-    return render(request, 'processo_tramitar.html', {'form':form})
+    return render(request, 'processo_reorientar.html', {'form':form})
 
 def busca_autocomplete_processo(request):
     busca = request.GET.get("term")
@@ -439,15 +439,27 @@ def p_imprimir(request, pk):
         p.drawString(40, 380, "E-mail: "+estabelecimento.Email)
         if processo.Obs != '':
             p.drawString(40, 360, u"Observação: "+processo.Obs)
+        if hasattr(pessoa, 'RazaoSocial') and pessoa.EstabelecimentoMantenedor:
+            p.setFont("Helvetica-Bold", 14)
+            p.drawString(40, 340, 'Estabelecimento Mantenedor:')
+            p.setFont("Helvetica", 10)
+            p.drawString(40, 320, u"Razão Social: "+pessoa.EstabelecimentoMantenedor.RazaoSocial)
+            p.drawString(40, 300, "CNPJ: "+pessoa.EstabelecimentoMantenedor.CNPJ)
+            i = 280
+        else:
+            i = 340
+
         p.setFont("Helvetica-Bold", 14)
-        p.drawString(40, 320, u'Caracterização da(s) Atividade(s) Econômica(s):')
+        p.drawString(40, i, u'Caracterização da(s) Atividade(s) Econômica(s):')
         p.setFont("Helvetica", 9)
 
-        i = 320
         for ar in estab_atividade:
             atividade = Atividade.objects.get(pk=ar.Atividade_id)
             i = i-20
             p.drawString(40, i, atividade.Subclasse+' - '+atividade.Denominacao)
+            if ar.Veiculo:
+                i = i-10
+                p.drawString(40, i, unicode(ar.Veiculo))
 
     else:
         if processo.Obs != '':
