@@ -242,7 +242,8 @@ def processo_create(request):
         processo = form.save(commit=False)
         if request.POST.get("processo_id"):
             processo.ProcessoMae = Processo.objects.get(pk=request.POST.get("processo_id"))
-        processo.Estabelecimento = Estabelecimento.objects.get(pk=request.POST.get("estabelecimento_id"))
+        if request.POST.get("estabelecimento_id"):
+            processo.Estabelecimento = Estabelecimento.objects.get(pk=request.POST.get("estabelecimento_id"))
         processo.save()
         return redirect('processo_listar')
 
