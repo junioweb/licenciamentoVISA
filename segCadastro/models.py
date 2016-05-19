@@ -613,7 +613,7 @@ class Processo_Tramita_Setor(models.Model):
         (SITUACAO, 'Alterar Situação'),
     )
     SITUACAO_CHOICES = (
-        ('PEN_ANA', 'PENDENTE - EM ANÁLISE'),
+        ('ANA', 'EM ANÁLISE'),
         ('PEN_DOC_INC', 'PENDENTE - DOCUMENTAÇÃO INCOMPLETA'),
         ('PEN_AGU_INSP', 'PENDENTE - AGUARDANDO INSPEÇÃO'),
         ('PEN_AGU_CUMP_EXI', 'PENDENTE - AGUARDANDO CUMPRIMENTO DE EXIGÊNCIAS'),
