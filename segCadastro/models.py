@@ -466,6 +466,11 @@ class Estabelecimento_Desempenha_Atv(models.Model):
     ImpUsoProprio = models.BooleanField('Importar para uso próprio')
     Exportar = models.BooleanField()
     RealEtapFab = models.BooleanField('Realizar etapas de fabricação')
+    TranspCosm = models.BooleanField('Transportadora de Cosméticos', default=False)
+    TranspCorr = models.BooleanField('Transportadora de Correlatos', default=False)
+    TranspMed = models.BooleanField('Transportadora de Medicamentos', default=False)
+    TranspSan = models.BooleanField('Transportadora de Saneantes', default=False)
+    TranspAli = models.BooleanField('Transportadora de Alimentos', default=False)
 
     ResponsavelTecnico = models.ManyToManyField(
                                                 Responsavel,
