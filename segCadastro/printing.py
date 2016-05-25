@@ -156,17 +156,7 @@ class MyPrint:
         for atividade in atividades:
             if hasattr(empresa, 'RazaoSocial'):
                 if atividade.MedControlados and atividade.Atividade.Subclasse == '4771701' or atividade.MedControlados and atividade.Atividade.Subclasse == '4771703':
-                    obs += 'APTA A DISPENSAR MEDICAMENTOS CONTROLADOS DA PORTARIA 344/98;'
-                if atividade.TranspCosm and atividade.Atividade.Subclasse == '4930201' or atividade.TranspCosm and atividade.Atividade.Subclasse == '4930202':
-                    obs += u'APTA A TRANSPORTAR COSMÉTICOS;'
-                if atividade.TranspCorr and atividade.Atividade.Subclasse == '4930201' or atividade.TranspCorr and atividade.Atividade.Subclasse == '4930202':
-                    obs += 'APTA A TRANSPORTAR CORRELATOS;'
-                if atividade.TranspMed and atividade.Atividade.Subclasse == '4930201' or atividade.TranspMed and atividade.Atividade.Subclasse == '4930202':
-                    obs += 'APTA A TRANSPORTAR MEDICAMENTOS;'
-                if atividade.TranspSan and atividade.Atividade.Subclasse == '4930201' or atividade.TranspMed and atividade.Atividade.Subclasse == '4930202':
-                    obs += 'APTA A TRANSPORTAR SANEANTES;'
-                if atividade.TranspAli and atividade.Atividade.Subclasse == '4930201' or atividade.TranspMed and atividade.Atividade.Subclasse == '4930202':
-                    obs += 'APTA A TRANSPORTAR ALIMENTOS;'
+                    obs = 'APTA A DISPENSAR MEDICAMENTOS CONTROLADOS DA PORTARIA 344/98'
             data.append([Paragraph(unicode(atividade.Atividade), styles2['default'])])
             if atividade.Veiculo:
                 data.append([Paragraph(unicode(atividade.Veiculo), styles2['bold'])])
