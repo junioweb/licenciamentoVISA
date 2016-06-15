@@ -327,7 +327,7 @@ class Pessoa_Juridica(Estabelecimento):
     )
     RazaoSocial = models.CharField('Razão Social', max_length=150)
     NomeFantasia = models.CharField('Nome Fantasia', max_length=150, blank=True)
-    CNPJ = models.CharField(max_length=14, blank=True, null=True, unique=True)
+    CNPJ = models.CharField(max_length=14, unique=True, default=None)
     NIRE = models.CharField(max_length=12, blank=True)
     NaturezaJuridica = models.ForeignKey(Natureza_Juridica, verbose_name='Natureza Jurídica', null=True, blank=True)
     Porte = models.IntegerField(choices=PORTE_CHOICES, null=True, blank=True)
