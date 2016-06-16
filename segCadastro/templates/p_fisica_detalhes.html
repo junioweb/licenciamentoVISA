@@ -1,0 +1,321 @@
+{% extends 'base_menu.html' %}
+
+{% block content %}
+  <div class="row">
+    <section>
+      <ol class="breadcrumb">
+        <li><a href="/">Principal</a></li>
+        <li><a href="#">Consulta</a></li>
+        <li class="active">Detalhes</li>
+      </ol>
+      {% if errors %}
+        {% for error in errors %}
+          <div class="alert alert-danger" role="alert"><strong>Ops! Erro: </strong>{{error}}</div>
+        {% endfor %}
+      {% else %}
+
+        {% if processo %}
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Detalhes do Processo</h3>
+            </div>
+            <div class="panel-body">
+              <!-- Navegação Tabs -->
+              <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#historico" aria-controls="historico" role="tab" data-toggle="tab">Histórico do Processo</a></li>
+                <li role="presentation"><a href="#documentos" aria-controls="documentos" role="tab" data-toggle="tab">Documentos</a></li>
+              </ul>
+
+              <!-- Conteúdo das Navegações -->
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="historico">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      {% if not lista_tramitacao %}
+                      <h3>Aguardando Tramitação.</h3>
+                      {% else %}
+                        <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th>Data e Hora</th>
+                              <th>Usuário</th>
+                              <th>Operação</th>
+                              <th>Setor</th>
+                              <th>Situação</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for tramitacao in lista_tramitacao %}
+                              <tr>
+                                <td>{{tramitacao.DataHora}}</td>
+                                <td>
+                                  {% if tramitacao.Usuario == None %}
+                                  {% else %}
+                                    {{tramitacao.Usuario}}
+                                  {% endif %}
+                                </td>
+                                <td>
+                                  {% if tramitacao.Operacao == 0 %}
+                                  Enviar
+                                  {% elif tramitacao.Operacao == 1 %}
+                                  Receber
+                                  {% elif tramitacao.Operacao == 2 %}
+                                  Alterar Situação
+                                  {% endif %}
+                                </td>
+                                <td>{{tramitacao.Setor}}</td>
+                                <td>
+                                  {% if tramitacao.Situacao %}
+                                    {% if tramitacao.Situacao == 'PEN_ANA' %}
+                                      PENDENTE - EM ANÁLISE
+                                    {% elif tramitacao.Situacao == 'PEN_DOC_INC' %}
+                                      PENDENTE - DOCUMENTAÇÃO INCOMPLETA
+                                    {% elif tramitacao.Situacao == 'PEN_AGU_INSP' %}
+                                      PENDENTE - AGUARDANDO INSPEÇÃO
+                                    {% elif tramitacao.Situacao == 'PEN_AGU_CUMP_EXI' %}
+                                      PENDENTE - AGUARDANDO CUMPRIMENTO DE EXIGÊNCIAS
+                                    {% elif tramitacao.Situacao == 'DEF' %}
+                                      DEFERIDO
+                                    {% elif tramitacao.Situacao == 'IND' %}
+                                      INDEFERIDO
+                                    {% elif tramitacao.Situacao == 'ARQ' %}
+                                      ARQUIVADO
+                                    {% elif tramitacao.Situacao == 'OUT' %}
+                                      OUTROS
+                                    {% endif %}
+                                    <br />
+                                    {{tramitacao.Obs}}
+                                  {% endif %}
+                                </td>
+                              </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="documentos">
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      {% if not lista_documentos %}
+                        <h3>Nenhum documento anexado.</h3>
+                      {% else %}
+                        <table class="table table-bordered">
+                          <thead>
+                            <tr>
+                              <th>Data e Hora</th>
+                              <th>Usuário</th>
+                              <th>Assunto</th>
+                              <th>Arquivo</th>
+                              <th>Descrição</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for documento in lista_documentos %}
+                              {% if not request.user.is_authenticated and documento.Publico or request.user.is_authenticated %}
+                                <tr>
+                                  <td>{{documento.DataHora}}</td>
+                                  <td>
+                                    {% if documento.Usuario %}
+                                      {{documento.Usuario}}
+                                    {% endif %}
+                                  </td>
+                                  <td>{{documento.Assunto}}</td>
+                                  <td><a href="{{documento.Arquivo.url}}" target="_blank">{{documento.Arquivo.name}}</a></td>
+                                  <td>
+                                    {% if documento.Descricao %}
+                                      {{documento.Descricao}}
+                                    {% endif %}
+                                  </td>
+                                </tr>
+                              {% endif %}
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% else %}
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Detalhes do Estabelecimento - Pessoa Física</h3>
+          </div>
+          <div class="panel-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Nome:</label>
+                <div class="col-sm-4">
+                  <p class="form-control-static">{{p_fisica.Nome}}</p>
+                </div>
+                <label class="col-sm-1 control-label">CPF:</label>
+                <div class="col-sm-2">
+                  <p class="form-control-static">{{p_fisica.CPF}}</p>
+                </div>
+              </div>
+              {% if request.user.is_authenticated %}
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Situação:</label>
+                  <div class="col-sm-3">
+                    {% if p_fisica.Situacao == 0 %}
+                      <p class="form-control-static">ATIVA</p>
+                    {% endif %}
+                    {% if p_fisica.Situacao == 1 %}
+                      <p class="form-control-static">SEM STATUS</p>
+                    {% endif %}
+                    {% if p_fisica.Situacao == 2 %}
+                      <p class="form-control-static">CANCELADA - ART.60 LEI 8934/94</p>
+                    {% endif %}
+                    {% if p_fisica.Situacao == 3 %}
+                      <p class="form-control-static">EXTINTA</p>
+                    {% endif %}
+                    {% if p_fisica.Situacao == 4 %}
+                      <p class="form-control-static">CONVERTIDA SOC. CIVIL/SIMPLES</p>
+                    {% endif %}
+                    {% if p_fisica.Situacao == 5 %}
+                      <p class="form-control-static">CINDIDA TOTALMENTE</p>
+                    {% endif %}
+                    {% if p_fisica.Situacao == 6 %}
+                      <p class="form-control-static">TRANSFERIDA PARA OUTRA UF</p>
+                    {% endif %}
+                    {% if p_fisica.Situacao == 7 %}
+                      <p class="form-control-static">FALIDA</p>
+                    {% endif %}
+                    {% if p_fisica.Situacao == 8 %}
+                      <p class="form-control-static">CANCELADA</p>
+                    {% endif %}
+                    {% if p_fisica.Situacao == 9 %}
+                      <p class="form-control-static">REGISTRO ATIVO PROVISÓRIO</p>
+                    {% endif %}
+                    {% if p_fisica.Situacao == 10 %}
+                      <p class="form-control-static">CANCELADA-MEI</p>
+                    {% endif %}
+                    {% if p_fisica.Situacao == 11 %}
+                      <p class="form-control-static">SUSPENSÃO TEMPORÁRIA DE ATIVIDADES</p>
+                    {% endif %}
+                  </div>
+                  <label class="col-sm-2 control-label">Pasta:</label>
+                  <div class="col-sm-2">
+                    <p class="form-control-static">{{p_fisica.Pasta}}</p>
+                  </div>
+                  <label class="col-sm-1 control-label">CEP:</label>
+                  <div class="col-sm-2">
+                    <p class="form-control-static">{{p_fisica.CEP}}</p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Endereço:</label>
+                  <div class="col-sm-4">
+                    <p class="form-control-static">{{p_fisica.Endereco}}</p>
+                  </div>
+                  <label class="col-sm-1 control-label">Número:</label>
+                  <div class="col-sm-1">
+                    <p class="form-control-static">{{p_fisica.Numero}}</p>
+                  </div>
+                  <label class="col-sm-2 control-label">Complemento:</label>
+                  <div class="col-sm-2">
+                    <p class="form-control-static">{{p_fisica.Complemento}}</p>
+                  </div>
+                </div>
+              {% endif %}
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Ponto de Referência:</label>
+                <div class="col-sm-4">
+                  <p class="form-control-static">{{p_fisica.PontoReferencia}}</p>
+                </div>
+                <label class="col-sm-1 control-label">Bairro:</label>
+                <div class="col-sm-2">
+                  <p class="form-control-static">{{p_fisica.Bairro}}</p>
+                </div>
+                <label class="col-sm-1 control-label">Cidade:</label>
+                <div class="col-sm-2">
+                  <p class="form-control-static">{{p_fisica.Municipio}}</p>
+                </div>
+              </div>
+              {% if request.user.is_authenticated %}
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Telefone 1:</label>
+                  <div class="col-sm-1">
+                    <p class="form-control-static">{{p_fisica.TelefonePrimario}}</p>
+                  </div>
+                  <label class="col-sm-2 control-label">Telefone 2:</label>
+                  <div class="col-sm-1">
+                    <p class="form-control-static">{{p_fisica.TelefoneSecundario}}</p>
+                  </div>
+                  <label class="col-sm-2 control-label">E-mail:</label>
+                  <div class="col-sm-4">
+                    <p class="form-control-static">{{p_fisica.Email}}</p>
+                  </div>
+                </div>
+              {% endif %}
+            </form>
+
+            <!-- Navegação Tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#processos" aria-controls="processos" role="tab" data-toggle="tab">Histórico de Processos</a></li>
+              {% if request.user.is_authenticated %}
+                <li role="presentation"><a href="#atv_economicas" aria-controls="atv_economicas" role="tab" data-toggle="tab">Atividade(s) Econômica(s)</a></li>
+              {% endif %}
+            </ul>
+
+            <!-- Conteúdo das Navegações -->
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="processos">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Nº Processo</th>
+                          <th>Exercício</th>
+                          <th>Assunto</th>
+                          <th>Ações</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for processo in lista_processos %}
+                          <tr>
+                            <th>{{processo.Tipo}}-{{processo.Numero}}{{processo.Ano}}.{{processo.Exercicio}}.{% if processo.ProcessoMae == None %}0{% else %}1{% endif %}
+                            </th>
+                            <td>{{processo.Exercicio}}</td>
+                            <td>{{processo.Assunto}}</td>
+                            <td>
+                              <a href="/consulta/detalhes/?value={{processo.Tipo}}-{{processo.Numero}}{{processo.Ano}}.{{processo.Exercicio}}.{% if processo.ProcessoMae == None %}0{% else %}1{% endif %}">Detalhes</a>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              {% if request.user.is_authenticated %}
+                <div role="tabpanel" class="tab-pane" id="atv_economicas">
+                  {% for atividade, desempenha in zipped_data %}
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <form class="form-horizontal">
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Atividade Econômica:</label>
+                          <div class="col-sm-10">
+                            <p class="form-control-static">{{atividade.Subclasse}} - {{atividade.Denominacao}}</p>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+    </section>
+  </div>
+{% endblock content %}

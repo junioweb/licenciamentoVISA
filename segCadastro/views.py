@@ -165,6 +165,19 @@ def consulta_geral(request):
                 data['errors'] = errors
                 return render(request, 'p_juridica_detalhes.html', data)
 
+            try:
+                data['p_fisica'] = Pessoa_Fisica.objects.get(CPF=value)
+                data['lista_processos'] = Processo.objects.filter(Estabelecimento__pk=data['p_fisica'].pk)
+                data['lista_atividades'] = data['p_fisica'].Atividade.all()
+                data['lista_desempenha'] = Estabelecimento_Desempenha_Atv.objects.filter(Estabelecimento__pk=data['p_fisica'].pk)
+                data['zipped_data'] = zip(data['lista_atividades'], data['lista_desempenha'])
+
+                return render(request, 'p_fisica_detalhes.html', data)
+            except Pessoa_Juridica.DoesNotExist:
+                errors.append("Estabelecimento - Pessoa Física não está cadastrada.")
+                data['errors'] = errors
+                return render(request, 'p_fisica_detalhes.html', data)
+
     else:
         errors.append("O valor requer 11 dígitos para CPF ou 14 dígitos para CNPJ.")
     	data['errors'] = errors
