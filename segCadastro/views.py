@@ -173,7 +173,7 @@ def consulta_geral(request):
                 data['zipped_data'] = zip(data['lista_atividades'], data['lista_desempenha'])
 
                 return render(request, 'p_fisica_detalhes.html', data)
-            except Pessoa_Juridica.DoesNotExist:
+            except Pessoa_Fisica.DoesNotExist:
                 errors.append("Estabelecimento - Pessoa Física não está cadastrada.")
                 data['errors'] = errors
                 return render(request, 'p_fisica_detalhes.html', data)
