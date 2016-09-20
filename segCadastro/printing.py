@@ -156,7 +156,10 @@ class MyPrint:
         for atividade in atividades:
             if hasattr(empresa, 'RazaoSocial'):
                 if atividade.MedControlados and atividade.Atividade.Subclasse == '4771701' or atividade.MedControlados and atividade.Atividade.Subclasse == '4771703':
-                    obs = 'APTA A DISPENSAR MEDICAMENTOS CONTROLADOS DA PORTARIA 344/98'
+                    if obs:
+                        obs += ' APTA A DISPENSAR MEDICAMENTOS CONTROLADOS DA PORTARIA 344/98.'
+                    else:
+                        obs = 'APTA A DISPENSAR MEDICAMENTOS CONTROLADOS DA PORTARIA 344/98.'
             data.append([Paragraph(unicode(atividade.Atividade), styles2['default'])])
             if atividade.Veiculo:
                 data.append([Paragraph(unicode(atividade.Veiculo), styles2['bold'])])
