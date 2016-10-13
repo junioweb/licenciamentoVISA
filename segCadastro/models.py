@@ -471,6 +471,7 @@ class Estabelecimento_Desempenha_Atv(models.Model):
     TranspMed = models.BooleanField('Transportadora de Medicamentos', default=False)
     TranspSan = models.BooleanField('Transportadora de Saneantes', default=False)
     TranspAli = models.BooleanField('Transportadora de Alimentos', default=False)
+    Base = models.BooleanField('Base do SAMU', default=False)
 
     ResponsavelTecnico = models.ManyToManyField(
                                                 Responsavel,

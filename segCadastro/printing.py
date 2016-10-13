@@ -157,11 +157,16 @@ class MyPrint:
             if hasattr(empresa, 'RazaoSocial'):
                 if atividade.MedControlados and atividade.Atividade.Subclasse == '4771701' or atividade.MedControlados and atividade.Atividade.Subclasse == '4771703':
                     if obs:
-                        obs += ' APTA A DISPENSAR MEDICAMENTOS CONTROLADOS DA PORTARIA 344/98.'
+                        obs += ' [APTA A DISPENSAR MEDICAMENTOS CONTROLADOS DA PORTARIA 344/98]'
                     else:
-                        obs = 'APTA A DISPENSAR MEDICAMENTOS CONTROLADOS DA PORTARIA 344/98.'
+                        obs = '[APTA A DISPENSAR MEDICAMENTOS CONTROLADOS DA PORTARIA 344/98]'
+                if atividade.Base and atividade.Atividade.Subclasse == '8621602':
+                    if obs:
+                        obs += ' [BASE DO SAMU]'
+                    else:
+                        obs = '[BASE DO SAMU]'
             data.append([Paragraph(unicode(atividade.Atividade), styles2['default'])])
-            if atividade.Veiculo:
+            if atividade.Veiculo and not atividade.Base:
                 data.append([Paragraph(unicode(atividade.Veiculo), styles2['bold'])])
             if hasattr(empresa, 'Nome'):
                 data.append(['Responsável Técnico:'])
