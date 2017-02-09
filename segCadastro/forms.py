@@ -4,7 +4,7 @@ from django.forms import ModelForm, Select, SelectMultiple, TextInput
 from django import forms
 from segCadastro.models import Processo, Pessoa_Fisica, Pessoa_Juridica, Processo_Tramita_Setor
 from segCadastro.models import Estabelecimento_Desempenha_Atv, Responsavel, Equipamento_Saude
-from segCadastro.models import Autorizacao_Funcionamento, Veiculo
+from segCadastro.models import Autorizacao_Funcionamento, Veiculo, Documento
 
 class ProcessoForm(ModelForm):
     class Meta:
@@ -78,4 +78,9 @@ class AutorizacaoFuncionamentoForm(ModelForm):
 class VeiculoForm(ModelForm):
     class Meta:
         model = Veiculo
+        exclude = ['']
+
+class DocumentoForm(ModelForm):
+    class Meta:
+        model = Documento
         exclude = ['']

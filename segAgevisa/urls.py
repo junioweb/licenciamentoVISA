@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^cadastro/responsavel/', views.responsavel_create, name='responsavel_create'),
     url(r'^cadastro/estabelecimento/pessoa_fisica/', views.p_fisica_create, name='p_fisica_create'),
     url(r'^cadastro/estabelecimento/pessoa_juridica/', views.p_juridica_create, name='p_juridica_create'),
+    url(r'^documento/inclusao/', views.documento_include, name='documento_include'),
     url(r'^processo/listar/', views.processo_listar, name='processo_listar'),
     url(r'^responsavel/listar/', views.responsavel_listar, name='responsavel_listar'),
     url(r'^estabelecimento/pessoa_fisica/listar/', views.p_fisica_listar, name='p_fisica_listar'),

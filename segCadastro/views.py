@@ -24,7 +24,7 @@ from segCadastro.printing import MyPrint
 from django.core.validators import EMPTY_VALUES
 
 from segCadastro.forms import ProcessoForm, PessoaFisicaForm, PessoaJuridicaForm, VeiculoForm
-from segCadastro.forms import TramitaSetorForm, EstabelecimentoDesempenhaAtvForm
+from segCadastro.forms import TramitaSetorForm, EstabelecimentoDesempenhaAtvForm, DocumentoForm
 from segCadastro.forms import ResponsavelForm, EquipamentoSaudeForm, AutorizacaoFuncionamentoForm
 from django.utils import timezone
 from django.core.files.base import ContentFile
@@ -51,7 +51,6 @@ def cadastrar_user(request):
 def emitir_alvara(request, usuario, processo, obs):
     documentos = Documento.objects.filter(Processo__pk=processo.Numero)
     for documento in documentos:
-        print documento
         if documento.Assunto == u'AUTORIZAÇÃO DE FUNCIONAMENTO (AGEVISA)':
             raise MultipleObjectsReturned("Alvará já foi Emitido.")
 
@@ -304,6 +303,16 @@ def veiculo_create(request):
         return redirect('home')
 
     return render(request, 'veiculo_create.html', {'form':form})
+
+@login_required
+def documento_include(request):
+    form = DocumentoForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect('home')
+
+    return render(request, 'documento_include.html', {'form':form})
 
 @login_required
 def estab_atv_vincular(request):
