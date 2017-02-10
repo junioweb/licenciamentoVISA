@@ -306,7 +306,7 @@ def veiculo_create(request):
 
 @login_required
 def documento_include(request):
-    form = DocumentoForm(request.POST or None)
+    form = DocumentoForm(request.POST, request.FILES or None)
     data = {}
     errors = []
     successes = []
