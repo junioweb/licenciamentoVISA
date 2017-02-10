@@ -311,23 +311,25 @@ def documento_include(request):
     errors = []
     successes = []
 
-    if form.is_valid():
-        try:
-            documento = form.save(commit=False)
-            documento.Usuario = request.user
-            documento.Processo = Processo.objects.get(pk=request.POST.get("processo_id"))
+    if request.method == 'POST':
+        form = DocumentoForm(request.POST, request.FILES)
+        if form.is_valid():
+            try:
+                documento = form.save(commit=False)
+                documento.Usuario = request.user
+                documento.Processo = Processo.objects.get(pk=request.POST.get("processo_id"))
 
-            successes.append("Documento inserido com sucesso")
-            documento.save()
-            data['successes'] = successes
-        except UnicodeDecodeError as e:
-            data['errors'] = e
-        except OSError as e:
-            data['errors'] = e
-        except Exception as e:
-            raise e
+                successes.append("Documento inserido com sucesso")
+                documento.save()
+                data['successes'] = successes
+            except UnicodeDecodeError as e:
+                data['errors'] = e
+            except OSError as e:
+                data['errors'] = e
+            except Exception as e:
+                raise e
 
-        return render(request, 'resultado.html', data)
+            return render(request, 'resultado.html', data)
 
     return render(request, 'documento_include.html', {'form':form})
 
