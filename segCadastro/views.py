@@ -307,10 +307,27 @@ def veiculo_create(request):
 @login_required
 def documento_include(request):
     form = DocumentoForm(request.POST or None)
+    data = {}
+    errors = []
+    successes = []
 
     if form.is_valid():
-        form.save()
-        return redirect('home')
+        try:
+            documento = form.save(commit=False)
+            documento.Usuario = request.user
+            documento.Processo = Processo.objects.get(pk=request.POST.get("processo_id"))
+
+            successes.append("Documento inserido com sucesso")
+            documento.save()
+            data['successes'] = successes
+        except UnicodeDecodeError as e:
+            data['errors'] = e
+        except OSError as e:
+            data['errors'] = e
+        except Exception as e:
+            raise e
+
+        return render(request, 'resultado.html', data)
 
     return render(request, 'documento_include.html', {'form':form})
 

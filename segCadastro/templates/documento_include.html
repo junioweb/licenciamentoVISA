@@ -5,7 +5,7 @@
     <section>
       <ol class="breadcrumb">
         <li><a href="/">Principal</a></li>
-        <li><a href="#">Documentos</a></li>
+        <li><a href="#">Documento</a></li>
         <li class="active">Inclusão</li>
       </ol>
 
@@ -16,10 +16,51 @@
           </div>
           <div class="panel-body">
             {% csrf_token %}
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Processo: <span class="asterisk">*</span></label>
+              <div class="col-sm-8">
+                <input autocomplete="off" name="processo_name" class="form-control" id="autocomplete-processo" type="text" />
+                <input type="hidden" name="processo_id" id="processo-id" />
+              </div>
+            </div>
 
-            {{form.as_p}}
+            <div class="form-group">
+               {{ form.Arquivo.errors }}
+               <label class="col-sm-3 control-label">Arquivo: <span class="asterisk">*</span></label>
+               <div class="col-sm-8">
+                 {{ form.Arquivo }}
+               </div>
+            </div>
 
-            <button type="submit">Incluir</button>
+            <div class="form-group">
+               {{ form.Assunto.errors }}
+               <label class="col-sm-3 control-label">Assunto: <span class="asterisk">*</span></label>
+               <div class="col-sm-8">
+                 {{ form.Assunto }}
+               </div>
+            </div>
+
+            <div class="form-group">
+               {{ form.Publico.errors }}
+               <label class="col-sm-3 control-label">Público: </label>
+               <div class="col-sm-8">
+                 {{ form.Publico }}
+               </div>
+            </div>
+
+            <div class="form-group">
+               {{ form.Descricao.errors }}
+               <label class="col-sm-3 control-label">Descrição: </label>
+               <div class="col-sm-8">
+                 {{ form.Descricao }}
+               </div>
+            </div>
+
+            <ul class="list-inline pull-left">
+                <li><button type="submit" class="btn btn-primary btn-info-full">
+                  <i class="glyphicon glyphicon-ok"></i> Incluir
+                </button></li>
+            </ul>
 
           </div> <!-- panel-body -->
         </div> <!-- panel panel-default -->
