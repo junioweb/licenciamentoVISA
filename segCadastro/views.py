@@ -315,13 +315,13 @@ def documento_include(request):
         form = DocumentoForm(request.POST, request.FILES)
         if form.is_valid():
             try:
+                form.save()
                 documento = form.save(commit=False)
                 documento.Usuario = request.user
                 documento.Processo = Processo.objects.get(pk=request.POST.get("processo_id"))
 
                 successes.append("Documento inserido com sucesso")
                 documento.save()
-                form.save()
                 data['successes'] = successes
             except UnicodeDecodeError as e:
                 data['errors'] = e
