@@ -321,6 +321,7 @@ def documento_include(request):
 
                 successes.append("Documento inserido com sucesso")
                 documento.save()
+                form.save()
                 data['successes'] = successes
             except UnicodeDecodeError as e:
                 data['errors'] = e
