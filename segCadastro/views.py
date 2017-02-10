@@ -312,7 +312,6 @@ def documento_include(request):
     successes = []
 
     if request.method == 'POST':
-        form = DocumentoForm(request.POST, request.FILES)
         if form.is_valid():
             try:
                 documento = form.save(commit=False)
