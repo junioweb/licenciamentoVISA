@@ -274,6 +274,8 @@ def processo_create(request):
             return redirect('processo_listar')
 
         return render(request, 'processo_create.html', {'form':form})
+    except ValidationError as e:
+        return HttpResponse(e)
     except Exception as e:
         return HttpResponse(e)
 
