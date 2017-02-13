@@ -38,7 +38,6 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.manutencao, name='manutencao'),
-    """
     url(r'^example/', views.example, name='example'),
     url(r'^cadastro/processo/', views.processo_create, name='processo_create'),
     url(r'^cadastro/veiculo/', views.veiculo_create, name='veiculo_create'),
@@ -60,12 +59,5 @@ urlpatterns = [
     url(r'^autocomplete/service/responsavel/$', views.busca_autocomplete_responsavel, name='busca_autocomplete_responsavel'),
     url(r'^processo/(?P<pk>[0-9]+)/imprimir', views.p_imprimir, name='p_imprimir'),
     url(r'^processo/reorientar/$', views.processo_reorientar, name='processo_reorientar'),
-    url(r'^responsavel/(?P<pk>[0-9]+)/editar', views.responsavel_editar, name='responsavel_editar'),"""
-    url(r'^autocomplete/service/processo/$', views.busca_autocomplete_processo, name='busca_autocomplete_processo'),
-    url(r'^autocomplete/service/estabelecimento/$', views.busca_autocomplete_estabelecimento, name='busca_autocomplete_estabelecimento'),
-    url(r'^autocomplete/service/atividade/$', views.busca_autocomplete_atividade, name='busca_autocomplete_atividade'),
-    url(r'^autocomplete/service/responsavel/$', views.busca_autocomplete_responsavel, name='busca_autocomplete_responsavel'),
-    url(r'^processo/reorientar/$', views.processo_reorientar, name='processo_reorientar'),
-    url(r'^processo/listar/', views.processo_listar, name='processo_listar'),
-    url(r'^cadastro/processo/', views.processo_create, name='processo_create'),
+    url(r'^responsavel/(?P<pk>[0-9]+)/editar', views.responsavel_editar, name='responsavel_editar'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
