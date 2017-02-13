@@ -13,7 +13,7 @@
         {% endfor %}
       {% elif successes %}
         {% for success in successes %}
-          <div class="alert alert-success" role="alert"><strong>Yeah! Sucesso: </strong>{{success}}{% if imprimir %}{% for value in imprimir %} | <a href="{% url 'p_imprimir' value %}">Imprimir</a>{% endfor %}{% endif %}</div>
+          <div class="alert alert-success" role="alert"><strong>Yeah! Sucesso: </strong>{{success}}{% if imprimir %} | <a href="{% url 'p_imprimir' imprimir %}">Imprimir</a>{% endif %}</div>
         {% endfor %}
       {% endif %}
     </section>
