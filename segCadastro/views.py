@@ -272,9 +272,9 @@ def processo_create(request):
                 processo.ProcessoMae = Processo.objects.get(pk=request.POST.get("processo_id"))
             if request.POST.get("estabelecimento_id"):
                 processo.Estabelecimento = Estabelecimento.objects.get(pk=request.POST.get("estabelecimento_id"))
+            
+            successes.append("Processo criado com sucesso.", p_imprimir(request, request.POST.get("processo_id")))
             processo.save()
-            successes.append("Processo criado com sucesso.")
-            successes.append(<a href='{% url 'p_imprimir' processo.Numero %}'>Imprimir</a>)
 
             data['successes'] = successes
             return render(request, 'resultado.html', data)
