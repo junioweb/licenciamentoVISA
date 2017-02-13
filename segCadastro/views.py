@@ -260,19 +260,21 @@ def processo_create(request):
 
         if form.is_valid():
             processo = form.save(commit=False)
-            processos = Processo.objects.filter(Estabelecimento_id=request.POST.get('estabelecimento_id'))
-            
-            for value in processos:
-                if value.Assunto_id == 18:                
-                    situacoes = Processo_Tramita_Setor.objects.filter(Processo_id=value.pk).order_by('-Situacao')[:1]
-                    for situacao in situacoes:
-                        if situacao.Situacao == 'PENA_APL' and request.POST.get('Assunto') != '18':
-                            raise ValidationError('Processo não pôde ser gerado. Pois existe uma penalidade aplicada ao regulado.')
+
+            if request.POST.get("estabelecimento_id"):
+                processo.Estabelecimento = Estabelecimento.objects.get(pk=request.POST.get("estabelecimento_id"))
+                
+                processos = Processo.objects.filter(Estabelecimento_id=request.POST.get('estabelecimento_id'))
+                
+                for value in processos:
+                    if value.Assunto_id == 18:                
+                        situacoes = Processo_Tramita_Setor.objects.filter(Processo_id=value.pk).order_by('-Situacao')[:1]
+                        for situacao in situacoes:
+                            if situacao.Situacao == 'PENA_APL' and request.POST.get('Assunto') != '18':
+                                raise ValidationError('Processo não pôde ser gerado. Pois existe uma penalidade aplicada ao regulado.')
 
             if request.POST.get("processo_id"):
                 processo.ProcessoMae = Processo.objects.get(pk=request.POST.get("processo_id"))
-            if request.POST.get("estabelecimento_id"):
-                processo.Estabelecimento = Estabelecimento.objects.get(pk=request.POST.get("estabelecimento_id"))
             
             processo.save()
             successes.append("Processo criado com sucesso.")
