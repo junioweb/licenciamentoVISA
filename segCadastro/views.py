@@ -279,6 +279,7 @@ def processo_create(request):
             processo.save()
 
             data['successes'] = successes
+            data['imprimir'] = imprimir
             return render(request, 'resultado.html', data)
 
         return render(request, 'processo_create.html', {'form':form})
