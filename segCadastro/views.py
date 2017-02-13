@@ -274,8 +274,8 @@ def processo_create(request):
             return redirect('processo_listar')
 
         return render(request, 'processo_create.html', {'form':form})
-    except expression as identifier:
-        return HttpResponse(identifier)
+    except Exception as e:
+        return HttpResponse(e)
 
 @login_required
 def responsavel_create(request):
