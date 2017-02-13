@@ -276,8 +276,9 @@ def processo_create(request):
             
             successes.append("Processo criado com sucesso.")
             '''imprimir.append(request.POST.get(pk))'''
-            return HttpResponse(request.POST)
+            
             processo.save()
+            return HttpResponse(processo.pk)
 
             data['successes'] = successes
             data['imprimir'] = imprimir
