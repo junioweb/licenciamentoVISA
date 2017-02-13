@@ -256,6 +256,7 @@ def processo_create(request):
         data = {}
         errors = []
         successes = []
+        imprimir = []
 
         if form.is_valid():
             processo = form.save(commit=False)
@@ -274,7 +275,7 @@ def processo_create(request):
                 processo.Estabelecimento = Estabelecimento.objects.get(pk=request.POST.get("estabelecimento_id"))
             
             successes.append("Processo criado com sucesso.")
-            data['imprimir'] = request.POST.get("processo_id")
+            imprimir.append(request.POST.get("processo_id"))
             processo.save()
 
             data['successes'] = successes
