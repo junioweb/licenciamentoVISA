@@ -273,7 +273,8 @@ def processo_create(request):
             if request.POST.get("estabelecimento_id"):
                 processo.Estabelecimento = Estabelecimento.objects.get(pk=request.POST.get("estabelecimento_id"))
             processo.save()
-            successes.append("Processo criado com sucesso")
+            successes.append("Processo criado com sucesso.")
+            successes.append("<a href='{% url 'p_imprimir' processo.Numero %}'>Imprimir</a>")
 
             data['successes'] = successes
             return render(request, 'resultado.html', data)
@@ -331,7 +332,7 @@ def veiculo_create(request):
 
 @login_required
 def documento_include(request):
-    form = DocumentoForm(request.POST, request.FILES or None)
+    form = DocumentoForm(request.POST or None, request.FILES or None)
     data = {}
     errors = []
     successes = []
@@ -351,7 +352,7 @@ def documento_include(request):
             except OSError as e:
                 data['errors'] = e
             except Exception as e:
-                raise e
+                data['errors'] = e
 
             return render(request, 'resultado.html', data)
 
