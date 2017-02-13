@@ -29,7 +29,7 @@ from segCadastro.forms import ResponsavelForm, EquipamentoSaudeForm, Autorizacao
 from django.utils import timezone
 from django.core.files.base import ContentFile
 from django.core.files import File
-from django.core.exceptions import PermissionDenied, MultipleObjectsReturned
+from django.core.exceptions import PermissionDenied, MultipleObjectsReturned, ValidationError
 
 def cadastrar_user(request):
     # Se dados forem passados via POST
