@@ -275,7 +275,7 @@ def processo_create(request):
 
         return render(request, 'processo_create.html', {'form':form})
     except ValidationError as e:
-        return HttpResponse(e)
+        return HttpResponse(e.messages)
     except Exception as e:
         return HttpResponse(e)
 
