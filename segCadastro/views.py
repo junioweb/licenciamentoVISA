@@ -273,7 +273,8 @@ def processo_create(request):
             if request.POST.get("estabelecimento_id"):
                 processo.Estabelecimento = Estabelecimento.objects.get(pk=request.POST.get("estabelecimento_id"))
             
-            successes.append("Processo criado com sucesso.", p_imprimir(request, request.POST.get("processo_id")))
+            successes.append("Processo criado com sucesso.")
+            data['imprimir'] = request.POST.get("processo_id")
             processo.save()
 
             data['successes'] = successes
