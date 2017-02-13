@@ -253,6 +253,9 @@ def responsavel_editar(request, pk):
 def processo_create(request):
     try:
         form = ProcessoForm(request.POST or None)
+        data = {}
+        errors = []
+        successes = []
 
         if form.is_valid():
             processo = form.save(commit=False)
