@@ -264,6 +264,7 @@ def processo_create(request):
                     if situacao.Situacao == 'PENA_APL' and request.POST.get('assunto') != 18:
                         return HttpResponse(situacao.Situacao)
                         raise ValidationError('Processo não pode ser gerado, pois existe uma penalidade aplicada ao regulado.')
+                    return HttpResponse(situacao.Situacao)
 
         if request.POST.get("processo_id"):
             processo.ProcessoMae = Processo.objects.get(pk=request.POST.get("processo_id"))
