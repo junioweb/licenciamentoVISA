@@ -34,7 +34,8 @@ urlpatterns = [
     url('^accounts/create/user/', views.cadastrar_user, name='cadastrar_user'),
 
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.home, name='home'),
+    """url(r'^$', views.home, name='home'),"""
+    url(r'^$', views.manutencao, name='manutencao'),
     url(r'^example/', views.example, name='example'),
     url(r'^cadastro/processo/', views.processo_create, name='processo_create'),
     url(r'^cadastro/veiculo/', views.veiculo_create, name='veiculo_create'),

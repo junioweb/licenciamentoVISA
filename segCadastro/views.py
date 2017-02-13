@@ -71,6 +71,9 @@ def home(request):
 	return render(request, 'index.html',
 							{'full_name': request.user.first_name, 'username':request.user.username})
 
+def manutencao(request):
+    return HttpResponse("Aguarde um momento, estamos em manutenção.")
+
 def example(request):
 	return render(request, 'example.html')
 
