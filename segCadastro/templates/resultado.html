@@ -13,8 +13,19 @@
         {% endfor %}
       {% elif successes %}
         {% for success in successes %}
-          <div class="alert alert-success" role="alert"><strong>Yeah! Sucesso: </strong>{{success}}{% if imprimir %}{{imprimir[0]}}{% endif %}</div>
+          <div class="alert alert-success" role="alert"><strong>Yeah! Sucesso: </strong>{{success}}</div>
         {% endfor %}
+        {% if imprimir %}
+          <ul class="list-inline pull-left">
+              <li>
+                <a href="{% url 'p_imprimir' imprimir %}">
+                  <button class="btn btn-primary btn-info-full">
+                    <i class="glyphicon glyphicon-ok"></i> Imprimir
+                  </button>
+                </a>
+              </li>
+          </ul>
+        {% endif %}
       {% endif %}
     </section>
   </div>
