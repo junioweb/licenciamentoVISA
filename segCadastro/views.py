@@ -275,9 +275,11 @@ def processo_create(request):
 
         return render(request, 'processo_create.html', {'form':form})
     except ValidationError as e:
-        return HttpResponse(e.messages)
+        data['errors'] = e
+        return render(request, 'resultado.html', data)
     except Exception as e:
-        return HttpResponse(e)
+        data['errors'] = e
+        return render(request, 'resultado.html', data)
 
 @login_required
 def responsavel_create(request):
