@@ -260,7 +260,7 @@ def processo_create(request):
         for value in processos:
             if value.Assunto_id == 18:
                 
-                situacoes = Processo_Tramita_Setor.objects.filter(Processo_id=request.POST.get('estabelecimento_id')).order_by('-Situacao')[:1]
+                situacoes = Processo_Tramita_Setor.objects.filter(Processo_id=value.pk).order_by('-Situacao')[:1]
                 return HttpResponse(situacoes)
                 for situacao in situacoes:
                     
