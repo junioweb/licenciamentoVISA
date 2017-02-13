@@ -274,11 +274,9 @@ def processo_create(request):
             if request.POST.get("estabelecimento_id"):
                 processo.Estabelecimento = Estabelecimento.objects.get(pk=request.POST.get("estabelecimento_id"))
             
-            successes.append("Processo criado com sucesso.")
-            '''imprimir.append(request.POST.get(pk))'''
-            
             processo.save()
-            return HttpResponse(processo.pk)
+            successes.append("Processo criado com sucesso.")
+            imprimir.append(processo.pk)
 
             data['successes'] = successes
             data['imprimir'] = imprimir
