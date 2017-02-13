@@ -256,9 +256,10 @@ def processo_create(request):
     if form.is_valid():
         processo = form.save(commit=False)
         processos = Processo.objects.filter(Estabelecimento_id=request.POST.get('estabelecimento_id'))
-        return HttpResponse(processos)
+        
         for value in processos:
             if value.Assunto_id == 18:
+                return HttpResponse(value)
                 situacoes = Processo_Tramita_Setor.objects.filter(Processo_id=request.POST.get('estabelecimento_id')).order_by('-Situacao')[:1]
                 for situacao in situacoes:
                     
