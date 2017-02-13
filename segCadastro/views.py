@@ -258,11 +258,11 @@ def processo_create(request):
         processos = Processo.objects.filter(Estabelecimento_id=request.POST.get('estabelecimento_id'))
         for value in processos:
             if value.Assunto_id == 18:
-                situacao = Processo_Tramita_Setor.objects.filter(Processo_id=request.POST.get('estabelecimento_id')).order_by('-Situacao')[:1]
-                for value in situacao:
+                situacoes = Processo_Tramita_Setor.objects.filter(Processo_id=request.POST.get('estabelecimento_id')).order_by('-Situacao')[:1]
+                for situacao in situacoes:
                     
-                    if value.Situacao == 'PENA_APL':
-                        return HttpResponse(value.Situacao)
+                    if situacao.Situacao == 'PENA_APL':
+                        return HttpResponse(situacao.Situacao)
                         raise ValidationError('Processo não pode ser gerado, pois existe uma penalidade aplicada ao regulado.')
 
         if request.POST.get("processo_id"):
