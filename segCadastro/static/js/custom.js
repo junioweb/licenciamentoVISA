@@ -167,6 +167,6 @@ Cálculo de Juros e Multas
 
 ***************************************************************/
 
-$(document).ready(function() {
+jQuery(window).load(function() {
     $("#texto-base").hide();
 });
