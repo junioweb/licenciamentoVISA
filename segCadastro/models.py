@@ -141,7 +141,7 @@ class Estabelecimento(models.Model):
     Bairro = models.CharField(max_length=50)
     TelefonePrimario = models.BigIntegerField('Telefone Primário', validators=[MaxValueValidator(99999999999)])
     TelefoneSecundario = models.BigIntegerField('Telefone Secundário', validators=[MaxValueValidator(99999999999)], null=True, blank=True)
-    Email = models.EmailField(max_length=150)
+    Email = models.EmailField(max_length=150, blank=True)
     CNES = models.IntegerField(blank=True, null=True)
     Obs = models.TextField('Observação', blank=True)
     ConsultorioMedicoPediatrico = models.IntegerField('Consultório Médico Pediátrico', blank=True, null=True)
@@ -346,6 +346,8 @@ class Pessoa_Juridica(Estabelecimento):
         related_name='%(app_label)s_%(class)s_responsavel_legal',
         verbose_name='Responsáveis Legais',
         default=None,
+        blank=True,
+        null=True,
     )
     ProfissionaisCCIH = models.ManyToManyField(
         Responsavel,

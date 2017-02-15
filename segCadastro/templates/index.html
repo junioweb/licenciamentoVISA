@@ -2,9 +2,67 @@
 {% load staticfiles %}
 
 {% block content %}
-<h1>Olá {% if full_name %}{{full_name}}{% else %}{{username}}{% endif %}.</h1>
-<h2>Aos poucos estamos melhorando.<h2>
-<img src="{% static "img/development.gif" %}" alt="GIF Animado de Desenvolvimento."/>
-<h3>Agradecemos sua compreensão!</h3>
-<h4>Clique <a href="{% url 'logout' %}">aqui</a> para sair.</h4>
+<div class="row">
+    <section>
+        <ol class="breadcrumb">
+        <li class="active">Página principal</li>
+        </ol>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <h1>Olá {% if full_name %}{{full_name}}{% else %}{{username}}{% endif %}.</h1>
+                <h2>Aos poucos estamos melhorando.<h2>
+                <img src="{% static "img/development.gif" %}" alt="GIF Animado de Desenvolvimento."/>
+                <h3>Agradecemos sua compreensão!</h3>
+                <h4>Clique <a href="{% url 'logout' %}">aqui</a> para sair.</h4>
+            </div>
+            <div class="col-md-4">
+                <div class="well" id="texto-base">
+                    <p id="data-base">Data base de cálculo: xx/xx/xxxx;</p>
+                    <p id="taxa-periodo">Taxa do período: R$ xx,xx;</p>
+                    <p id="multa">Juros de X%, resultando em R$ xx,xx;</p>
+                    <p id="juros">Multa de X%, resultando em R$ xx,xx;</p>
+                    <p id="resultado">Valor ajustado: R$ xx,xx.</p>
+                    <p id="texto">Cáculo realizado de acordo com o artigo 29, da Lei Nº 7.069, de 12 de abril de 2002.</p>
+                </div>
+                <form class="form-horizontal">
+                    <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Cálculo de Juros e Multas</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Data base: <span class="asterisk">*</span></label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-data-base"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    <input type="date" required="required" class="form-control" placeholder="Data para cálculo" aria-describedby="data-base">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Taxa do período: <span class="asterisk">*</span></label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-data-base"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                                    <input type="tel" required="required" maxlength="15" pattern="([0-9]{1,3}\.)?[0-9]{1,3},[0-9]{2}$" class="form-control" placeholder="Valor do período" aria-describedby="data-base">
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="list-inline pull-left">
+                            <li>
+                                <button id="btn-calcular" class="btn btn-primary btn-info-full">
+                                    <i class="glyphicon glyphicon-ok"></i> Calcular
+                                </button>
+                            </li>
+                        </ul>
+
+                    </div> <!-- panel-body -->
+                    </div> <!-- panel panel-default -->
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
 {% endblock %}
