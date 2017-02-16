@@ -347,7 +347,6 @@ class Pessoa_Juridica(Estabelecimento):
         verbose_name='Responsáveis Legais',
         default=None,
         blank=True,
-        null=True,
     )
     ProfissionaisCCIH = models.ManyToManyField(
         Responsavel,
